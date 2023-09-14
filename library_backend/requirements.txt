@@ -1,0 +1,5 @@
+django
+djangorestframework
+mysqlclient
+pillow
+django_json_widget

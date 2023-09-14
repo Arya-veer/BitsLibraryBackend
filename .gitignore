@@ -1,0 +1,26 @@
+.vscode
+*.pyc
+*~
+__pycache__
+.DS_Store
+/env
+paytm_config.py
+db.sqlite3
+*/migrations
+*/migrations/*
+migrations/
+keyconfig.py
+backend-static/
+/backend-media/
+*/config/
+credentials.txt
+googledrive.json
+studyzone_googledrive.json
+venv/
+# *.sql
+dump.sh
+new_migrated.txt
+runScriptandServer.sh
+rpglights.py
+Timetable/file.json
+dump.rdb
