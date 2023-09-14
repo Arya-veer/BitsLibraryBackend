@@ -78,15 +78,15 @@ WSGI_APPLICATION = 'library_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import library_backend.keyconfig as senv
 
-print("Using MySQL.")
+print("Using Postgres.")
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': senv.ENGINE,
         'NAME': senv.DATABASE_NAME,
         'USER': senv.DATABASE_USER,
         'PASSWORD': senv.DATABASE_PASSWORD,
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'HOST': senv.HOST,
+        'PORT': senv.PORT,
         'OPTIONS': {
             'charset': 'utf8mb4',
             'use_unicode':True
