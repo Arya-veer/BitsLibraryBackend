@@ -12,6 +12,8 @@ admin.site.register(LibraryCommittee)
 admin.site.register(LibraryCommitteeMember)
 admin.site.register(LibraryTeam)
 admin.site.register(LibraryTeamMember)
+admin.site.register(LibraryBrochure)
+admin.site.register(LibraryTiming)
 
 @admin.register(TabularRule)
 class TabularRuleAdmin(admin.ModelAdmin):

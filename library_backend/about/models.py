@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 def libraryOverviewImagePath(instance,filename):
     return f"Images/LibraryOverview/{filename}"
@@ -23,6 +24,7 @@ class LibraryOverview(models.Model):
         return f"{self.title} - {self.is_set}"
     
 class LibraryCollection(models.Model):
+    title = models.CharField(max_length=40)
     description = models.TextField(blank=True)
     is_set = models.BooleanField(default=False,unique=True)
 
@@ -122,4 +124,20 @@ class Feedback(models.Model):
 
     def __str__(self) -> str:
         return f"Link for {self.person}"
+    
 
+class LibraryBrochure(models.Model):
+    uploaded_on = models.DateTimeField(default=timezone.now)
+    file = models.FileField(max_length=200,upload_to='brochure')
+    is_set = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+class LibraryTiming(models.Model):
+    uploaded_on = models.DateTimeField(default=timezone.now)
+    imgae = models.ImageField(max_length=200,upload_to='timings')
+    is_set = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return super().__str__()

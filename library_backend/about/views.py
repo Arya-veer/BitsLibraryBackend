@@ -48,4 +48,25 @@ class FeedbackListAPI(generics.ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = FeedbackSerializer
     queryset = Feedback.objects.filter(hidden = False)
-    
+
+
+class LibraryBrochureAPI(generics.RetrieveAPIView):
+    serializer_class = LibraryBrochureSerializer
+    permission_classes = [AllowAny]
+
+    def get_object(self):
+        try:
+            return LibraryBrochure.objects.get(is_set = True)
+        except:
+            return LibraryBrochure.objects.filter(is_set=True).order_by('-uploaded_on').first()
+        
+class LibraryTimingsAPI(generics.RetrieveAPIView):
+    serializer_class = LibraryTimingsSerializer
+    permission_classes = [AllowAny]
+
+    def get_object(self):
+        try:
+            return LibraryTiming.objects.get(is_set = True)
+        except:
+            return LibraryTiming.objects.filter(is_set=True).order_by('-uploaded_on').first()
+        

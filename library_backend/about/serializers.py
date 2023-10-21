@@ -22,7 +22,7 @@ class LibraryCollectionSerialzer(serializers.ModelSerializer):
 
     class Meta:
         model = LibraryCollection
-        fields = ("description","is_set","data")
+        fields = ("description","is_set","data","title")
     
     def get_data(self,obj):
         return LibraryCollectionDataSerializer(LibraryCollectionData.objects.filter(collection=obj),many=True).data
@@ -75,7 +75,8 @@ class LibraryTeamMemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LibraryTeamMember
-        exclude = ("team",)
+        exclude = ("team","id","is_present")
+    
     
 class LibraryTeamSerializer(serializers.ModelSerializer):
 
@@ -93,3 +94,17 @@ class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
         fields = "__all__"
+
+class LibraryBrochureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LibraryBrochure
+        fields = "__all__"
+
+
+class LibraryTimingsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LibraryTiming
+        fields = "__all__"
+
