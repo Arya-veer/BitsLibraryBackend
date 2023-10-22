@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'booking',
     'misc',
     'external_links',
-    'users'
+    'users',
+    'databases'
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -68,6 +69,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'library_backend.urls'
+
 
 TEMPLATES = [
     {
@@ -133,7 +135,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    "DEFAULT_RENDERER_CLASSES" : [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 }
 
 # Internationalization

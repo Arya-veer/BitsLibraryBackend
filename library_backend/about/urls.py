@@ -10,4 +10,5 @@ urlpatterns = [
     path("feedback/",FeedbackListAPI.as_view()),
     path("brochure/",LibraryBrochureAPI.as_view()),
     path("timings/",LibraryTimingsAPI.as_view()),
+    path("desk/",LibrarianDeskAPI.as_view()),
 ]

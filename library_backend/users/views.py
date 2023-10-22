@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User 
 
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,generics
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -11,6 +11,7 @@ import firebase_admin
 from firebase_admin import auth
 
 from .models import *
+from .serializers import *
 
 import library_backend.keyconfig as senv
 
@@ -45,6 +46,8 @@ class UserLoginAPI(APIView):
 
 class PhoneNumberUpdateAPI(APIView):
 
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         if "phone_number" not in request.data:
             return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
@@ -55,5 +58,42 @@ class PhoneNumberUpdateAPI(APIView):
             user.profile.save()
             return Response({"message": "Phone Number Updated Successfully"},status=status.HTTP_200_OK)
 
+        except Exception as e:
+            return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+class ItemListAPI(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ItemSerializer
+    
+    def get_queryset(self):
+        items = Item.objects.all().exclude(id__in = Claim.objects.filter(is_approved = True).values_list('item__id',flat=True))
+        return items
+    
+class ClaimedItemsAPI(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ClaimSerializer
+    
+    def get_queryset(self):
+        user = self.request.user
+        items = Claim.objects.filter(user=user)
+        return items
+
+class ClaimItemAPI(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self,request):
+        if "item_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        item_id = request.data['item_id']
+        user = request.user
+        items = Item.objects.filter(id=item_id)
+        if not items.exists():
+            return Response({"message": "Item Not Found"},status=status.HTTP_400_BAD_REQUEST)
+        item = items.first()
+        if Claim.objects.filter(user=user,item=item,is_approved=False).exists():
+            return Response({"message": "You have already claimed this item"},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            claim = Claim.objects.create(user=user,item=item,description=request.data.get('description',''))
+            return Response({"message": "Item Claimed! You can check the status later"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)

@@ -112,6 +112,8 @@ class LibraryTeamMember(models.Model):
     is_present = models.BooleanField(default=True)
     team = models.ForeignKey(LibraryTeam,on_delete=models.CASCADE,related_name="members")
     image = models.ImageField(upload_to=libraryTeamMemberImagePath,blank=True,null=True)
+    is_librarian = models.BooleanField(default=False)
+    description = models.TextField(blank=True)
 
     def __str__(self) -> str:
         return f"{self.name}-{self.designation}"

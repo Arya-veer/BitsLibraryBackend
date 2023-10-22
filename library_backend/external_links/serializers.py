@@ -21,3 +21,8 @@ class LinkClassSerializer(serializers.ModelSerializer):
         model = LinkClass
         fields = "__all__"
 
+class OpenETDsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OpenETDs
+        fields = "__all__"

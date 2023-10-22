@@ -33,4 +33,14 @@ class LinkSite(models.Model):
         return f"{self.site_name} - {self.link_class}"
 
     
-
+class OpenETDs(models.Model):
+    
+        name = models.CharField("Name of the site",primary_key=True,max_length=100)
+        url = models.URLField(max_length=200)
+    
+        class Meta:
+            verbose_name = "OpenETDs"
+            verbose_name_plural = "OpenETDs"
+    
+        def __str__(self) -> str:
+            return self.name

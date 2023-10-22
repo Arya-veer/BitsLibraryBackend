@@ -1,6 +1,7 @@
 
-from rest_framework import views,generics
+from rest_framework import views,generics,status
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from .serializers import *
 # Create your views here.
@@ -69,4 +70,14 @@ class LibraryTimingsAPI(generics.RetrieveAPIView):
             return LibraryTiming.objects.get(is_set = True)
         except:
             return LibraryTiming.objects.filter(is_set=True).order_by('-uploaded_on').first()
-        
+
+
+class LibrarianDeskAPI(views.APIView):
+    permission_classes = [AllowAny]
+
+    def get(self,request):
+        librarian = LibraryTeamMember.objects.filter(is_librarian = True).first()
+        if librarian:
+            return Response(LibraryTeamMemberSerializer(librarian).data)
+        else:
+            return Response({"error":"No Librarian right now"},status=status.HTTP_404_NOT_FOUND)
