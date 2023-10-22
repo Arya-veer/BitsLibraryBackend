@@ -4,25 +4,9 @@ from rest_framework import serializers
 
 
     
-class LinkSiteSerializer(serializers.ModelSerializer):
-
+class ExternalLinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LinkSite
-        exclude = ["link_class"]
-    
+        fields = '__all__'
 
-
-class LinkClassSerializer(serializers.ModelSerializer):
-
-    sites = LinkSiteSerializer(many = True)
-
-    class Meta:
-        model = LinkClass
-        fields = "__all__"
-
-class OpenETDsSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = OpenETDs
-        fields = "__all__"
