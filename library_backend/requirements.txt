@@ -3,3 +3,4 @@ djangorestframework
 mysqlclient
 pillow
 django_json_widget
+djangorestframework-simplejwt
