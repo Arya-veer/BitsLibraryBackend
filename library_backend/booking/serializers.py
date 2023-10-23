@@ -20,11 +20,11 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ('id','name','capacity','slots','available_facilities')
+        fields = ('id','name','capacity','slots','available_facilities','image')
     
     def get_slots(self,obj):
         qs = Slot.objects.filter(id__in = obj.roomslots.all().values_list('slot',flat=True).distinct())
-        if self.context.get('user') and self.context.get('date'):
+        if self.context.get('request') and self.context.get('date'):
             qs = qs.exclude(id__in = Booking.objects.filter(date = self.context['date'],roomslot__room = obj).values_list('roomslot__slot',flat=True).distinct())
         return SlotSerializer(qs,many=True).data
     

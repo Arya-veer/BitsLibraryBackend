@@ -19,7 +19,7 @@ class RoomDetailAPI(generics.RetrieveAPIView):
     serializer_class = RoomDetailSerializer
 
     def get_serializer_context(self):
-        return {'user':self.request.user,'date':self.request.query_params.get('date',None)}
+        return {'request':self.request,'date':self.request.query_params.get('date',None)}
     
     def get_object(self):
         return Room.objects.get(id = self.kwargs['id'])
