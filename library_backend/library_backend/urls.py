@@ -24,7 +24,8 @@ urlpatterns = [
     path("about/",include("about.urls")),
     path("booking/",include("booking.urls")),
     path("external_links/",include("external_links.urls")),
-    path("login/",include("users.urls")),
+    path("databases/",include("databases.urls")),
+    path("users/",include("users.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'Library Website Administration'

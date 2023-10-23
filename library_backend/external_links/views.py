@@ -14,4 +14,5 @@ class ExternalLinksListAPI(generics.ListAPIView):
         links = LinkSite.objects.all().order_by("site_name")
         if link_type is not None:
             return links.filter(link_type = link_type)
+        return links
 

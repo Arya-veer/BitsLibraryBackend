@@ -6,17 +6,8 @@ from .serializers import *
 
 class CampusListAPI(generics.ListAPIView):
     serializer_class = CampusSerializer
-    queryset = Campus.objects.filter(is_main = False)
+    queryset = Campus.objects.all()
 
-
-class DatabaseListAPI(generics.ListAPIView):
+class TrialDatabaseListAPI(generics.ListAPIView):
     serializer_class = DatabaseSerializer
-    
-    def get_queryset(self):
-        qs = Database.objects.all()
-        campus = self.request.query_params.get('campus',None)
-        if campus is None:
-            qs.filter(campus__is_main = True)
-        else:
-            qs.filter(campus__id = campus)
-        return qs
+    queryset = Database.objects.filter(is_trial=True)

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User 
+from django.contrib.auth import login,logout
 
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny,IsAuthenticated
@@ -37,12 +38,37 @@ class UserLoginAPI(APIView):
 
         if not user or not UserProfile.objects.filter(auth_user=user).exists():
             return Response({"message": "Email not registered, Please contact Librarian for support"},status=status.HTTP_400_BAD_REQUEST)
-        refresh = RefreshToken.for_user(user)
-        response = Response({"access":str(refresh.access_token),'phone_number':user.profile.phone_number},status.HTTP_200_OK)
-        response.set_cookie('jwt', str(refresh.access_token), httponly=False, secure=True, samesite='None')
-        return response
+        login(request,user)
+        return Response({"message": "Login Successful"},status=status.HTTP_200_OK)
         # except Exception as e:
-        #     return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        #     return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST
+
+class UserLogoutAPI(APIView):  
+    
+        permission_classes = (IsAuthenticated,)
+    
+        def post(self, request):
+            logout(request)
+            return Response({"message": "Logout Successful"},status=status.HTTP_200_OK)
+
+
+class UserProfileAPI(APIView):
+    
+        permission_classes = (IsAuthenticated,)
+
+        def get_permissions(self):
+            print(self.request.COOKIES)
+            return super().get_permissions()
+
+    
+        def get(self, request):
+            user = request.user
+            # print(request.COOKIES)
+            profile = UserProfile.objects.filter(auth_user=user).first()
+            if not profile:
+                return Response({"message": "User Not Found"},status=status.HTTP_400_BAD_REQUEST)
+            serializer = UserProfileSerializer(profile)
+            return Response(serializer.data,status=status.HTTP_200_OK)
 
 class PhoneNumberUpdateAPI(APIView):
 

@@ -3,6 +3,11 @@ from rest_framework import serializers
 from .models import UserProfile, Item, Claim
 
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        exclude = ('auth_user','id')
+
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item

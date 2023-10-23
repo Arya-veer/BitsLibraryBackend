@@ -4,7 +4,7 @@ from django.db import models
 
     
 def image_path_link_site(obj,filename):
-    return f"{obj.link_class}/{obj.site_name}_{filename}"
+    return f"Sites/{obj.site_name}_{filename}"
 
 
 class LinkSite(models.Model):

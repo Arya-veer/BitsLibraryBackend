@@ -19,7 +19,9 @@ class Facility(models.Model):
 class Room(models.Model):
     name = models.CharField("Room Name",max_length=60,blank=True)
     capacity = models.IntegerField("Room Capacity",null=True)
-    available_facilities = models.ManyToManyField(Facility) 
+    available_facilities = models.ManyToManyField(Facility)
+    image = models.ImageField(null=True,upload_to='room_images')
+     
 
     def __str__(self) -> str:
         return self.name
