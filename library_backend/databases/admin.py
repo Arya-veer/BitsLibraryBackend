@@ -18,3 +18,21 @@ class DatabaseAdmin(admin.ModelAdmin):
     list_display = ("name","campus","link")
     search_fields = ("name",)
     list_filter = ("campus",)
+
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
+
+@admin.register(Subject)
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
+
+
+@admin.register(EBook)
+class EBookAdmin(admin.ModelAdmin):
+    list_display = ("name","author","publisher","subject")
+    search_fields = ("name","author","publisher__name","subject__name")
+    list_filter = ("publisher","subject")
+

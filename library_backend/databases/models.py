@@ -27,3 +27,43 @@ class Database(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+class Publisher(models.Model):
+    name = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Publisher"
+        verbose_name_plural = "Publishers"
+    
+    def __str__(self):  
+        return self.name
+
+class Subject(models.Model):
+    name = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Subject"
+        verbose_name_plural = "Subjects"
+    
+    def __str__(self):  
+        return self.name
+
+
+    
+class EBook(models.Model):
+    name = models.TextField(blank=True)
+    author = models.TextField(blank=True)
+    publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name='books',null = True)
+    subject = models.ForeignKey(Subject,on_delete=models.CASCADE,related_name='books',null = True)
+    description = models.TextField(blank=True)
+    url = models.URLField(max_length=200,null=True,blank=True)
+    extra_data = models.JSONField(default=dict,blank=True,null=True)
+    
+    class Meta:
+        verbose_name = "E-Book"
+        verbose_name_plural = "E-Books"
+
+    def __str__(self):
+        return f"{self.name} - {self.author}"
