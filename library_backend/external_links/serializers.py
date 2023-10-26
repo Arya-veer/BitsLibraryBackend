@@ -10,3 +10,8 @@ class ExternalLinkSerializer(serializers.ModelSerializer):
         model = LinkSite
         fields = '__all__'
 
+class InflibnetLinkSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InflibnetLink
+        fields = '__all__'

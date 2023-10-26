@@ -25,9 +25,7 @@ SECRET_KEY = 'django-insecure-)w05xn0!--n()no+taerye(7)3+^-@14mcat3o&p6(vg3g96eq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["172.17.75.200",
-                 '127.0.0.1' 
-                ]
+ALLOWED_HOSTS = ["172.17.75.200",'127.0.0.1' ,"192.168.137.1"]
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
@@ -35,6 +33,7 @@ SESSION_COOKIE_NAME = "session"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAME_SITE = 'None'
 
 # Application definition
 
@@ -57,6 +56,10 @@ INSTALLED_APPS = [
     'databases'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+]
+
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://172.17.62.106:3000',
@@ -68,7 +71,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -137,7 +140,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'users.auth.CsrfExemptSessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),

@@ -81,3 +81,14 @@ class LibrarianDeskAPI(views.APIView):
             return Response(LibraryTeamMemberSerializer(librarian).data)
         else:
             return Response({"error":"No Librarian right now"},status=status.HTTP_404_NOT_FOUND)
+
+
+class EventListAPI(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = EventSerializer
+    queryset = Event.objects.filter(is_set = True)
+
+class NewsAPI(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = NewsSerializer
+    queryset = News.objects.filter(is_set = True)

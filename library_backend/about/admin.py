@@ -21,3 +21,14 @@ class TabularRuleAdmin(admin.ModelAdmin):
     formfield_overrides = {
             models.JSONField: {'widget': JSONEditorWidget},
         }
+
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ("title","date","time","venue")
+    search_fields = ("title","date","time","venue")
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ("title","date")
+    search_fields = ("title","date")

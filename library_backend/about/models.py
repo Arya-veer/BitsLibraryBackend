@@ -86,7 +86,7 @@ class LibraryCommittee(models.Model):
 class LibraryCommitteeMember(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100,blank=True)
-    mobile_number = models.CharField(max_length=20,blank=True)
+    phone_number = models.CharField(max_length=20,blank=True)
     department = models.CharField(max_length=30,blank=True)
     is_present = models.BooleanField(default=True)
     committee = models.ForeignKey(LibraryCommittee,on_delete=models.CASCADE,related_name="members")
@@ -143,3 +143,29 @@ class LibraryTiming(models.Model):
 
     def __str__(self) -> str:
         return super().__str__()
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    date = models.DateField()
+    time = models.TimeField()
+    venue = models.CharField(max_length=100,blank=True)
+    is_set = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return f"{self.title} - {self.date} - {self.time}"
+
+class News(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    date = models.DateField()
+    url = models.URLField(blank=True,max_length=200)
+    is_set = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return f"{self.title} - {self.date}"
+
+    class Meta:
+        verbose_name = "News"
+        verbose_name_plural = "News"

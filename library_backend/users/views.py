@@ -55,11 +55,6 @@ class UserLogoutAPI(APIView):
 class UserProfileAPI(APIView):
     
         permission_classes = (IsAuthenticated,)
-
-        def get_permissions(self):
-            print(self.request.COOKIES)
-            return super().get_permissions()
-
     
         def get(self, request):
             user = request.user

@@ -1,12 +1,12 @@
 from rest_framework import views,generics,status,response,pagination
 
 from .serializers import *
-# Create your views here.
 
+# Create your views here.
 
 class CampusListAPI(generics.ListAPIView):
     serializer_class = CampusSerializer
-    queryset = Campus.objects.all()
+    queryset = Campus.objects.all().order_by('-is_main','name')
 
 class TrialDatabaseListAPI(generics.ListAPIView):
     serializer_class = DatabaseSerializer
@@ -15,6 +15,11 @@ class TrialDatabaseListAPI(generics.ListAPIView):
 
 class PublisherListAPI(generics.ListAPIView):
     serializer_class = PublisherSerializer
+
+    class PublisherPagination(pagination.PageNumberPagination):
+        page_size = 50
+    
+    pagination_class = PublisherPagination
     
     def get_queryset(self):
         search = self.request.query_params.get('search', None)
@@ -28,19 +33,14 @@ class EBookListAPI(generics.ListAPIView):
     serializer_class = EBookSerializer
 
     class EBookPagination(pagination.PageNumberPagination):
-        page_size = 10
+        page_size = 20
 
     pagination_class = EBookPagination
 
     def get_queryset(self):
         queryset = EBook.objects.all()
-        publisher = self.request.query_params.get('publisher', None)
         search = self.request.query_params.get('search', None)
-        if publisher is not None:
-            queryset = queryset.filter(publisher__name=publisher)
+        print(search)
         if search is not None:
-            sub = Subject.objects.filter(name__icontains=search)
-            if sub.exists():
-                queryset = queryset.filter(subject=sub[0])
-            queryset |= queryset.filter(name__icontains=search) | queryset.filter(author__icontains=search) | queryset.filter(description__icontains=search) | queryset.filter(url__icontains=search) 
+            queryset = queryset.filter(name__icontains=search) | queryset.filter(author__icontains=search) | queryset.filter(description__icontains=search) | queryset.filter(url__icontains=search) | queryset.filter(publisher__name__icontains=search) | queryset.filter(subject__name__icontains=search)
         return queryset

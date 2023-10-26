@@ -22,3 +22,14 @@ class LinkSite(models.Model):
         return f"{self.site_name} - {self.link_type}"
 
     
+class InflibnetLink(models.Model):
+
+    name = models.CharField(max_length=100)
+    url = models.URLField(max_length=200)
+
+    class Meta:
+        verbose_name = "INFLIBNET Link"
+        verbose_name_plural = "INFLIBNET Links"
+
+    def __str__(self) -> str:
+        return f"{self.name} - {self.url}"

@@ -69,7 +69,7 @@ class LibraryCommitteeSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def get_members(self,obj):
-        return CommitteeMemberSerializer(obj.members.filter(is_present = True),many = True).data
+        return CommitteeMemberSerializer(obj.members.filter(is_present = True),many = True,context = self.context).data
 
 class LibraryTeamMemberSerializer(serializers.ModelSerializer):
 
@@ -87,7 +87,7 @@ class LibraryTeamSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def get_members(self,obj):
-        return LibraryTeamMemberSerializer(obj.members.filter(is_present = True),many = True).data
+        return LibraryTeamMemberSerializer(obj.members.filter(is_present = True),many = True,context = self.context).data
 
 class FeedbackSerializer(serializers.ModelSerializer):
 
@@ -106,5 +106,18 @@ class LibraryTimingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LibraryTiming
+        fields = "__all__"
+
+
+class EventSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = "__all__"
+
+class NewsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = News
         fields = "__all__"
 
