@@ -57,7 +57,6 @@ class EBook(models.Model):
     author = models.TextField(blank=True)
     publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name='books',null = True)
     subject = models.ForeignKey(Subject,on_delete=models.CASCADE,related_name='books',null = True)
-    description = models.TextField(blank=True)
     url = models.URLField(max_length=200,null=True,blank=True)
     extra_data = models.JSONField(default=dict,blank=True,null=True)
     
@@ -67,3 +66,43 @@ class EBook(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.author}"
+
+
+class EJournal(models.Model):
+    name = models.TextField(blank=True)
+    publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name='journals',null = True)
+    subject = models.ForeignKey(Subject,on_delete=models.CASCADE,related_name='journals',null = True)
+    url = models.URLField(max_length=200,null=True,blank=True)
+    extra_data = models.JSONField(default=dict,blank=True,null=True)
+    
+    class Meta:
+        verbose_name = "E-Journal"
+        verbose_name_plural = "E-Journals"
+
+    def __str__(self):
+        return f"{self.name}"
+    
+
+class ELearning(models.Model):
+
+    name = models.CharField(max_length=60)
+    link = models.URLField(max_length=200,null=True,blank=True)
+
+    class Meta:
+        verbose_name = "E-Learning"
+        verbose_name_plural = "E-Learnings"
+    
+    def __str__(self):
+        return self.name
+
+class OpenAccess(models.Model):
+    
+        name = models.CharField(max_length=60)
+        link = models.URLField(max_length=200,null=True,blank=True)
+    
+        class Meta:
+            verbose_name = "Open Access"
+            verbose_name_plural = "Open Access"
+        
+        def __str__(self):
+            return self.name

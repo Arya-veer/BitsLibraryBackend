@@ -36,3 +36,21 @@ class EBookAdmin(admin.ModelAdmin):
     search_fields = ("name","author","publisher__name","subject__name")
     list_filter = ("publisher","subject")
 
+@admin.register(EJournal)
+class EJournalAdmin(admin.ModelAdmin):
+    list_display = ("name","publisher","subject")
+    search_fields = ("name","publisher__name","subject__name")
+    list_filter = ("publisher","subject")
+
+@admin.register(ELearning)
+class ELearningAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name","url")
+
+@admin.register(OpenAccess)
+class OpenAccessAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name","url")  
+
+
+

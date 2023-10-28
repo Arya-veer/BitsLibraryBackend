@@ -87,7 +87,7 @@ class LibraryCommitteeMember(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100,blank=True)
     phone_number = models.CharField(max_length=20,blank=True)
-    department = models.CharField(max_length=30,blank=True)
+    department = models.CharField(max_length=200,blank=True)
     is_present = models.BooleanField(default=True)
     committee = models.ForeignKey(LibraryCommittee,on_delete=models.CASCADE,related_name="members")
 
@@ -108,7 +108,7 @@ class LibraryTeamMember(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100,blank=True)
     phone_number = models.CharField(max_length=20,blank=True)
-    designation = models.CharField(max_length=30,blank=True)
+    designation = models.CharField(max_length=200,blank=True)
     is_present = models.BooleanField(default=True)
     team = models.ForeignKey(LibraryTeam,on_delete=models.CASCADE,related_name="members")
     image = models.ImageField(upload_to=libraryTeamMemberImagePath,blank=True,null=True)

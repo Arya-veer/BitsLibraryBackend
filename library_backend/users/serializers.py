@@ -15,6 +15,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class ClaimSerializer(serializers.ModelSerializer):
 
+    item = ItemSerializer()
     class Meta:
         model = Claim
         exclude = ('user','id')

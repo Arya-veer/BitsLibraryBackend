@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'misc',
     'external_links',
     'users',
-    'databases'
+    'databases',
+    'papers'
 ]
 
 CSRF_TRUSTED_ORIGINS = [

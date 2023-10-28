@@ -49,15 +49,46 @@ class EBookSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = EBook
-        fields = ('name','author','publisher','subject','description','url','extra_data')
+        fields = ('name','author','publisher','subject','url','extra_data')
     
     
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data['extra_data']['isbn'] = data['extra_data']['isbn'].split('.')[0]
-        data['extra_data']['year'] = data['extra_data']['year'].split('.')[0]
+        # data['extra_data']['year'] = data['extra_data']['year'].split('.')[0]
         for key in data:
-            if type(data.get(key)) == str:
+            if type(data.get(key)) == str and key in ['name']:
                 data[key] = re.sub(r"[^a-zA-Z ]+","",(data[key]))
         # print(data)
         return data
+
+class EJournalSerializer(serializers.ModelSerializer):
+            
+        publisher = PublisherSerializer()
+        subject = SubjectSerializer()
+        
+        class Meta:
+            model = EJournal
+            fields = ('name','publisher','subject','url','extra_data')
+        
+        
+        def to_representation(self, instance):
+            data = super().to_representation(instance)
+            for key in data:
+                if type(data.get(key)) == str and key in ['name']:
+                    data[key] = re.sub(r"[^a-zA-Z0-9 ]+","",(data[key]))
+            # print(data)
+            return data
+        
+
+class ELearningSerializer(serializers.ModelSerializer):
+        
+        class Meta:
+            model = ELearning
+            fields = '__all__'
+
+class OpenAccessSerializer(serializers.ModelSerializer):
+        
+        class Meta:
+            model = OpenAccess
+            fields = '__all__'        
