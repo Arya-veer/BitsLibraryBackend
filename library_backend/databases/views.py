@@ -64,11 +64,11 @@ class EJournalListAPI(generics.ListAPIView):
         return queryset
     
 
-class ELearningListAPI(generics.ListAPIView):
-    serializer_class = ELearningSerializer
-    queryset = ELearning.objects.all()
-
-
 class OpenAccessListAPI(generics.ListAPIView):
     serializer_class = OpenAccessSerializer
     queryset = OpenAccess.objects.all()
+
+
+class PlatformListAPI(generics.ListAPIView):
+    serializer_class = PlatformSerializer
+    queryset = Platform.objects.all()

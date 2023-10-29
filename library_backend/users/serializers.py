@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import UserProfile, Item, Claim
+from .models import UserProfile, Item, Claim, ArticleBookRequest
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -19,3 +19,14 @@ class ClaimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Claim
         exclude = ('user','id')
+
+class ArticleBookRequestSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ArticleBookRequest
+        exclude = ('user','id')
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['user'] = user.profile
+        return super().create(validated_data)

@@ -47,3 +47,17 @@ class Feedback(models.Model):
     
     def __str__(self) -> str:
         return f"{self.name}"
+
+
+class LibraryDocument(models.Model):
+
+    name = models.CharField(max_length=100)
+    file = models.FileField(upload_to='library_documents/')
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Library Document"
+        verbose_name_plural = "Library Documents"
+    
+    def __str__(self) -> str:
+        return self.name

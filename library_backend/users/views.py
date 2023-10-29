@@ -118,3 +118,14 @@ class ClaimItemAPI(APIView):
             return Response({"message": "Item Claimed! You can check the status later"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+
+class ArticleBookRequestListCreateAPI(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ArticleBookRequestSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        requests = ArticleBookRequest.objects.filter(user=user.profile)
+        return requests
+

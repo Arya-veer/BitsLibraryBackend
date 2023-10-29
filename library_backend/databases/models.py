@@ -85,24 +85,40 @@ class EJournal(models.Model):
 
 class ELearning(models.Model):
 
-    name = models.CharField(max_length=60)
-    link = models.URLField(max_length=200,null=True,blank=True)
+    site_name = models.CharField(max_length=60)
+    url = models.URLField(max_length=200,null=True,blank=True)
+    image = models.ImageField(upload_to='elearning_images',blank=True,null=True)
 
     class Meta:
         verbose_name = "E-Learning"
         verbose_name_plural = "E-Learnings"
     
     def __str__(self):
-        return self.name
+        return self.site_name
 
 class OpenAccess(models.Model):
     
-        name = models.CharField(max_length=60)
-        link = models.URLField(max_length=200,null=True,blank=True)
+    name = models.CharField(max_length=60)
+    link = models.URLField(max_length=200,null=True,blank=True)
+
+    class Meta:
+        verbose_name = "Open Access"
+        verbose_name_plural = "Open Access"
     
-        class Meta:
-            verbose_name = "Open Access"
-            verbose_name_plural = "Open Access"
+    def __str__(self):
+        return self.name
         
-        def __str__(self):
-            return self.name
+
+class Platform(models.Model):
+
+    name = models.CharField(max_length=60)
+    link = models.URLField(max_length=200,null=True,blank=True)
+    image = models.ImageField(upload_to='platform_images',blank=True,null=True)
+    campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='platforms',null = True)
+
+    class Meta:
+        verbose_name = "Platform"
+        verbose_name_plural = "Platforms"
+    
+    def __str__(self):
+        return self.name

@@ -4,15 +4,17 @@ from django.db import models
 
     
 def image_path_link_site(obj,filename):
-    return f"Sites/{obj.site_name}_{filename}"
+    s = f"Sites/{obj.site_name}_{filename}"
+    return s
 
 
 class LinkSite(models.Model):
 
     site_name = models.CharField("Name of the site",primary_key=True,max_length=100)
     image = models.ImageField(max_length=200,upload_to=image_path_link_site)
-    link_type = models.CharField(max_length=100,choices=[("Research Assistance","Research Assistance"),("Open ETDs","Open ETDs")],default="Research Assistance")
-    url = models.URLField(max_length=200)
+    link_type = models.CharField(max_length=100,choices=[("Research Assistance","Research Assistance"),("Open ETDs","Open ETDs"),("Download Form","Download Form")],default="Research Assistance")
+    url = models.URLField(max_length=200,null=True,blank=True)
+    file = models.FileField(upload_to='link_sites/',null=True,blank=True)
 
     class Meta:
         verbose_name = "Link Site"

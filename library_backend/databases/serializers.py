@@ -83,12 +83,25 @@ class EJournalSerializer(serializers.ModelSerializer):
 
 class ELearningSerializer(serializers.ModelSerializer):
         
-        class Meta:
-            model = ELearning
-            fields = '__all__'
+    class Meta:
+        model = ELearning
+        fields = '__all__'
+
+    def to_representation(self, instance):
+
+        data = super().to_representation(instance)
+        # print(data)
+        return data
 
 class OpenAccessSerializer(serializers.ModelSerializer):
         
-        class Meta:
-            model = OpenAccess
-            fields = '__all__'        
+    class Meta:
+        model = OpenAccess
+        fields = '__all__'        
+
+
+class PlatformSerializer(serializers.ModelSerializer):
+        
+    class Meta:
+        model = Platform
+        fields = '__all__'

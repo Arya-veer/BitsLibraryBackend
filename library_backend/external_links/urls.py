@@ -3,4 +3,5 @@ from .views import *
 
 urlpatterns = [
     path("",ExternalLinksListAPI.as_view()),
+
 ]

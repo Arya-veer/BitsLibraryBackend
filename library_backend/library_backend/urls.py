@@ -29,6 +29,9 @@ urlpatterns = [
     path("papers/",include("papers.urls")),
     path("misc/",include("misc.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'Library Website Administration'
 admin.site.index_title = 'Library Database'                 # default: "Site administration"

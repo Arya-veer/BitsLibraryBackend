@@ -9,4 +9,5 @@ urlpatterns = [
     path("items/",ItemListAPI.as_view()),
     path("claim_item/",ClaimItemAPI.as_view()),
     path("claimed_items/",ClaimedItemsAPI.as_view()),
+    path("article_book_request/",ArticleBookRequestListCreateAPI.as_view()),
 ]

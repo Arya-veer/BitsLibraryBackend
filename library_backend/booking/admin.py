@@ -6,6 +6,9 @@ admin.site.register(Slot)
 # admin.site.register(RoomSlot)
 admin.site.register(Facility)
 # admin.site.register(Booking)
+#import jsoneditor
+from django_json_widget.widgets import JSONEditorWidget
+
 
 
 @admin.register(RoomSlot)
@@ -21,4 +24,7 @@ class BookingAdmin(admin.ModelAdmin):
     search_fields = ('booker__name','roomslot__room__name','roomslot__slot__starttime','roomslot__slot__endtime')
     autocomplete_fields = ('booker','roomslot')
     date_hierarchy = 'date'
+    formfield_overrides = {
+            models.JSONField: {'widget': JSONEditorWidget},
+        }
     ordering = ('-date',)

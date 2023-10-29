@@ -34,3 +34,20 @@ class Claim(models.Model):
     def __str__(self) -> str:
         return f"{self.user} - {self.item} - {self.date}"
 
+
+
+class ArticleBookRequest(models.Model):
+
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,related_name='article_requests')
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    extra_data = models.JSONField(default=dict)
+    type_doc = models.CharField(max_length=200,default="Article",choices=(("Article","Article"),("Book","Book")))
+    status = models.CharField(max_length=200,default="Pending",choices=(("Pending","Pending"),("Approved","Approved"),("Rejected","Rejected")))
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.title}"
+
+    class Meta:
+        verbose_name = "Article Request"
+        verbose_name_plural = "Article Requests"

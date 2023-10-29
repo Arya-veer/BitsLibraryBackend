@@ -15,3 +15,9 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_display = ("name","created_at","show")
     list_filter = ("show",)
     search_fields = ("name","feedback")
+
+
+@admin.register(LibraryDocument)
+class LibraryDocumentAdmin(admin.ModelAdmin):
+    list_display = ("name","created_at")
+    search_fields = ("name",)
