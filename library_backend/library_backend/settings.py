@@ -171,7 +171,7 @@ USE_TZ = True
 import os
 STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'backend-media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'backend-static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/backend-media/'
 
 
