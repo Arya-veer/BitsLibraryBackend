@@ -114,8 +114,8 @@ DATABASES = {
         'HOST': senv.HOST,
         'PORT': senv.PORT,
         'OPTIONS': {
-            'charset': 'utf8mb4',
-            'use_unicode':True
+            #'charset': 'utf8mb4',
+        #    'use_unicode':True
         },
     }
 }
