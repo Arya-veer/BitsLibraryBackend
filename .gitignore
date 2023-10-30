@@ -6,9 +6,9 @@ __pycache__
 /env
 paytm_config.py
 db.sqlite3
-*/migrations
-*/migrations/*
-migrations/
+# */migrations
+# */migrations/*
+# migrations/
 keyconfig.py
 backend-static/
 /backend-media/
@@ -27,3 +27,4 @@ Timetable/file.json
 dump.rdb
 library-backend-98fe8-firebase-adminsdk-35ke0-7b332e6c75.json
 *.xlsx
+data.json

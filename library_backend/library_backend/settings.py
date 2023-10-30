@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'library_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import library_backend.keyconfig as senv
 
-print("Using Postgres.")
+# print("Using Postgres.")
 DATABASES = {
     'default': {
         'ENGINE': senv.ENGINE,
