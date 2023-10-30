@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)w05xn0!--n()no+taerye(7)3+^-@14mcat3o&p6(vg3g96eq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["172.17.75.200",'127.0.0.1' ,"192.168.137.1"]
+ALLOWED_HOSTS = ['*']
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
