@@ -87,7 +87,7 @@ class ItemListAPI(generics.ListAPIView):
     serializer_class = ItemSerializer
     
     def get_queryset(self):
-        items = Item.objects.all().exclude(id__in = Claim.objects.filter(is_approved = True).values_list('item__id',flat=True))
+        items = Item.objects.all()#.exclude(id__in = Claim.objects.filter(is_approved = True).exclude(user = self.request.user.profile).values_list('item__id',flat=True))
         return items
     
 class ClaimedItemsAPI(generics.ListAPIView):
@@ -106,15 +106,17 @@ class ClaimItemAPI(APIView):
         if "item_id" not in request.data:
             return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
         item_id = request.data['item_id']
-        user = request.user
+        user = request.user.profile
         items = Item.objects.filter(id=item_id)
         if not items.exists():
             return Response({"message": "Item Not Found"},status=status.HTTP_400_BAD_REQUEST)
         item = items.first()
-        if Claim.objects.filter(user=user,item=item,is_approved=False).exists():
+        if Claim.objects.filter(user=user,item=item).exists():
             return Response({"message": "You have already claimed this item"},status=status.HTTP_400_BAD_REQUEST)
+        if Claim.objects.filter(item=item,is_approved=True).exists():
+            return Response({"message": "Item already claimed"},status=status.HTTP_400_BAD_REQUEST)
         try:
-            claim = Claim.objects.create(user=user,item=item,description=request.data.get('description',''))
+            claim = Claim.objects.create(user=user,item=item)
             return Response({"message": "Item Claimed! You can check the status later"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
@@ -129,3 +131,35 @@ class ArticleBookRequestListCreateAPI(generics.ListCreateAPIView):
         requests = ArticleBookRequest.objects.filter(user=user.profile)
         return requests
 
+
+class FreeBookListAPI(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = FreeBookSerialzer
+
+    def get_queryset(self):
+        books = FreeBook.objects.all()
+        return books
+    
+class FreeBookPickAPI(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = FreeBookPickSerializer
+    
+    def get_queryset(self):
+        return FreeBookPick.objects.filter(user=self.request.user.profile)
+
+    def post(self,request):
+        if "book_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        book_id = request.data['book_id']
+        user = request.user
+        books = FreeBook.objects.filter(id=book_id)
+        if not books.exists():
+            return Response({"message": "Book Not Found"},status=status.HTTP_400_BAD_REQUEST)
+        book = books.first()
+        if FreeBookPick.objects.filter(user=user.profile,book=book,is_approved=False).exists():
+            return Response({"message": "You have already claimed this book"},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            claim = FreeBookPick.objects.create(user=user,book=book)
+            return Response({"message": "Book Claimed! You can check the status later"},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)

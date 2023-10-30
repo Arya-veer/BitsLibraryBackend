@@ -185,7 +185,9 @@ class BookingCancelAPI(views.APIView):
                 return Response({"error":"You are not authorized to cancel this booking"},status=status.HTTP_400_BAD_REQUEST)
             if booking.status in ["Cancelled","Rejected"]:
                 return Response({"error":"This booking is already cancelled"},status=status.HTTP_400_BAD_REQUEST)
-            if booking.roomslot.slot.starttime < datetime.datetime.now().time():
+            if booking.date < datetime.date.today():
+                return Response({"error":"You can not cancel booking after the date has passed"},status=status.HTTP_400_BAD_REQUEST)
+            if booking.date == datetime.date.today() and booking.roomslot.slot.starttime < datetime.datetime.now().time():
                 return Response({"error":"You can not cancel booking after the slot has started"},status=status.HTTP_400_BAD_REQUEST)
             booking.status = "Cancelled"
             booking.save()
