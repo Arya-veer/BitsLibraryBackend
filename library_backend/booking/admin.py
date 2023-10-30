@@ -20,7 +20,7 @@ class RoomSlotAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     list_display = ('booker','status','date','roomslot','no_of_participants')
-    list_filter = ('status','date')
+    list_filter = ('status','date','roomslot__room')
     search_fields = ('booker__name','roomslot__room__name','roomslot__slot__starttime','roomslot__slot__endtime')
     autocomplete_fields = ('booker','roomslot')
     date_hierarchy = 'date'

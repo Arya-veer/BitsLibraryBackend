@@ -13,8 +13,9 @@ class ExternalLinkSerializer(serializers.ModelSerializer):
         fields = ('site_name','url','link_type','image')
 
     def get_url(self,obj):
+        request = self.context['request']
         if obj.link_type == "Download Form":
-            return obj.file.url
+            return request.build_absolute_uri(obj.file.url)
         else:
             return obj.url
 

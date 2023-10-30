@@ -15,7 +15,7 @@ class Campus(models.Model):
         return self.name
 
 class Database(models.Model):
-    name = models.CharField(max_length=60,blank=True,primary_key=True)
+    name = models.CharField(max_length=60,blank=True)
     campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='databases',null = True)
     link = models.URLField(max_length=200,null=True,blank=True)
     description = models.TextField(blank=True)

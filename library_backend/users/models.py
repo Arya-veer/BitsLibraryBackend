@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.utils import timezone
+
 # Create your models here.
 class UserProfile(models.Model):
 
@@ -19,7 +21,7 @@ def item_path(instance,filename):
 class Item(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-
+    dt = models.DateTimeField(default=timezone.now)
 
     def __str__(self) -> str:
         return self.name
@@ -51,3 +53,36 @@ class ArticleBookRequest(models.Model):
     class Meta:
         verbose_name = "Article Request"
         verbose_name_plural = "Article Requests"
+
+
+class FreeBook(models.Model):
+
+    fbn = models.IntegerField()
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    publisher = models.CharField(max_length=200)
+    year = models.IntegerField()
+    edition = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = "Free Book"
+        verbose_name_plural = "Free Books"
+
+    def __str__(self) -> str:
+        return f"{self.title} - {self.author}"
+    
+
+class FreeBookPick(models.Model):
+
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,related_name='free_book_picks')
+    book = models.ForeignKey(FreeBook,on_delete=models.CASCADE,related_name='free_book_picks')
+    date = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=200,default="Pending",choices=(("Pending","Pending"),("Approved","Approved"),("Rejected","Rejected")))
+
+    class Meta:
+        verbose_name = "Free Book Pick"
+        verbose_name_plural = "Free Book Picks"
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.book} - {self.date}"
+
