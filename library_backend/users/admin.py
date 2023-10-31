@@ -1,14 +1,48 @@
 from django.contrib import admin
 from .models import UserProfile,Item,Claim,ArticleBookRequest
-
+from import_export.admin import ImportExportModelAdmin
+from django.contrib.auth.models import User
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 # Register your models here.
 
+
+from import_export import fields, resources
+from import_export.widgets import ForeignKeyWidget
+
+
+class UserProfileResource(resources.ModelResource):
+
+    auth_user = fields.Field(column_name='uid', attribute='auth_user',widget=ForeignKeyWidget(User, 'username'))
+    # auth_user = fields.Field(column_name='uid', attribute='auth_user', widget=ForeignKeyWidget(User, 'username'))
+    email = fields.Field(column_name='email', attribute='auth_user__email')
+
+    def before_import_row(self, row, row_number=None, **kwargs):
+        auth_user = User.objects.create_user(username=row["uid"],password = row['uid'])
+        auth_user.email = row.pop('email')
+        auth_user.save()
+    
+    class Meta:
+        model = UserProfile
+        fields = ("id","name","uid","email","user_type","phone_number","auth_user")
+        export_order = ("name","uid","phone_number","email")
+        import_id_fields = ("uid",)
+        skip_unchanged = True
+        report_skipped = True
+        exclude = ("id",)
+        
+
+
+
 @admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
+class UserProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ("name","uid","phone_number")
     search_fields = ("name","uid","phone_number")
+    resource_class = UserProfileResource
+
+    def process_import(self, request, *args, **kwargs):
+        # print(request.POST)
+        return super().process_import(request, *args, **kwargs)
 
 
 @admin.register(Item)
