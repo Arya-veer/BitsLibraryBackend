@@ -21,3 +21,16 @@ class FeedbackAdmin(admin.ModelAdmin):
 class LibraryDocumentAdmin(admin.ModelAdmin):
     list_display = ("name","created_at")
     search_fields = ("name",)
+
+@admin.register(Revalidate)
+class RevalidateAdmin(admin.ModelAdmin):
+    list_display = ("url","timestamp","done")
+    list_filter = ("done","url")
+    search_fields = ("url",)
+    actions = ['revalidate']
+
+    @admin.action(description="Revalidate selected urls")
+    def revalidate(modeladmin, request, queryset):
+        queryset = queryset.filter(done=False).order_by('url')
+        for obj in queryset:
+            obj.save()

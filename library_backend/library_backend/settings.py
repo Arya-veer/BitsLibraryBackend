@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+FRONTEND_BASE_URL = "http://bhg.bits-pilani.ac.in:8000"
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_NAME = "session"
 SESSION_COOKIE_HTTPONLY = True

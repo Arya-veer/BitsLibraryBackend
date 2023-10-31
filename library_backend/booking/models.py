@@ -2,6 +2,7 @@ from typing import Any
 from django.db import models,transaction
 # Create your models here.
 from datetime import timedelta
+from misc.models import AbstractBaseModel
 
 from users.models import UserProfile
 

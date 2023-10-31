@@ -1,7 +1,9 @@
 from django.db import models
 
+from misc.models import AbstractBaseModel
+
 # Create your models here.
-class Campus(models.Model):
+class Campus(AbstractBaseModel):
     name = models.CharField(max_length=60,blank=True,primary_key=True)
     is_main = models.BooleanField(default=False)
     image = models.ImageField(upload_to='campus_images',blank=True,null=True)
@@ -14,7 +16,7 @@ class Campus(models.Model):
     def __str__(self):
         return self.name
 
-class Database(models.Model):
+class Database(AbstractBaseModel):
     name = models.CharField(max_length=60,blank=True)
     campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='databases',null = True)
     link = models.URLField(max_length=200,null=True,blank=True)
@@ -30,7 +32,7 @@ class Database(models.Model):
     
 
 
-class Publisher(models.Model):
+class Publisher(AbstractBaseModel):
     name = models.TextField(blank=True)
 
     class Meta:
@@ -40,7 +42,7 @@ class Publisher(models.Model):
     def __str__(self):  
         return self.name
 
-class Subject(models.Model):
+class Subject(AbstractBaseModel):
     name = models.TextField(blank=True)
 
     class Meta:
@@ -52,7 +54,7 @@ class Subject(models.Model):
 
 
     
-class EBook(models.Model):
+class EBook(AbstractBaseModel):
     name = models.TextField(blank=True)
     author = models.TextField(blank=True)
     publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name='books',null = True)
@@ -68,7 +70,7 @@ class EBook(models.Model):
         return f"{self.name} - {self.author}"
 
 
-class EJournal(models.Model):
+class EJournal(AbstractBaseModel):
     name = models.TextField(blank=True)
     publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name='journals',null = True)
     subject = models.ForeignKey(Subject,on_delete=models.CASCADE,related_name='journals',null = True)
@@ -83,7 +85,7 @@ class EJournal(models.Model):
         return f"{self.name}"
     
 
-class ELearning(models.Model):
+class ELearning(AbstractBaseModel):
 
     site_name = models.CharField(max_length=60)
     url = models.URLField(max_length=200,null=True,blank=True)
@@ -96,7 +98,7 @@ class ELearning(models.Model):
     def __str__(self):
         return self.site_name
 
-class OpenAccess(models.Model):
+class OpenAccess(AbstractBaseModel):
     
     name = models.CharField(max_length=60)
     link = models.URLField(max_length=200,null=True,blank=True)
@@ -109,7 +111,7 @@ class OpenAccess(models.Model):
         return self.name
         
 
-class Platform(models.Model):
+class Platform(AbstractBaseModel):
 
     name = models.CharField(max_length=60)
     link = models.URLField(max_length=200,null=True,blank=True)

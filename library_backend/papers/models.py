@@ -1,7 +1,7 @@
 from django.db import models
-
+from misc.models import AbstractBaseModel
 # Create your models here.
-class Course(models.Model):
+class Course(AbstractBaseModel):
     name = models.CharField(max_length=60,blank=True)
     course_id = models.CharField(max_length=60,blank=True)
 
@@ -17,7 +17,7 @@ def paper_path(instance, filename):
 
 
 
-class Paper(models.Model):
+class Paper(AbstractBaseModel):
     semester = models.CharField(max_length=60,blank=True,choices=[('First','First'),('Second','Second')])
     year = models.IntegerField(blank=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='papers',null = True)

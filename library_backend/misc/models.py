@@ -1,9 +1,28 @@
+from collections.abc import Iterable
 from django.db import models
 from django.utils import timezone
 
+import requests
+from library_backend.settings import FRONTEND_BASE_URL
+from library_backend.keyconfig import FRONTEND_API_KEY
+
 # Create your models here.
 
-class HomePage(models.Model):
+URL_MAP = {
+
+}
+
+class AbstractBaseModel(models.Model):
+
+    class Meta:
+        abstract = True
+    
+    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+        super().save(force_insert, force_update, using, update_fields)
+        Revalidate.add(URL_MAP[self.__class__.__name__])
+
+
+class HomePage(AbstractBaseModel):
 
     heading = models.CharField(max_length=50)
     subheading = models.CharField(max_length=100)
@@ -11,7 +30,7 @@ class HomePage(models.Model):
     is_set = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-class NewArrivals(models.Model):
+class NewArrivals(AbstractBaseModel):
 
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
@@ -19,7 +38,7 @@ class NewArrivals(models.Model):
     is_set = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-class FreqAskedQuestion(models.Model):
+class FreqAskedQuestion(AbstractBaseModel):
 
     question = models.CharField(max_length=200)
     answer = models.TextField()
@@ -31,8 +50,10 @@ class FreqAskedQuestion(models.Model):
     
     def __str__(self):
         return self.question
+    
+        
 
-class Feedback(models.Model):
+class Feedback(AbstractBaseModel):
 
     name = models.CharField(max_length=100)
     feedback = models.TextField()
@@ -47,9 +68,9 @@ class Feedback(models.Model):
     
     def __str__(self) -> str:
         return f"{self.name}"
+    
 
-
-class LibraryDocument(models.Model):
+class LibraryDocument(AbstractBaseModel):
 
     name = models.CharField(max_length=100)
     file = models.FileField(upload_to='library_documents/')
@@ -58,6 +79,46 @@ class LibraryDocument(models.Model):
     class Meta:
         verbose_name = "Library Document"
         verbose_name_plural = "Library Documents"
+
     
     def __str__(self) -> str:
         return self.name
+    
+
+class Revalidate(AbstractBaseModel):
+
+    url = models.CharField(max_length=200,unique=True)
+    timestamp = models.DateTimeField(default=timezone.now)
+    done = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Revalidate"
+        verbose_name_plural = "Revalidate"
+
+    @classmethod
+    def add(cls,url):
+        obj,created = cls.objects.get_or_create(url=url)
+        if not created:
+            obj.save()
+
+    def revalidate(self):
+        data = {
+            "url":self.url,
+            "api_key":FRONTEND_API_KEY
+        }
+        response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",data)
+        if response.status_code == 200:
+            self.done = True
+        else:
+            self.done = False
+        self.timestamp = timezone.now()
+    
+    def __str__(self) -> str:
+        return self.url + " " + str(self.timestamp)
+    
+    
+    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+        self.revalidate()
+        super().save(force_insert, force_update, using, update_fields)
+    
+        

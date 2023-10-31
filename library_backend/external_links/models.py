@@ -1,5 +1,5 @@
 from django.db import models
-
+from misc.models import AbstractBaseModel
 # Create your models here.
 
     
@@ -8,7 +8,7 @@ def image_path_link_site(obj,filename):
     return s
 
 
-class LinkSite(models.Model):
+class LinkSite(AbstractBaseModel):
 
     site_name = models.CharField("Name of the site",primary_key=True,max_length=100)
     image = models.ImageField(max_length=200,upload_to=image_path_link_site)
@@ -24,7 +24,7 @@ class LinkSite(models.Model):
         return f"{self.site_name} - {self.link_type}"
 
     
-class InflibnetLink(models.Model):
+class InflibnetLink(AbstractBaseModel):
 
     name = models.CharField(max_length=100)
     url = models.URLField(max_length=200)

@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
 
+from misc.models import AbstractBaseModel
+
 def libraryOverviewImagePath(instance,filename):
     return f"Images/LibraryOverview/{filename}"
 
 # Create your models here.
-class LibraryOverview(models.Model):
+class LibraryOverview(AbstractBaseModel):
 
     title = models.CharField(max_length=100,blank=True,default="About BITS Pilani Library")
     description = models.TextField(blank=True)
@@ -23,7 +25,7 @@ class LibraryOverview(models.Model):
     def __str__(self) -> str:
         return f"{self.title} - {self.is_set}"
     
-class LibraryCollection(models.Model):
+class LibraryCollection(AbstractBaseModel):
     title = models.CharField(max_length=40)
     description = models.TextField(blank=True)
     is_set = models.BooleanField(default=False,unique=True)
@@ -40,7 +42,7 @@ class LibraryCollection(models.Model):
         return f"Library Collection"
 
     
-class LibraryCollectionData(models.Model):
+class LibraryCollectionData(AbstractBaseModel):
 
     resource = models.CharField(max_length=100,unique=True)
     data = models.TextField(null=True,blank=True)
@@ -50,7 +52,7 @@ class LibraryCollectionData(models.Model):
     def __str__(self) -> str:
         return f"{self.resource} - {self.data}"
     
-class LibraryRulesAndRegulation(models.Model):
+class LibraryRulesAndRegulation(AbstractBaseModel):
 
     name = models.CharField(max_length=200)
     is_set = models.BooleanField(default=True)
@@ -58,7 +60,7 @@ class LibraryRulesAndRegulation(models.Model):
     def __str__(self) -> str:
         return f"{self.name} - {self.is_set}"
 
-class Rule(models.Model):
+class Rule(AbstractBaseModel):
 
     text = models.TextField(blank=True)
     is_bold = models.BooleanField(default=False)
@@ -67,7 +69,7 @@ class Rule(models.Model):
     def __str__(self) -> str:
         return f"{self.text}"
 
-class TabularRule(models.Model):
+class TabularRule(AbstractBaseModel):
 
     name = models.CharField(max_length=100,blank=True)
     table = models.JSONField(null=True)
@@ -76,14 +78,14 @@ class TabularRule(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
 
-class LibraryCommittee(models.Model):
+class LibraryCommittee(AbstractBaseModel):
     description = models.TextField(blank=True)
     is_current = models.BooleanField(default=True,unique=True)
 
     def __str__(self) -> str:
         return f"{self.description}"
 
-class LibraryCommitteeMember(models.Model):
+class LibraryCommitteeMember(AbstractBaseModel):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100,blank=True)
     phone_number = models.CharField(max_length=20,blank=True)
@@ -94,7 +96,7 @@ class LibraryCommitteeMember(models.Model):
     def __str__(self) -> str:
         return f"{self.name}-{self.department}"
 
-class LibraryTeam(models.Model):
+class LibraryTeam(AbstractBaseModel):
     description = models.TextField(blank=True)
     is_current = models.BooleanField(default=True,unique=True)
 
@@ -104,7 +106,7 @@ class LibraryTeam(models.Model):
 def libraryTeamMemberImagePath(instance,filename):
     return f"Images/LibraryMember/{instance.designation}/{instance.name}/{filename}"
 
-class LibraryTeamMember(models.Model):
+class LibraryTeamMember(AbstractBaseModel):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100,blank=True)
     phone_number = models.CharField(max_length=20,blank=True)
@@ -118,7 +120,7 @@ class LibraryTeamMember(models.Model):
     def __str__(self) -> str:
         return f"{self.name}-{self.designation}"
 
-class Feedback(models.Model):
+class Feedback(AbstractBaseModel):
 
     person = models.CharField(max_length=50)
     link = models.TextField(blank=True)
@@ -128,7 +130,7 @@ class Feedback(models.Model):
         return f"Link for {self.person}"
     
 
-class LibraryBrochure(models.Model):
+class LibraryBrochure(AbstractBaseModel):
     uploaded_on = models.DateTimeField(default=timezone.now)
     file = models.FileField(max_length=200,upload_to='brochure')
     is_set = models.BooleanField(default=True)
@@ -136,7 +138,7 @@ class LibraryBrochure(models.Model):
     def __str__(self) -> str:
         return super().__str__()
 
-class LibraryTiming(models.Model):
+class LibraryTiming(AbstractBaseModel):
     uploaded_on = models.DateTimeField(default=timezone.now)
     imgae = models.ImageField(max_length=200,upload_to='timings')
     is_set = models.BooleanField(default=True)
@@ -145,7 +147,7 @@ class LibraryTiming(models.Model):
         return super().__str__()
 
 
-class Event(models.Model):
+class Event(AbstractBaseModel):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     date = models.DateField()
@@ -156,7 +158,7 @@ class Event(models.Model):
     def __str__(self) -> str:
         return f"{self.title} - {self.date} - {self.time}"
 
-class News(models.Model):
+class News(AbstractBaseModel):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     date = models.DateField()

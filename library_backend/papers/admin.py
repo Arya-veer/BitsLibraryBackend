@@ -13,6 +13,8 @@ class PaperAdmin(admin.ModelAdmin):
     list_filter = ('course','semester','year')
     search_fields = ('course__name','course__course_id','semester','year')
 
-@admin.action(description="Hide selected papers")
-def hide_papers(modeladmin, request, queryset):
-    queryset.update(hide = True)
+    actions = ['hide_papers']
+
+    @admin.action(description="Hide selected papers")
+    def hide_papers(modeladmin, request, queryset):
+        queryset.update(hide = True)
