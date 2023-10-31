@@ -63,5 +63,6 @@ class OpenAccessAdmin(admin.ModelAdmin):
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("name","campus")
     search_fields = ("name",)
+    list_filter = ("campus",)
