@@ -15,6 +15,8 @@ class Course(models.Model):
 def paper_path(instance, filename):
     return f'papers/{instance.course.course_id}/{instance.year}/{instance.semester}/{filename}'
 
+
+
 class Paper(models.Model):
     semester = models.CharField(max_length=60,blank=True,choices=[('First','First'),('Second','Second')])
     year = models.IntegerField(blank=True)
