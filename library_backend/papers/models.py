@@ -16,10 +16,11 @@ def paper_path(instance, filename):
     return f'papers/{instance.course.course_id}/{instance.exam}/{instance.year}/{filename}'
 
 class Paper(models.Model):
-    exam = models.CharField(max_length=60,blank=True,choices=[('midsem','Midsem'),('endsem','Endsem')])
+    semester = models.CharField(max_length=60,blank=True,choices=[('First','First'),('Second','Second')])
     year = models.IntegerField(blank=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='papers',null = True)
     file = models.FileField(upload_to=paper_path,blank=True,null=True)
+    hide = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Paper"

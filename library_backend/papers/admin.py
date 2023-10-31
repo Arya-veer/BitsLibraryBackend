@@ -9,6 +9,6 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Paper)
 class PaperAdmin(admin.ModelAdmin):
-    list_display = ('course','exam','year')
-    list_filter = ('course','exam','year')
-    search_fields = ('course__name','course__course_id','exam','year')
+    list_display = ('course','semester','year')
+    list_filter = ('course','semester','year')
+    search_fields = ('course__name','course__course_id','semester','year')
