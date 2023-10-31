@@ -13,7 +13,7 @@ class Course(models.Model):
         return f"{self.name} ({self.course_id})"
 
 def paper_path(instance, filename):
-    return f'papers/{instance.course.course_id}/{instance.exam}/{instance.year}/{filename}'
+    return f'papers/{instance.course.course_id}/{instance.year}/{instance.semester}/{filename}'
 
 class Paper(models.Model):
     semester = models.CharField(max_length=60,blank=True,choices=[('First','First'),('Second','Second')])
