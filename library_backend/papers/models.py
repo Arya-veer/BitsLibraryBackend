@@ -27,4 +27,4 @@ class Paper(models.Model):
         verbose_name_plural = "Papers"
     
     def __str__(self):
-        return f"{self.course.course_id} {self.exam} {self.year}"
+        return f"{self.course.course_id} {self.semester} {self.year}"
