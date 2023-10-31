@@ -71,4 +71,4 @@ class OpenAccessListAPI(generics.ListAPIView):
 
 class PlatformListAPI(generics.ListAPIView):
     serializer_class = PlatformSerializer
-    queryset = Platform.objects.all()
+    queryset = Platform.objects.filter(campus__name = "Pilani")
