@@ -20,7 +20,7 @@ class AbstractBaseModel(models.Model):
     
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        front_url = URL_MAP.get(self.__class__.__name__)
+        self.front_url = URL_MAP.get(self.__class__.__name__)
 
 
     def delete(self, using, keep_parents) :
