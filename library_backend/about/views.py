@@ -45,10 +45,6 @@ class LibraryTeamAPI(generics.RetrieveAPIView):
         curr = LibraryTeam.objects.get(is_current = True)
         return curr
 
-class FeedbackListAPI(generics.ListAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = FeedbackSerializer
-    queryset = Feedback.objects.filter(hidden = False)
 
 
 class LibraryBrochureAPI(generics.RetrieveAPIView):

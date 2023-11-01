@@ -9,7 +9,32 @@ from library_backend.keyconfig import FRONTEND_API_KEY
 # Create your models here.
 
 URL_MAP = {
-    "FreqAskedQuestion":"/misc/faq"
+    "FreqAskedQuestion":["/misc/faq",],
+    "Feedback":["/misc/feedback",],
+
+    "LibraryCollection":["/"],
+    "LibraryCollectionData":["/"],
+    "LibraryRulesAndRegulation":["/about/rules",],
+    "Rule":["/about/rules",],
+    "TabularRule":["/about/rules",],
+    "LibraryCommittee":["/about/committee/committee",],
+    "LibraryCommitteeMember":["/about/committee/committee",],
+    "LibraryTeam":["/about/committee/team",],
+    "LibraryTeamMember":["/about/committee/team",],
+    "LibraryBrochure":["/about/brochure",],
+    "LibraryTiming":["/about/timings",],
+    "Event":["/news/events","/"],
+    "News":["/news/news","/"],
+    "Campus":["/databases/[campus]",],
+    "Database":["/databases/[campus]",],
+    "EBook":["/eresources/ebooks",],
+    "Publisher":["/eresources/ebooks","/eresources/ejournals",],
+    "Subject":["/eresources/ebooks","/eresources/ejournals",],
+    "EJournal":["/eresources/ejournals",],
+    "ELearning":["/links/[type]",],
+    "Platform":["/eresources/ebooks",],
+    "LinkSite":["/links/[type]",],
+
 }
 
 class AbstractBaseModel(models.Model):
@@ -20,18 +45,21 @@ class AbstractBaseModel(models.Model):
     
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.front_url = URL_MAP.get(self.__class__.__name__)
+        self.front_url = URL_MAP.get(self.__class__.__name__,[])
+
+    def validate(self):
+        if self.to_revalidate:
+            for url in self.front_url:
+                Revalidate.add(url)
 
 
     def delete(self, using, keep_parents) :
         super().delete(using, keep_parents)
-        if self.to_revalidate:
-            Revalidate.add(self.front_url)
+        self.validate()
     
     def save(self, *args, **kwargs ) -> None:
         super().save(*args, **kwargs)
-        if self.to_revalidate:
-            Revalidate.add(self.front_url)
+        self.validate()
 
 
 class HomePage(AbstractBaseModel):

@@ -89,11 +89,6 @@ class LibraryTeamSerializer(serializers.ModelSerializer):
     def get_members(self,obj):
         return LibraryTeamMemberSerializer(obj.members.filter(is_present = True),many = True,context = self.context).data
 
-class FeedbackSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Feedback
-        fields = "__all__"
 
 class LibraryBrochureSerializer(serializers.ModelSerializer):
 

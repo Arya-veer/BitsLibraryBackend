@@ -119,15 +119,6 @@ class LibraryTeamMember(AbstractBaseModel):
 
     def __str__(self) -> str:
         return f"{self.name}-{self.designation}"
-
-class Feedback(AbstractBaseModel):
-
-    person = models.CharField(max_length=50)
-    link = models.TextField(blank=True)
-    hidden = models.BooleanField(default=False)
-
-    def __str__(self) -> str:
-        return f"Link for {self.person}"
     
 
 class LibraryBrochure(AbstractBaseModel):
