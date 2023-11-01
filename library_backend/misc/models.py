@@ -1,4 +1,4 @@
-from collections.abc import Any, Iterable
+from collections.abc import Iterable
 from django.db import models
 from django.utils import timezone
 
