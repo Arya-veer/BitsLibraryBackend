@@ -55,6 +55,10 @@ class EBookSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data['extra_data']['isbn'] = data['extra_data']['isbn'].split('.')[0]
+        if '/' in data['extra_data']['isbn']:
+            data['extra_data']['isbn'] = data['extra_data']['isbn'].split('/')[0]
+        if '-' in data['extra_data']['isbn']:
+            data['extra_data']['isbn'] = data['extra_data']['isbn'].split('-')[0]
         # data['extra_data']['year'] = data['extra_data']['year'].split('.')[0]
         for key in data:
             if type(data.get(key)) == str and key in ['name']:

@@ -47,6 +47,8 @@ class ArticleBookRequestSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         validated_data['user'] = user.profile
+        if 'status' in validated_data:
+            validated_data.pop('status')
         return super().create(validated_data)
 
 
