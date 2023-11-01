@@ -128,7 +128,8 @@ class ArticleBookRequestListCreateAPI(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        requests = ArticleBookRequest.objects.filter(user=user.profile)
+        type_doc = self.request.query_params.get('type_doc', 'Article')
+        requests = ArticleBookRequest.objects.filter(user=user.profile,type_doc=type_doc)
         return requests
 
 

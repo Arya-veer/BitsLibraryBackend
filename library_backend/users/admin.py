@@ -70,7 +70,3 @@ class ArticleBookRequestAdmin(admin.ModelAdmin):
             models.JSONField: {'widget': JSONEditorWidget},
         }
 
-    def save_model(self, request, obj, form, change):
-        if change:
-            obj.status = "Pending"
-        super().save_model(request, obj, form, change)
