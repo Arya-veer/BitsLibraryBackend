@@ -122,7 +122,7 @@ class Revalidate(AbstractBaseModel):
         return self.url + " " + str(self.timestamp)
     
     
-    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+    def save(self, force_insert, force_update, using, update_fields) -> None:
         self.revalidate()
         super().save(force_insert, force_update, using, update_fields)
     
