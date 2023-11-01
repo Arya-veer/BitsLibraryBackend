@@ -23,8 +23,8 @@ class AbstractBaseModel(models.Model):
         if self.to_revalidate:
             Revalidate.add(AbstractBaseModel.url)
     
-    def save(self, force_insert , force_update , using , update_fields ) -> None:
-        super().save(force_insert, force_update, using, update_fields)
+    def save(self, *args, **kwargs ) -> None:
+        super().save(*args, **kwargs)
         if self.to_revalidate:
             Revalidate.add(AbstractBaseModel.url)
 
@@ -125,8 +125,8 @@ class Revalidate(AbstractBaseModel):
         return self.url + " " + str(self.timestamp)
     
     
-    def save(self, force_insert, force_update, using, update_fields) -> None:
+    def save(self, *args, **kwargs) -> None:
         self.revalidate()
-        super().save(force_insert, force_update, using, update_fields)
+        super().save(*args, **kwargs)
     
         
