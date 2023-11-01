@@ -30,6 +30,8 @@ class UserProfileResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
         exclude = ("id",)
+        use_bulk = True
+        batch_size= 1000
         
 
 
