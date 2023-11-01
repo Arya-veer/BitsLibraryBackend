@@ -32,6 +32,7 @@ class UserProfileResource(resources.ModelResource):
         exclude = ("id",)
         use_bulk = True
         batch_size= 1000
+        skip_html_diff= True
         
 
 
