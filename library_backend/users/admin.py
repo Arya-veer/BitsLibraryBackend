@@ -18,9 +18,7 @@ class UserProfileResource(resources.ModelResource):
     email = fields.Field(column_name='email', attribute='auth_user__email')
 
     def before_import_row(self, row, row_number=None, **kwargs):
-        auth_user = User.objects.create_user(username=row["uid"],password = row['uid'])
-        auth_user.email = row.pop('email')
-        auth_user.save()
+        auth_user = User.objects.create_user(username=row["uid"],password = row['uid'],email=row.pop('email'))
         # print(row_number)
         with open('import_log.txt','a') as f:
             f.write(str(row_number)+"\n")
