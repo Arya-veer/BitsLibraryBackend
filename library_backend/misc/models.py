@@ -20,7 +20,7 @@ class AbstractBaseModel(models.Model):
         abstract = True
 
     
-    def save(self, force_insert: bool , force_update: bool , using: str , update_fields: Iterable[str] ) -> None:
+    def save(self, force_insert , force_update , using , update_fields ) -> None:
         super().save(force_insert, force_update, using, update_fields)
         if self.to_revalidate:
             Revalidate.add(AbstractBaseModel.url)
