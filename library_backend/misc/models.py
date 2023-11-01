@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.utils import timezone
 
@@ -13,20 +14,24 @@ URL_MAP = {
 
 class AbstractBaseModel(models.Model):
 
-    url = URL_MAP.get(__name__)
     to_revalidate = True
     class Meta:
         abstract = True
+    
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        front_url = URL_MAP.get(self.__class__.__name__)
+
 
     def delete(self, using, keep_parents) :
         super().delete(using, keep_parents)
         if self.to_revalidate:
-            Revalidate.add(AbstractBaseModel.url)
+            Revalidate.add(self.front_url)
     
     def save(self, *args, **kwargs ) -> None:
         super().save(*args, **kwargs)
         if self.to_revalidate:
-            Revalidate.add(AbstractBaseModel.url)
+            Revalidate.add(self.front_url)
 
 
 class HomePage(AbstractBaseModel):
