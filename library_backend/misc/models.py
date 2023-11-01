@@ -113,7 +113,7 @@ class Revalidate(AbstractBaseModel):
             "url":self.url,
             "api_key":FRONTEND_API_KEY
         }
-        response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",data)
+        response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",json=data)
         print(response.content)
         if response.status_code == 200:
             self.done = True
