@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from django.contrib.admin.models import LogEntry
+
 # Register your models here.
 from .models import *
 
@@ -33,3 +35,10 @@ class RevalidateAdmin(admin.ModelAdmin):
     def revalidate(modeladmin, request, queryset):
         for obj in queryset:
             obj.save()
+
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = ("object_repr","action_flag","user","change_message","content_type","action_time")
+    list_filter = ("action_flag","user","content_type","action_time")
+    search_fields = ("object_repr","change_message")
