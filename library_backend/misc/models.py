@@ -1,4 +1,4 @@
-from collections.abc import Iterable
+from collections.abc import Any, Iterable
 from django.db import models
 from django.utils import timezone
 
@@ -9,17 +9,21 @@ from library_backend.keyconfig import FRONTEND_API_KEY
 # Create your models here.
 
 URL_MAP = {
-
+    "FreqAskedQuestion":"/misc/faq"
 }
 
 class AbstractBaseModel(models.Model):
 
+    url = URL_MAP.get(__name__)
+    to_revalidate = True
     class Meta:
         abstract = True
+
     
     def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
         super().save(force_insert, force_update, using, update_fields)
-        Revalidate.add(URL_MAP[self.__class__.__name__])
+        if self.to_revalidate:
+            Revalidate.add(AbstractBaseModel.url)
 
 
 class HomePage(AbstractBaseModel):
@@ -107,6 +111,7 @@ class Revalidate(AbstractBaseModel):
             "api_key":FRONTEND_API_KEY
         }
         response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",data)
+        print(response.content)
         if response.status_code == 200:
             self.done = True
         else:
