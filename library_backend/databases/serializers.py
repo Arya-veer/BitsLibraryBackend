@@ -23,7 +23,7 @@ class CampusSerializer(serializers.ModelSerializer):
     
     def get_databases(self,obj):
         
-        qs = Database.objects.filter(is_trial = False,campus = obj).order_by(Length("description").asc(),'name')
+        qs = Database.objects.filter(is_trial = False,campus = obj).order_by('name')
         return DatabaseSerializer(qs,many=True).data
     
 
