@@ -22,10 +22,11 @@ class UserProfileResource(resources.ModelResource):
         auth_user.email = row.pop('email')
         auth_user.save()
         # print(row_number)
-    
-    def after_import_row(self, row, row_number=None, **kwargs):
         with open('import_log.txt','a') as f:
             f.write(str(row_number)+"\n")
+        return super().before_import_row(row, row_number=row_number, **kwargs)
+    
+        
     
     class Meta:
         model = UserProfile
