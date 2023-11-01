@@ -1,4 +1,4 @@
-from collections.abc import Iterable
+from collections.abc import Any, Iterable
 from django.db import models
 from django.utils import timezone
 
@@ -19,6 +19,10 @@ class AbstractBaseModel(models.Model):
     class Meta:
         abstract = True
 
+    def delete(self, using, keep_parents) :
+        super().delete(using, keep_parents)
+        if self.to_revalidate:
+            Revalidate.add(AbstractBaseModel.url)
     
     def save(self, force_insert , force_update , using , update_fields ) -> None:
         super().save(force_insert, force_update, using, update_fields)
