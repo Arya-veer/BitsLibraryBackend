@@ -19,9 +19,7 @@ class UserProfileResource(resources.ModelResource):
 
     def before_import_row(self, row, row_number=None, **kwargs):
         auth_user = User.objects.create_user(username=row["uid"],password = row['uid'],email=row.pop('email'))
-        # print(row_number)
-        with open('import_log.txt','a') as f:
-            f.write(str(row_number)+"\n")
+        print(row_number)
         return super().before_import_row(row, row_number=row_number, **kwargs)
     
         
