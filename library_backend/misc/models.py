@@ -97,7 +97,7 @@ class LibraryDocument(AbstractBaseModel):
         return self.name
     
 
-class Revalidate(AbstractBaseModel):
+class Revalidate(models.Model):
 
     url = models.CharField(max_length=200,unique=True)
     timestamp = models.DateTimeField(default=timezone.now)
