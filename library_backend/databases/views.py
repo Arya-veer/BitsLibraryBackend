@@ -38,7 +38,7 @@ class EBookListAPI(generics.ListAPIView):
     pagination_class = EBookPagination
 
     def get_queryset(self):
-        queryset = EBook.objects.all()
+        queryset = EBook.objects.all().order_by('id')
         search = self.request.query_params.get('search', None)
         print(search)
         if search:

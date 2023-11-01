@@ -31,6 +31,5 @@ class RevalidateAdmin(admin.ModelAdmin):
 
     @admin.action(description="Revalidate selected urls")
     def revalidate(modeladmin, request, queryset):
-        queryset = queryset.filter(done=False).order_by('url')
         for obj in queryset:
             obj.save()
