@@ -11,6 +11,13 @@ class CourseList(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        search = self.request.query_params.get('search',None)
+        if search is not None:
+            qs = qs.filter(name__icontains=search) | qs.filter(course_id__icontains=search)
+        return qs
+
 class PaperList(generics.ListAPIView):
     serializer_class = PaperSerializer
 
