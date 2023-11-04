@@ -11,7 +11,8 @@ from library_backend.keyconfig import FRONTEND_API_KEY
 URL_MAP = {
     "FreqAskedQuestion":["/misc/faq",],
     "Feedback":["/misc/feedback",],
-
+    "Course":["/services/pyq","/services/pyq/[course]"],
+    "Paper":["/services/pyq/[course]",],
     "LibraryCollection":["/"],
     "LibraryCollectionData":["/"],
     "LibraryRulesAndRegulation":["/about/rules",],
