@@ -8,6 +8,8 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
 class PaperSerializer(serializers.ModelSerializer):
+
+    course = CourseSerializer()
     class Meta:
         model = Paper
         fields = '__all__'
