@@ -19,3 +19,11 @@ class PaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if '-' in data['course']['name']:
+            data['type'] = data['course']['name'].split('-')[1].strip()
+        else: 
+            data['type'] = 'Comprehensive'
+        return data
