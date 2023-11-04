@@ -9,7 +9,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        if '-' in data['name'] and 'split' in self.context and self.context['split'] == True:
+        if '-' in data['name'] and 'split' in self.context:
             data['name'] = data['name'].split('-')[0].strip()
         return data
     
