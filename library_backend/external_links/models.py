@@ -15,6 +15,7 @@ class LinkSite(AbstractBaseModel):
     link_type = models.CharField(max_length=100,choices=[("Research Assistance","Research Assistance"),("Open ETDs","Open ETDs"),("Download Form","Download Form")],default="Research Assistance")
     url = models.URLField(max_length=200,null=True,blank=True)
     file = models.FileField(upload_to='link_sites/',null=True,blank=True)
+    site_type = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = "Link Site"

@@ -1,5 +1,5 @@
 from .models import *
-
+from databases.models import Platform
 from rest_framework import serializers
 
 
@@ -10,7 +10,7 @@ class ExternalLinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LinkSite
-        fields = ('site_name','url','link_type','image')
+        fields = ('site_name','url','image')
 
     def get_url(self,obj):
         request = self.context['request']
@@ -18,6 +18,16 @@ class ExternalLinkSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(obj.file.url)
         else:
             return obj.url
+        
+class PlatformSerializer(serializers.ModelSerializer):
+    site_name = serializers.CharField(source="name")
+    url = serializers.CharField(source="link")
+    image = serializers.ImageField(source="image")
+    site_type = serializers.CharField(source="campus.name")
+
+    class Meta:
+        model = Platform
+        fields = ('site_name','url','image','site_type')
 
 class InflibnetLinkSerializer(serializers.ModelSerializer):
 

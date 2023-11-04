@@ -14,6 +14,8 @@ class ExternalLinksListAPI(generics.ListAPIView):
         link_type = self.request.query_params.get('link_type',None)
         if link_type == "E-Learning":
             return ELearningSerializer
+        elif link_type == "Platform":
+            return PlatformSerializer
         else:
             return ExternalLinkSerializer
 
@@ -24,6 +26,8 @@ class ExternalLinksListAPI(generics.ListAPIView):
         if link_type is not None:
             if link_type == "E-Learning":
                 links = ELearning.objects.all().order_by("site_name")
+            elif link_type == "Platform":
+                links = Platform.objects.all().order_by("name")
             else:
                 links = links.filter(link_type = link_type)
         return links
