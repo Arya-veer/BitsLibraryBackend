@@ -11,6 +11,12 @@ class CourseList(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["split"] = True 
+        return context
+    
+
     def get_queryset(self):
         qs = super().get_queryset()
         search = self.request.query_params.get('search',None)
