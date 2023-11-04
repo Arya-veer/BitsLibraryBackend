@@ -9,13 +9,13 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        if '-' in data['name'] and self.context['split']:
+        if '-' in data['name'] and 'split' in self.context and self.context['split'] == True:
             data['name'] = data['name'].split('-')[0].strip()
         return data
     
 class PaperSerializer(serializers.ModelSerializer):
 
-    course = CourseSerializer(context = {'split':False})
+    course = CourseSerializer()
     class Meta:
         model = Paper
         fields = '__all__'
