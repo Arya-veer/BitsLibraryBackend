@@ -22,7 +22,7 @@ class ExternalLinkSerializer(serializers.ModelSerializer):
 class PlatformSerializer(serializers.ModelSerializer):
     site_name = serializers.CharField(source="name")
     url = serializers.CharField(source="link")
-    image = serializers.ImageField(source="image")
+    # image = serializers.ImageField(source="image")
     site_type = serializers.CharField(source="campus.name")
 
     class Meta:
