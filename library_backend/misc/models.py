@@ -32,7 +32,7 @@ URL_MAP = {
     "Subject":["/eresources/ebooks","/eresources/ejournals",],
     "EJournal":["/eresources/ejournals",],
     "ELearning":["/links/[type]",],
-    "Platform":["/eresources/ebooks",],
+    "Platform":["/eresources/ebooks","/links/[type]"],
     "LinkSite":["/links/[type]",],
 
 }

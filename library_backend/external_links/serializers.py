@@ -10,7 +10,7 @@ class ExternalLinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LinkSite
-        fields = ('site_name','url','image')
+        fields = ('site_name','url','image','site_type')
 
     def get_url(self,obj):
         request = self.context['request']
