@@ -9,7 +9,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        if '-' in data['name'] and 'split' in self.context:
+        print(self.context)
+        if '-' in data['name']:
             data['name'] = data['name'].split('-')[0].strip()
         return data
     
@@ -22,9 +23,8 @@ class PaperSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        if '-' in data['course']['name']:
-            data['type'] = data['course']['name'].split('-')[1].strip()
-            data['course']['name'] = data['course']['name'].split('-')[0].strip()
+        if '-' in instance.course.name:
+            data['type'] = instance.course.name.split('-')[1].strip()
         else: 
             data['type'] = 'Comprehensive'
         
