@@ -26,7 +26,7 @@ URL_MAP = {
     "LibraryTiming":["/about/timings",],
     "Event":["/news/events","/"],
     "News":["/news/news","/"],
-    "Campus":["/databases/[campus]",],
+    "Campus":["/databases/[campus]","/links/[type]"],
     "Database":["/databases/[campus]",],
     "EBook":["/eresources/ebooks",],
     "Publisher":["/eresources/ebooks","/eresources/ejournals",],
