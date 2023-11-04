@@ -16,7 +16,7 @@ class CourseList(generics.ListAPIView):
         search = self.request.query_params.get('search',None)
         if search is not None:
             qs = qs.filter(name__icontains=search) | qs.filter(course_id__icontains=search)
-        return qs
+        return qs.distinct('course_id')
 
 class PaperList(generics.ListAPIView):
     serializer_class = PaperSerializer

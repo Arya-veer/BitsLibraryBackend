@@ -6,6 +6,12 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if '-' in data['name']:
+            data['name'] = data['name'].split('-')[0].strip()
+        return data
     
 class PaperSerializer(serializers.ModelSerializer):
 
