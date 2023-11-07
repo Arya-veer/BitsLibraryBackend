@@ -61,8 +61,15 @@ class FreeBookSerialzer(serializers.ModelSerializer):
 
     def get_status(self,obj):
         profile = self.context['request'].user.profile
-        status = profile.free_book_picks.filter(book=obj).first()
-        return status
+        applications = profile.free_book_picks.filter(book=obj)
+        if applications.exists():
+            application = applications.first()
+            return application.status
+        elif FreeBookPick.objects.filter(book=obj,status="Approved").exists():
+            return "Already Picked"
+        else:
+            return "Not Picked"
+
 class FreeBookPickSerializer(serializers.ModelSerializer):
     book = FreeBookSerialzer()
 
