@@ -109,6 +109,23 @@ class OpenAccess(AbstractBaseModel):
     
     def __str__(self):
         return self.name
+    
+
+def new_arrival_path(instance, filename):
+    return f'new_arrivals/{instance.year}/{instance.month}/{filename}'
+
+class NewArrival(AbstractBaseModel):
+
+    month = models.CharField(max_length=20)
+    year = models.IntegerField()
+    file = models.FileField(upload_to=new_arrival_path,blank=True,null=True)
+
+    class Meta:
+        verbose_name = "New Arrival"
+        verbose_name_plural = "New Arrivals"
+    
+    def __str__(self):
+        return f"{self.month} {self.year}"
         
 
 class Platform(AbstractBaseModel):
@@ -124,3 +141,5 @@ class Platform(AbstractBaseModel):
     
     def __str__(self):
         return self.name
+
+

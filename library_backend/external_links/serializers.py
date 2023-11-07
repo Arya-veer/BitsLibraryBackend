@@ -1,5 +1,5 @@
 from .models import *
-from databases.models import Platform,OpenAccess
+from databases.models import Platform,OpenAccess,NewArrival
 from rest_framework import serializers
 
 
@@ -38,6 +38,19 @@ class OpenAccessSerializer(serializers.ModelSerializer):
     class Meta:
         model = OpenAccess
         fields = ('site_name','url','image',)
+
+    def get_image(self,obj):
+        return None
+    
+class NewArrivalSerializer(serializers.ModelSerializer):
+    site_name = serializers.CharField(source="month")
+    url = serializers.FileField(source="file")
+    site_type = serializers.CharField(source="year")
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = NewArrival
+        fields = ('site_name','url','site_type')
 
     def get_image(self,obj):
         return None

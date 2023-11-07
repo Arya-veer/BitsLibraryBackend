@@ -18,6 +18,8 @@ class ExternalLinksListAPI(generics.ListAPIView):
             return PlatformSerializer
         elif link_type == "OpenAccess":
                 return OpenAccessSerializer
+        elif link_type == "NewArrival":
+            return NewArrivalSerializer
         else:
             return ExternalLinkSerializer
 
@@ -32,6 +34,8 @@ class ExternalLinksListAPI(generics.ListAPIView):
                 links = Platform.objects.all().order_by("name")
             elif link_type == "OpenAccess":
                 links = OpenAccess.objects.all().order_by("name")
+            elif link_type == "NewArrival":
+                links = NewArrival.objects.all().order_by("year","month")
             else:
                 links = links.filter(link_type = link_type)
         return links

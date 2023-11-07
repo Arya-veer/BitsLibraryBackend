@@ -72,13 +72,6 @@ class HomePage(AbstractBaseModel):
     is_set = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-class NewArrivals(AbstractBaseModel):
-
-    title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    description = models.TextField()
-    is_set = models.BooleanField(default=True)
-    created_at = models.DateTimeField(default=timezone.now)
 
 class FreqAskedQuestion(AbstractBaseModel):
 
