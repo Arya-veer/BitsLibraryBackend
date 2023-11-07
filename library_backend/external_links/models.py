@@ -12,7 +12,7 @@ class LinkSite(AbstractBaseModel):
 
     site_name = models.CharField("Name of the site",primary_key=True,max_length=100)
     image = models.ImageField(max_length=200,upload_to=image_path_link_site)
-    link_type = models.CharField(max_length=100,choices=[("Research Assistance","Research Assistance"),("Open ETDs","Open ETDs"),("Download Form","Download Form")],default="Research Assistance")
+    link_type = models.CharField(max_length=100,choices=[("Research Assistance","Research Assistance"),("Open ETDs","Open ETDs"),("Download Form","Download Form"),("Inflibnet","Inflibnet")],default="Research Assistance")
     url = models.URLField(max_length=200,null=True,blank=True)
     file = models.FileField(upload_to='link_sites/',null=True,blank=True)
     site_type = models.CharField(max_length=100)
