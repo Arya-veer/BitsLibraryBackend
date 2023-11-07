@@ -166,7 +166,7 @@ class FreeBookPickAPI(generics.ListCreateAPIView):
         if FreeBookPick.objects.filter(book=book,status="Approved").exists():
             return Response({"message": "Book already claimed"},status=status.HTTP_400_BAD_REQUEST)
         try:
-            claim = FreeBookPick.objects.create(user=user,book=book)
+            claim = FreeBookPick.objects.create(user=user.profile,book=book)
             return Response({"message": "Book Claimed! You can check the status later"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
