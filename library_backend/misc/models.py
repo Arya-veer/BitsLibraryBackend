@@ -34,6 +34,7 @@ URL_MAP = {
     "EJournal":["/eresources/ejournals",],
     "ELearning":["/links/[type]",],
     "Platform":["/eresources/ebooks","/links/[type]"],
+    "OpenAccess":["/links/[type]",],
     "LinkSite":["/links/[type]",],
 
 }
