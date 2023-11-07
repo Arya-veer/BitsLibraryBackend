@@ -43,7 +43,7 @@ class OpenAccessSerializer(serializers.ModelSerializer):
         return None
 
     def get_site_type(self,obj):
-        return "Open Access"
+        return None
 
 class InflibnetLinkSerializer(serializers.ModelSerializer):
 
