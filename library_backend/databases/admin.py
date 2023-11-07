@@ -66,3 +66,9 @@ class PlatformAdmin(admin.ModelAdmin):
     list_display = ("name","campus")
     search_fields = ("name",)
     list_filter = ("campus",)
+
+@admin.register(NewArrival)
+class NewArrivalAdmin(admin.ModelAdmin):
+    list_display = ("month","year")
+    search_fields = ("month","year")
+    list_filter = ("year",)
