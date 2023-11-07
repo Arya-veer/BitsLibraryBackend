@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile,Item,Claim,ArticleBookRequest
+from .models import UserProfile,Item,Claim,ArticleBookRequest,FreeBook,FreeBookPick
 from import_export.admin import ImportExportModelAdmin
 from django.contrib.auth.models import User
 from django_json_widget.widgets import JSONEditorWidget
@@ -73,3 +73,22 @@ class ArticleBookRequestAdmin(admin.ModelAdmin):
             models.JSONField: {'widget': JSONEditorWidget},
         }
 
+@admin.register(FreeBook)
+class FreeBookAdmin(admin.ModelAdmin):
+    list_display = ("title","author","status")
+    search_fields = ("title","author")
+    list_filter = ("status",)
+    ordering = ("-id",)
+    formfield_overrides = {
+            models.JSONField: {'widget': JSONEditorWidget},
+        }
+
+@admin.register(FreeBookPick)
+class FreeBookPickAdmin(admin.ModelAdmin):
+    list_display = ("user","book","date","status")
+    search_fields = ("user__name","book__title","date")
+    list_filter = ("status","book")
+    ordering = ("-id",)
+    formfield_overrides = {
+            models.JSONField: {'widget': JSONEditorWidget},
+        }
