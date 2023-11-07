@@ -62,11 +62,7 @@ class EJournalListAPI(generics.ListAPIView):
         if search:
             queryset = queryset.filter(name__icontains=search) | queryset.filter(url__icontains=search) | queryset.filter(publisher__name__icontains=search) | queryset.filter(subject__name__icontains=search)
         return queryset
-    
 
-class OpenAccessListAPI(generics.ListAPIView):
-    serializer_class = OpenAccessSerializer
-    queryset = OpenAccess.objects.all()
 
 
 class PlatformListAPI(generics.ListAPIView):

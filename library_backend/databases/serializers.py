@@ -97,12 +97,6 @@ class ELearningSerializer(serializers.ModelSerializer):
         # print(data)
         return data
 
-class OpenAccessSerializer(serializers.ModelSerializer):
-        
-    class Meta:
-        model = OpenAccess
-        fields = '__all__'        
-
 
 class PlatformSerializer(serializers.ModelSerializer):
         

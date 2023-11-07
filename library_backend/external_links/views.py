@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import *
 
-from databases.serializers import ELearning,ELearningSerializer
+from databases.serializers import ELearning,ELearningSerializer,OpenAccess
 
 # Create your views here.
 
@@ -16,6 +16,8 @@ class ExternalLinksListAPI(generics.ListAPIView):
             return ELearningSerializer
         elif link_type == "Platform":
             return PlatformSerializer
+        elif link_type == "OpenAccess":
+                return OpenAccessSerializer
         else:
             return ExternalLinkSerializer
 
@@ -28,6 +30,8 @@ class ExternalLinksListAPI(generics.ListAPIView):
                 links = ELearning.objects.all().order_by("site_name")
             elif link_type == "Platform":
                 links = Platform.objects.all().order_by("name")
+            elif link_type == "OpenAccess":
+                links = OpenAccess.objects.all().order_by("name")
             else:
                 links = links.filter(link_type = link_type)
         return links
