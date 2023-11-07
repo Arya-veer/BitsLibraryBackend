@@ -50,7 +50,7 @@ class NewArrivalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewArrival
-        fields = ('site_name','url','site_type')
+        fields = ('site_name','url','site_type','image',)
 
     def get_image(self,obj):
         return None
