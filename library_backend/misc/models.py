@@ -142,12 +142,17 @@ class Revalidate(models.Model):
             "url":self.url,
             "api_key":FRONTEND_API_KEY
         }
-        response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",json=data)
-        print(response.content)
-        if response.status_code == 200:
-            self.done = True
-        else:
+        try:
+            response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",json=data)
+            print(response.content)
+            if response.status_code == 200:
+                self.done = True
+            else:
+                self.done = False
+        except Exception as e:
+            # print(e)
             self.done = False
+        
         self.timestamp = timezone.now()
     
     def __str__(self) -> str:

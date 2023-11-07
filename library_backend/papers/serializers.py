@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Course, Paper
+from .models import Course, Paper, TextBook
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,3 +29,11 @@ class PaperSerializer(serializers.ModelSerializer):
             data['type'] = 'Comprehensive'
         
         return data
+    
+
+class TextBookSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TextBook
+        exclude = ('course','id')
+    

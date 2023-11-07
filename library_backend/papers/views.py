@@ -3,9 +3,9 @@ from django.shortcuts import render
 from rest_framework import generics,views,status
 # Create your views here.
 
-from .models import Course, Paper
+from .models import Course, Paper,TextBook
 
-from .serializers import CourseSerializer, PaperSerializer
+from .serializers import CourseSerializer, PaperSerializer,TextBookSerializer
 
 class CourseList(generics.ListAPIView):
     queryset = Course.objects.all()
@@ -46,3 +46,11 @@ class YearListAPI(views.APIView):
             qs = qs.filter(exam=exam)
         years = qs.values_list('year',flat=True).distinct()
         return views.Response(years,status=status.HTTP_200_OK)
+    
+
+class TextBookListAPI(generics.ListAPIView):
+
+    serializer_class = TextBookSerializer
+
+    def get_queryset(self):
+        return TextBook.objects.filter(course__course_id = self.request.query_params.get('course_id',None))

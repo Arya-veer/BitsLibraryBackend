@@ -30,3 +30,17 @@ class Paper(AbstractBaseModel):
     
     def __str__(self):
         return f"{self.course.course_id} {self.semester} {self.year}"
+
+
+class TextBook(models.Model):
+    title = models.CharField(max_length=200,blank=True)
+    extra_data = models.JSONField(default=dict,blank=True,null=True)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='textbooks',null = True)
+    url = models.URLField(max_length=200,blank=True,null=True)
+
+    class Meta:
+        verbose_name = "TextBook"
+        verbose_name_plural = "TextBooks"
+    
+    def __str__(self):
+        return f"{self.title} ({self.course.course_id})"

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Course, Paper
+from .models import Course, Paper,TextBook
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -19,3 +19,11 @@ class PaperAdmin(admin.ModelAdmin):
     @admin.action(description="Hide selected papers")
     def hide_papers(modeladmin, request, queryset):
         queryset.update(hide = True)
+
+
+@admin.register(TextBook)
+class TextBookAdmin(admin.ModelAdmin):
+    list_display = ('title','course')
+    list_filter = ('course',)
+    search_fields = ('title','course__name','course__course_id')
+    autocomplete_fields = ('course',)
