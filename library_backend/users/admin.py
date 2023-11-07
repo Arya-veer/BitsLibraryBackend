@@ -75,9 +75,8 @@ class ArticleBookRequestAdmin(admin.ModelAdmin):
 
 @admin.register(FreeBook)
 class FreeBookAdmin(admin.ModelAdmin):
-    list_display = ("title","author","status")
+    list_display = ("title","author",)
     search_fields = ("title","author")
-    list_filter = ("status",)
     ordering = ("-id",)
     formfield_overrides = {
             models.JSONField: {'widget': JSONEditorWidget},
