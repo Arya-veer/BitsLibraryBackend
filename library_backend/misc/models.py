@@ -36,6 +36,7 @@ URL_MAP = {
     "Platform":["/eresources/ebooks","/links/[type]"],
     "OpenAccess":["/links/[type]",],
     "LinkSite":["/links/[type]",],
+    "NewArrival":["/links/[type]",],
 
 }
 
