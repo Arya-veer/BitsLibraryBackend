@@ -33,17 +33,15 @@ class OpenAccessSerializer(serializers.ModelSerializer):
     site_name = serializers.CharField(source="name")
     url = serializers.CharField(source="link")
     image = serializers.SerializerMethodField()
-    site_type = serializers.SerializerMethodField()
+    # site_type = serializers.SerializerMethodField()
 
     class Meta:
         model = OpenAccess
-        fields = ('site_name','url','image','site_type')
+        fields = ('site_name','url','image',)
 
     def get_image(self,obj):
         return None
 
-    def get_site_type(self,obj):
-        return None
 
 class InflibnetLinkSerializer(serializers.ModelSerializer):
 
