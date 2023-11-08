@@ -98,7 +98,7 @@ class LibraryCommitteeMember(AbstractBaseModel):
 
 class LibraryTeam(AbstractBaseModel):
     description = models.TextField(blank=True)
-    is_current = models.BooleanField(default=True,unique=True)
+    is_current = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return f"{self.description}"

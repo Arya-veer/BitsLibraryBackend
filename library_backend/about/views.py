@@ -42,8 +42,9 @@ class LibraryTeamAPI(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
 
     def get_object(self):
-        curr = LibraryTeam.objects.get(is_current = True)
-        return curr
+        if 'campus' not in self.request.query_params:
+            return LibraryTeam.objects.get(description = "Pilani Team")        
+        return LibraryTeam.objects.get(description = f"{self.request.query_params['campus']} Team")
 
 
 
