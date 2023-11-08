@@ -31,3 +31,16 @@ class EventAdmin(admin.ModelAdmin):
 class NewsAdmin(admin.ModelAdmin):
     list_display = ("title","date")
     search_fields = ("title","date")
+
+
+@admin.register(BookMarquee)
+class BookMarqueeAdmin(admin.ModelAdmin):
+    list_display = ("title","date")
+    search_fields = ("title","date")
+    list_filter = ("date","is_set")
+    actions = ["unset_marquee"]
+
+    # admin action to unset all selected marquee
+    @admin.action(description="Unset selected Image")
+    def unset_marquee(self,request,queryset):
+        queryset.update(is_set=False)

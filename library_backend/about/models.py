@@ -162,3 +162,16 @@ class News(AbstractBaseModel):
     class Meta:
         verbose_name = "News"
         verbose_name_plural = "News"
+
+
+class BookMarquee(AbstractBaseModel):
+    isbn = models.CharField(max_length=20)
+    is_set = models.BooleanField(default=True)
+    uploaded_on = models.DateField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Book Marquee"
+        verbose_name_plural = "Book Marquees"
+    
+    def __str__(self) -> str:
+        return f"{self.isbn} - {self.is_set}"

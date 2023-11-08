@@ -116,3 +116,9 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = "__all__"
 
+
+class BookMarqueeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BookMarquee
+        fields = ['isbn','id']

@@ -88,3 +88,8 @@ class NewsAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = NewsSerializer
     queryset = News.objects.filter(is_set = True)
+
+class BookMarqueeAPI(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = BookMarqueeSerializer
+    queryset = BookMarquee.objects.filter(is_set = True)
