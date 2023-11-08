@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django_json_widget.widgets import JSONEditorWidget
 from .models import *
+
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 # Register your models here.
 admin.site.register(LibraryOverview)
 admin.site.register(LibraryCollection)
@@ -32,14 +35,30 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = ("title","date")
     search_fields = ("title","date")
 
+class BookMarqueeResource(resources.ModelResource):
+
+    class Meta:
+        model = BookMarquee
+        fields = ['isbn']
+        import_id_fields = ['isbn']
+        # export_order = ['isbn','uploaded_on','is_set']
+        skip_unchanged = True
+        report_skipped = True
+        exclude = ("id",)
+        skip_html_diff= True
+    
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        BookMarquee.objects.all().update(is_set=False)
+        return super().before_import(dataset, using_transactions, dry_run, **kwargs)
+
 
 @admin.register(BookMarquee)
-class BookMarqueeAdmin(admin.ModelAdmin):
-    list_display = ("title","date")
-    search_fields = ("title","date")
-    list_filter = ("date","is_set")
+class BookMarqueeAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ("isbn","uploaded_on")
+    search_fields = ("isbn","uploaded_on")
+    list_filter = ("uploaded_on","is_set")
     actions = ["unset_marquee"]
-
+    resource_class = BookMarqueeResource
     # admin action to unset all selected marquee
     @admin.action(description="Unset selected Image")
     def unset_marquee(self,request,queryset):
