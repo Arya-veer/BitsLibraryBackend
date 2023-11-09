@@ -163,4 +163,22 @@ class Revalidate(models.Model):
         self.revalidate()
         super().save(*args, **kwargs)
     
-        
+
+
+class WebsiteText(models.Model):
+
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    revalidate_url = models.CharField(max_length=200,unique=True)
+
+    class Meta:
+        verbose_name = "Website Text"
+        verbose_name_plural = "Website Texts"
+    
+    def __str__(self) -> str:
+        return self.title
+    
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+        Revalidate.add(self.revalidate_url)

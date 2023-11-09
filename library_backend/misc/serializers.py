@@ -20,4 +20,10 @@ class FeedbackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Feedback
+
+
+class WebsiteTextSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WebsiteText
         fields = "__all__"

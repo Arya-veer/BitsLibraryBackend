@@ -20,3 +20,8 @@ class FreqAskedQuestionsListAPI(generics.ListAPIView):
 class FeedbackListCreateAPI(generics.ListCreateAPIView):
     serializer_class = FeedbackSerializer
     queryset = Feedback.objects.filter(show = True).order_by('-created_at')
+
+class WebsiteTextRetrieveAPI(generics.RetrieveAPIView):
+    serializer_class = WebsiteTextSerializer
+    queryset = WebsiteText.objects.all()
+    lookup_field = 'title'

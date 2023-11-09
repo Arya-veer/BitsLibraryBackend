@@ -42,3 +42,9 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_display = ("object_repr","action_flag","user","change_message","content_type","action_time")
     list_filter = ("action_flag","user","content_type","action_time")
     search_fields = ("object_repr","change_message")
+
+
+@admin.register(WebsiteText)
+class WebsiteTextAdmin(admin.ModelAdmin):
+    list_display = ("title","text")
+    search_fields = ("title",)
