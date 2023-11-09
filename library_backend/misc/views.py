@@ -24,4 +24,4 @@ class FeedbackListCreateAPI(generics.ListCreateAPIView):
 class WebsiteTextRetrieveAPI(generics.RetrieveAPIView):
     serializer_class = WebsiteTextSerializer
     queryset = WebsiteText.objects.all()
-    lookup_field = 'title'
+    lookup_field = 'static_id'
