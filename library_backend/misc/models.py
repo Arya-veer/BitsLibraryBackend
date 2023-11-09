@@ -1,7 +1,7 @@
 from typing import Any
 from django.db import models
 from django.utils import timezone
-
+import uuid
 import requests
 from library_backend.settings import FRONTEND_BASE_URL
 from library_backend.keyconfig import FRONTEND_API_KEY
@@ -11,8 +11,9 @@ from library_backend.keyconfig import FRONTEND_API_KEY
 URL_MAP = {
     "FreqAskedQuestion":["/misc/faq",],
     "Feedback":["/misc/feedback",],
-    "Course":["/services/pyq","/services/pyq/[course]"],
+    "Course":["/services/pyq","/services/pyq/[course]","/services/textbooks","/services/textbooks/[course]"],
     "Paper":["/services/pyq/[course]",],
+    "TextBook":["/services/textbooks/[course]",],
     "LibraryCollection":["/"],
     "LibraryCollectionData":["/"],
     "LibraryRulesAndRegulation":["/about/rules",],
@@ -37,6 +38,8 @@ URL_MAP = {
     "OpenAccess":["/links/[type]",],
     "LinkSite":["/links/[type]",],
     "NewArrival":["/links/[type]",],
+    "BookMarquee":["/",],
+
 
 }
 
@@ -166,10 +169,10 @@ class Revalidate(models.Model):
 
 
 class WebsiteText(models.Model):
-
+    static_id = models.UUIDField(unique=True,default=uuid.uuid4)
     title = models.CharField(max_length=100)
     text = models.TextField()
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now=True)
     revalidate_url = models.CharField(max_length=200,unique=True)
 
     class Meta:

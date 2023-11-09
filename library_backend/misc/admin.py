@@ -46,5 +46,6 @@ class LogEntryAdmin(admin.ModelAdmin):
 
 @admin.register(WebsiteText)
 class WebsiteTextAdmin(admin.ModelAdmin):
-    list_display = ("title","text")
+    list_display = ("title","static_id")
     search_fields = ("title",)
+    readonly_fields = ("static_id",)

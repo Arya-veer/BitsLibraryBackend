@@ -26,4 +26,4 @@ class WebsiteTextSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WebsiteText
-        fields = "__all__"
+        fields = ("title","text")

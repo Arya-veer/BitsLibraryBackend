@@ -19,7 +19,7 @@ class UserProfile(models.Model):
 def item_path(instance,filename):
     return f"items/{instance.name}_{filename}"
 
-class Item(models.Model):
+class Item(AbstractBaseModel):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     dt = models.DateTimeField(default=timezone.now)
@@ -56,7 +56,7 @@ class ArticleBookRequest(models.Model):
         verbose_name_plural = "Article Requests"
 
 
-class FreeBook(models.Model):
+class FreeBook(AbstractBaseModel):
 
     fbn = models.IntegerField()
     title = models.CharField(max_length=200)

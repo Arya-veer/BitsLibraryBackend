@@ -32,7 +32,7 @@ class Paper(AbstractBaseModel):
         return f"{self.course.course_id} {self.semester} {self.year}"
 
 
-class TextBook(models.Model):
+class TextBook(AbstractBaseModel):
     title = models.CharField(max_length=200,blank=True)
     extra_data = models.JSONField(default=dict,blank=True,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='textbooks',null = True)
