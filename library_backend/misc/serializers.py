@@ -19,8 +19,8 @@ class FreqAskedQuestionSerializer(serializers.ModelSerializer):
 class FeedbackSerializer(serializers.ModelSerializer):
 
     class Meta:
-        field = "__all__"
         model = Feedback
+        fields = "__all__"
 
 
 class WebsiteTextSerializer(serializers.ModelSerializer):
