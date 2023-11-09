@@ -173,7 +173,7 @@ class WebsiteText(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
-    revalidate_url = models.CharField(max_length=200,unique=True)
+    revalidate_url = models.CharField(max_length=200)
 
     class Meta:
         verbose_name = "Website Text"
