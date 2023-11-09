@@ -43,8 +43,8 @@ class LibraryTeamAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         if 'campus' not in self.request.query_params:
-            return LibraryTeam.objects.get(description = "Pilani Team")        
-        return LibraryTeam.objects.get(description = f"{self.request.query_params['campus']} Team")
+            return LibraryTeam.objects.get(description = "Pilani")        
+        return LibraryTeam.objects.get(description = f"{self.request.query_params['campus']}")
 
 
 

@@ -1,6 +1,8 @@
+from typing import Any
 from django.contrib import admin
 
 from django.contrib.admin.models import LogEntry
+from django.http.request import HttpRequest
 
 # Register your models here.
 from .models import *
@@ -48,4 +50,10 @@ class LogEntryAdmin(admin.ModelAdmin):
 class WebsiteTextAdmin(admin.ModelAdmin):
     list_display = ("title","static_id")
     search_fields = ("title",)
-    readonly_fields = ("static_id",)
+    # readonly_fields = ("static_id",)
+
+    def get_readonly_fields(self, request,obj):
+        rof = ['static_id']
+        if obj:
+            rof.append('title')
+        return rof
