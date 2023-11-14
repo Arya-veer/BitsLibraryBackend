@@ -1,7 +1,7 @@
 from typing import Any
 from django.db import models,transaction
 # Create your models here.
-from datetime import timedelta
+from datetime import timedelta,datetime
 from misc.models import AbstractBaseModel
 
 from users.models import UserProfile
@@ -10,7 +10,7 @@ from django.utils import timezone
 
 class Facility(models.Model):
     name = models.CharField(max_length=60,blank=True,primary_key=True)
-
+    cost_per_minute = models.IntegerField(default=0)
     class Meta:
         verbose_name = "Facility"
         verbose_name_plural = "Facilities"
@@ -24,6 +24,7 @@ class Room(models.Model):
     available_facilities = models.ManyToManyField(Facility)
     image = models.ImageField(null=True,upload_to='room_images')
     description = models.TextField(blank=True)
+
 
     def __str__(self) -> str:
         return self.name
@@ -64,6 +65,14 @@ class Booking(models.Model):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.prev_status = self.status
+    
+    def get_amount(self):
+        """Gets difference of start and end time in minutes and multiplies it with cost per minute of each facility from requirements"""
+        total_cost_per_minute = 0
+        minutes = (datetime.combine(datetime.today(),self.roomslot.slot.endtime) - datetime.combine(datetime.today(),self.roomslot.slot.starttime)).total_seconds()/60
+        for facility in self.requirements:
+            total_cost_per_minute += Facility.objects.get(name = facility).cost_per_minute
+        return total_cost_per_minute * minutes
     
     def save(self,*args, **kwargs):
         if self._state.adding:
