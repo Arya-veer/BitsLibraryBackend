@@ -24,11 +24,11 @@ class ItemSerializer(serializers.ModelSerializer):
         if profile.claims.filter(item=obj,is_approved=True).exists():
             return "Approved"
         elif profile.claims.filter(item=obj,is_approved=False).exists():
-            if Claim.objects.filter(item=obj,is_approved=True).exists():
-                return "Rejected"
             return "Pending"
-        else:
+        elif not Claim.objects.filter(item = obj,user = profile).exists():
             return "Not Claimed"
+        else:
+            return "Rejected"
             
 
 class ClaimSerializer(serializers.ModelSerializer):
