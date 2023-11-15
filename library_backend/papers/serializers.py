@@ -36,4 +36,10 @@ class TextBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = TextBook
         exclude = ('course','id')
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if 'year' in data['extra_data'] and '.' in data['extra_data']['year']:
+            data['extra_data']['year'] = data['extra_data']['year'].split('.')[0]
+        return data
     
