@@ -14,6 +14,7 @@ class CourseList(generics.ListAPIView):
 
     def get_queryset(self):
         qs = super().get_queryset()
+        qs = qs.filter(id__in = Paper.objects.all().values_list('course',flat=True))
         search = self.request.query_params.get('search',None)
         if search is not None:
             qs = qs.filter(name__icontains=search) | qs.filter(course_id__icontains=search)
