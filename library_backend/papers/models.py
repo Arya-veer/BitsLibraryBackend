@@ -27,6 +27,7 @@ class Paper(AbstractBaseModel):
     course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='papers',null = True)
     file = models.FileField(upload_to=paper_path,blank=True,null=True)
     hide = models.BooleanField(default=False)
+    campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='papers',default='Pilani')
 
     class Meta:
         verbose_name = "Paper"
