@@ -11,19 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='BITSCampus',
-            fields=[
-                ('name', models.CharField(max_length=60, primary_key=True, serialize=False)),
-            ],
-            options={
-                'verbose_name': 'BITS Campus',
-                'verbose_name_plural': 'BITS Campuses',
-            },
-        ),
         migrations.AddField(
             model_name='course',
             name='campus',
-            field=models.ForeignKey(default='Pilani', on_delete=django.db.models.deletion.CASCADE, related_name='courses', to='papers.bitscampus'),
+            field=models.ForeignKey(default='Pilani', on_delete=django.db.models.deletion.CASCADE, related_name='courses', to='databases.campus'),
         ),
     ]

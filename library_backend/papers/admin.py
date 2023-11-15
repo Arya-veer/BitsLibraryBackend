@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Course, Paper,TextBook,BITSCampus
+from .models import Course, Paper,TextBook
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -28,8 +28,3 @@ class TextBookAdmin(admin.ModelAdmin):
     search_fields = ('title','course__name','course__course_id')
     autocomplete_fields = ('course',)
 
-
-@admin.register(BITSCampus)
-class BITSCampusAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)

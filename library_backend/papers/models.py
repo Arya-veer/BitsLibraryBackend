@@ -1,21 +1,13 @@
 from django.db import models
+from databases.models import Campus
 from misc.models import AbstractBaseModel
 # Create your models here.
 
-class BITSCampus(AbstractBaseModel):
-    name = models.CharField(max_length=60,primary_key=True)
-
-    class Meta:
-        verbose_name = "BITS Campus"
-        verbose_name_plural = "BITS Campuses"
-    
-    def __str__(self) -> str:
-        return self.name
 
 class Course(AbstractBaseModel):
     name = models.CharField(max_length=60,blank=True)
     course_id = models.CharField(max_length=60,blank=True)
-    # campus = models.ForeignKey(BITSCampus,on_delete=models.CASCADE,related_name='courses',default='Pilani')
+    campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='courses',default='Pilani')
 
     class Meta:
         verbose_name = "Course"
