@@ -27,6 +27,8 @@ class PaperList(generics.ListAPIView):
 
     def get_queryset(self):
         qs = Paper.objects.all()
+        campus = self.request.query_params.get('campus','Pilani')
+        qs = qs.filter(campus__name=campus)
         course_id = self.request.query_params.get('course_id',None)
         exam = self.request.query_params.get('exam',None)
         year = self.request.query_params.get('year',None)
