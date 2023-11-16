@@ -8,10 +8,21 @@ from django.db.models.functions import Length
 
 
 class DatabaseSerializer(serializers.ModelSerializer):
+
+    user_guide = serializers.SerializerMethodField()
+
     class Meta:
         model = Database
-        exclude = ('campus','is_trial')
+        exclude = ('campus','is_trial','user_guide_file','user_guide_url')
+    
 
+    def get_user_guide(self,obj):
+        if obj.user_guide_file:
+            return self.context['request'].build_absolute_uri(obj.user_guide_file.url)
+        elif obj.user_guide_url:
+            return obj.user_guide_url
+        else:
+            return None
 
 class CampusSerializer(serializers.ModelSerializer):
 

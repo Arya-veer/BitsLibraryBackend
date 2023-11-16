@@ -22,7 +22,8 @@ class Database(AbstractBaseModel):
     link = models.URLField(max_length=200,null=True,blank=True)
     description = models.TextField(blank=True)
     is_trial = models.BooleanField(default=False)
-    user_guide = models.FileField(upload_to='database_user_guides',blank=True,null=True)
+    user_guide_file = models.FileField(upload_to='database_user_guides',blank=True,null=True)
+    user_guide_url = models.URLField(max_length=200,null=True,blank=True)
 
     class Meta:
         verbose_name = "Database"
