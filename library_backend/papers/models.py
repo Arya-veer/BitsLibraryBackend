@@ -24,10 +24,14 @@ def paper_path(instance, filename):
 class Paper(AbstractBaseModel):
     semester = models.CharField(max_length=60,blank=True,choices=[('First','First'),('Second','Second')])
     year = models.IntegerField(blank=True)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='papers',null = True)
+    course = models.ForeignKey(Course,on_delete=models.PROTECT,related_name='papers',null = True)
     file = models.FileField(upload_to=paper_path,blank=True,null=True)
     hide = models.BooleanField(default=False)
-    campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='papers',default='Pilani')
+    campus = models.ForeignKey(Campus,on_delete=models.PROTECT,related_name='papers',default='Pilani')
+
+    def delete(self, *args, **kwargs):
+        self.hide = True
+        self.save()
 
     class Meta:
         verbose_name = "Paper"

@@ -28,6 +28,9 @@ class PaperList(generics.ListAPIView):
 
     def get_queryset(self):
         qs = Paper.objects.all()
+        hidden = self.request.query_params.get('hidden',None)
+        if hidden is None:
+            qs = qs.filter(hide=False)
         campus = self.request.query_params.get('campus',None)
         if campus is not None:
             qs = qs.filter(campus__name=campus)
