@@ -163,6 +163,8 @@ class Revalidate(models.Model):
     
     
     def save(self, *args, **kwargs) -> None:
+        if self.url[0] != "/":
+            self.url = "/" + self.url
         self.revalidate()
         super().save(*args, **kwargs)
     
