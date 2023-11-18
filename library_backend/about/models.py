@@ -132,7 +132,7 @@ class LibraryBrochure(AbstractBaseModel):
 
 class LibraryWebsiteUserGuide(AbstractBaseModel):
     uploaded_on = models.DateTimeField(default=timezone.now)
-    file = models.FileField(max_length=200,upload_to='brochure')
+    file = models.FileField(max_length=200,upload_to='user_guide')
     is_set = models.BooleanField(default=True)
 
     def __str__(self) -> str:
