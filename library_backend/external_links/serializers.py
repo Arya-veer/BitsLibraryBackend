@@ -23,11 +23,20 @@ class PlatformSerializer(serializers.ModelSerializer):
     site_name = serializers.CharField(source="name")
     url = serializers.CharField(source="link")
     # image = serializers.ImageField(source="image")
+    user_guide = serializers.SerializerMethodField()
     site_type = serializers.CharField(source="campus.name")
 
     class Meta:
         model = Platform
-        fields = ('site_name','url','image','site_type')
+        fields = ('site_name','url','image','site_type','user_guide')
+    
+    def get_user_guide(self,obj):
+        if obj.user_guide_file:
+            return self.context['request'].build_absolute_uri(obj.user_guide_file.url)
+        elif obj.user_guide_url:
+            return obj.user_guide_url
+        else:
+            return None
 
 class OpenAccessSerializer(serializers.ModelSerializer):
     site_name = serializers.CharField(source="name")
