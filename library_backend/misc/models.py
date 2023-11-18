@@ -136,6 +136,8 @@ class Revalidate(models.Model):
 
     @classmethod
     def add(cls,url):
+        if url[0] != "/":
+            url = "/" + url
         obj,created = cls.objects.get_or_create(url=url)
         if not created:
             obj.save()
@@ -163,8 +165,7 @@ class Revalidate(models.Model):
     
     
     def save(self, *args, **kwargs) -> None:
-        if self.url[0] != "/":
-            self.url = "/" + self.url
+        
         self.revalidate()
         super().save(*args, **kwargs)
     
