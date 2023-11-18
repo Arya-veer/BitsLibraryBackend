@@ -136,6 +136,8 @@ class Platform(AbstractBaseModel):
     link = models.URLField(max_length=200,null=True,blank=True)
     image = models.ImageField(upload_to='platform_images',blank=True,null=True)
     campus = models.ForeignKey(Campus,on_delete=models.CASCADE,related_name='platforms',null = True)
+    user_guide_file = models.FileField(upload_to='database_user_guides',blank=True,null=True)
+    user_guide_url = models.URLField(max_length=200,null=True,blank=True)
 
     class Meta:
         verbose_name = "Platform"

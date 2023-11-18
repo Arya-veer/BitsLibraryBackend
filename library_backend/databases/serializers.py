@@ -110,7 +110,16 @@ class ELearningSerializer(serializers.ModelSerializer):
 
 
 class PlatformSerializer(serializers.ModelSerializer):
-        
+    user_guide = serializers.SerializerMethodField()
     class Meta:
         model = Platform
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('user_guide_file','user_guide_url')
+    
+    def get_user_guide(self,obj):
+        if obj.user_guide_file:
+            return self.context['request'].build_absolute_uri(obj.user_guide_file.url)
+        elif obj.user_guide_url:
+            return obj.user_guide_url
+        else:
+            return None

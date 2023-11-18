@@ -47,6 +47,7 @@ class ArticleBookRequest(models.Model):
     extra_data = models.JSONField(default=dict)
     type_doc = models.CharField(max_length=200,default="Article",choices=(("Article","Article"),("Book","Book")))
     status = models.CharField(max_length=200,default="Pending",choices=(("Pending","Pending"),("Approved","Approved"),("Rejected","Rejected")))
+    # remarks = models.TextField(blank=True)
 
     def __str__(self) -> str:
         return f"{self.user} - {self.title}"
