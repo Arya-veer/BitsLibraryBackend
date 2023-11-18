@@ -56,8 +56,6 @@ class RoomVacancyCheckAPI(views.APIView):
 class BookRoomAPI(views.APIView):
     permission_classes = (IsAuthenticated,)
 
-    
-
     @csrf_exempt
     def post(self,request):
         requirements = request.data.getlist('requirements')
@@ -98,7 +96,7 @@ class BookRoomAPI(views.APIView):
         try:
             if Booking.objects.filter(date = data['date'],booker = request.user.profile,roomslot__room = room,status__in = ["Pending","Approved"]).exists():
                 return Response({"error":"You have already applied for this room's booking! Check status on dashboard"},status=status.HTTP_400_BAD_REQUEST)
-            if Booking.objects.filter(date = data['date'],status = "Approved",roomslot = rs).exists():
+            if Booking.objects.filter(date = data['date'],roomslot = rs).exists():
                 return Response({"error":"This room is already booked at the selected time on selected date"},status=status.HTTP_400_BAD_REQUEST)
             requirements = data.pop('requirements')
             if type(requirements) == list:
