@@ -35,4 +35,4 @@ if settings.DEBUG:
 
 admin.site.site_header = 'Library Website Administration'
 admin.site.index_title = 'Library Database'                 # default: "Site administration"
-admin.site.site_title = 'Library Backend Database'
+admin.site.site_title = 'Library Website Database'

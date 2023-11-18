@@ -22,7 +22,9 @@ class UserProfileResource(resources.ModelResource):
         print(row_number)
         return super().before_import_row(row, row_number=row_number, **kwargs)
     
-        
+    def import_row(self, row, instance_loader, using_transactions=True, dry_run=False, raise_errors=None, **kwargs):
+        # return super().import_row(row, instance_loader, using_transactions, dry_run, raise_errors, **kwargs)
+        print(row)
     
     class Meta:
         model = UserProfile
@@ -33,6 +35,8 @@ class UserProfileResource(resources.ModelResource):
         report_skipped = True
         exclude = ("id",)
         skip_html_diff= True
+
+    
         
 
 

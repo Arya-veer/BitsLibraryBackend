@@ -4,6 +4,12 @@ from .models import *
 
 import datetime
 
+class FacilitySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Facility
+        fields = "__all__"
+
 class RoomListSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -27,6 +33,7 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 
     slots = serializers.SerializerMethodField()
     user_has_phone_number = serializers.SerializerMethodField()
+    available_facilities = FacilitySerializer(many=True)
 
     class Meta:
         model = Room
