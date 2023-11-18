@@ -8,6 +8,7 @@ urlpatterns = [
     path("committee/",LibraryCommitteeAPI.as_view()),
     path("team/",LibraryTeamAPI.as_view()),
     path("brochure/",LibraryBrochureAPI.as_view()),
+    path("user_guide/",LibraryBrochureAPI.as_view()),
     path("timings/",LibraryTimingsAPI.as_view()),
     path("desk/",LibrarianDeskAPI.as_view()),
     path("events/",EventListAPI.as_view()),

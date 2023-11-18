@@ -134,7 +134,7 @@ class TestBookingAPI(views.APIView):
         booking = Booking.objects.filter(date = request.data['date'],status = "Approved",roomslot = rs)
         if booking.exists():
             booking.update(status = "Cancelled")
-        Booking.objects.create(booker = UserProfile.objects.get(uid = request.data.get('uid')),roomslot = rs,date = request.data['date'],no_of_participants = rs.room.capacity)  
+        Booking.objects.create(booker = UserProfile.objects.get(uid = request.data.get('uid')),roomslot = rs,date = request.data['date'],no_of_participants = rs.room.max_capacity)  
         return Response({"message":"Booking has been done successfully"},status=status.HTTP_200_OK)    
 
 

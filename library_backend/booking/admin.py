@@ -21,8 +21,8 @@ class FacilityAdmin(admin.ModelAdmin):
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('name','capacity')
-    list_filter = ('capacity',)
+    list_display = ('name','min_capacity','max_capacity')
+    list_filter = ('min_capacity','max_capacity',)
     search_fields = ('name',)
     autocomplete_fields = ('available_facilities',)
     formfield_overrides = {

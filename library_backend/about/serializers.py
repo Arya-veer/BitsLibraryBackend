@@ -96,6 +96,11 @@ class LibraryBrochureSerializer(serializers.ModelSerializer):
         model = LibraryBrochure
         fields = "__all__"
 
+class LibraryWebsiteUserGuideSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LibraryWebsiteUserGuide
+        fields = "__all__"
 
 class LibraryTimingsSerializer(serializers.ModelSerializer):
 

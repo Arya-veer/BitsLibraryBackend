@@ -20,7 +20,8 @@ class Facility(models.Model):
 
 class Room(models.Model):
     name = models.CharField("Room Name",max_length=60,blank=True)
-    capacity = models.IntegerField("Room Capacity",null=True)
+    min_capacity = models.IntegerField("Min Room Capacity",null=True)
+    max_capacity = models.IntegerField("Max Room Capacity",null=True)
     available_facilities = models.ManyToManyField(Facility)
     image = models.ImageField(null=True,upload_to='room_images')
     description = models.TextField(blank=True)
@@ -76,8 +77,10 @@ class Booking(models.Model):
     
     def save(self,*args, **kwargs):
         if self._state.adding:
-            if self.no_of_participants > self.roomslot.room.capacity:
-                raise Exception(f"Only {self.roomslot.room.capacity} participants are allowed")
+            if self.no_of_participants > self.roomslot.room.max_capacity:
+                raise Exception(f"Maximum {self.roomslot.room.max_capacity} participants are allowed")
+            if self.no_of_participants < self.roomslot.room.min_capacity:
+                raise Exception(f"Minimum {self.roomslot.room.min_capacity} participants are allowed")
             if Booking.objects.filter(date = self.date,booker = self.booker,roomslot__room = self.roomslot.room,status = "Approved").exists():
                 raise Exception(f"You have already booked {self.roomslot.room} for {self.roomslot.slot} slot today")
             if Booking.objects.filter(date = self.date,roomslot = self.roomslot,status = "Approved").exists():

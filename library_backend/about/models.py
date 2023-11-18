@@ -130,6 +130,14 @@ class LibraryBrochure(AbstractBaseModel):
     def __str__(self) -> str:
         return super().__str__()
 
+class LibraryWebsiteUserGuide(AbstractBaseModel):
+    uploaded_on = models.DateTimeField(default=timezone.now)
+    file = models.FileField(max_length=200,upload_to='brochure')
+    is_set = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return super().__str__()
+
 class LibraryTiming(AbstractBaseModel):
     uploaded_on = models.DateTimeField(default=timezone.now)
     imgae = models.ImageField(max_length=200,upload_to='timings')
