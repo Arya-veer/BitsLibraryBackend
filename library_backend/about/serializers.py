@@ -143,8 +143,10 @@ class NewsSerializer(serializers.ModelSerializer):
             return None
 
     def get_title(self,obj):
-        return f"{obj.title} - {obj.source}"
-
+        if obj.source:
+            return f"{obj.title} - {obj.source}"
+        else:
+            return obj.title
 class BookMarqueeSerializer(serializers.ModelSerializer):
 
     class Meta:
