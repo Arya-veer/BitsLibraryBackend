@@ -9,7 +9,7 @@ urlpatterns = [
     path("team/",LibraryTeamAPI.as_view()),
     path("brochure/",LibraryBrochureAPI.as_view()),
     path("user_guide/",LibraryWebsiteUserGuideAPI.as_view()),
-    path("Calendars/",LibraryCalendarsAPI.as_view()),
+    path("calendar/",LibraryCalendarsAPI.as_view()),
     path("desk/",LibrarianDeskAPI.as_view()),
     path("events/",EventListAPI.as_view()),
     path("news/",NewsAPI.as_view()),
