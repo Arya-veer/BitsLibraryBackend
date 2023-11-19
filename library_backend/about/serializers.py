@@ -152,3 +152,33 @@ class BookMarqueeSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookMarquee
         fields = ['isbn','id']
+
+class LibraryTimingSerializer(serializers.ModelSerializer):
+
+    opening_time = serializers.SerializerMethodField()
+    closing_time = serializers.SerializerMethodField()
+    is_currently_open = serializers.SerializerMethodField()
+    class Meta:
+        model = LibraryTiming
+        fields = "__all__"
+    
+    def get_opening_time(self,obj):
+        if self.context['timings']:
+            return obj.opening_time.strftime("%I:%M %p")
+        return "Not available for today"
+    def get_closing_time(self,obj):
+        if self.context['timings']:
+            return obj.closing_time.strftime("%I:%M %p")
+        return "Not available for today"
+
+    def get_is_currently_open(self,obj):
+        if self.context['timings'] == False:
+            return None
+        if not obj.is_open:
+            return False
+        current_time = timezone.now().time()
+        if current_time >= obj.opening_time and current_time <= obj.closing_time:
+            return True
+        else:
+            return False
+    

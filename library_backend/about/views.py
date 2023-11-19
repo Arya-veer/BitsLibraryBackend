@@ -105,3 +105,18 @@ class BookMarqueeAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = BookMarqueeSerializer
     queryset = BookMarquee.objects.filter(is_set = True)
+
+
+class LibraryTimingsAPI(views.APIView):
+
+
+    def get(self,request):
+        current_date = timezone.now().date()
+        timings = LibraryTiming.objects.filter(startdate__lte = current_date,enddate__gte = current_date)
+        if timings.exists():
+            return Response(LibraryTimingSerializer(timings.first(),context = {"timings":True}).data,status=status.HTTP_200_OK)
+        current_day = current_date.weekday()
+        timings = LibraryTiming.objects.filter(startdate__week_day = current_day)
+        if timings.exists():
+            return Response(LibraryTimingSerializer(timings.first(),context = {"timings":True}).data,status=status.HTTP_200_OK)
+        return Response(LibraryTimingSerializer(LibraryTiming.objects.first(),context = {"timings":False}).data,status=status.HTTP_200_OK)  

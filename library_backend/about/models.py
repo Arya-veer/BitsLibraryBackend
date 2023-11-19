@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.utils import timezone
 
@@ -188,3 +189,23 @@ class BookMarquee(AbstractBaseModel):
     
     def __str__(self) -> str:
         return f"{self.isbn} - {self.is_set}"
+    
+
+class LibraryTiming(models.Model):
+    startdate = models.DateField()
+    enddate = models.DateField()
+    opening_time = models.TimeField()
+    closing_time = models.TimeField()
+    is_open = models.BooleanField(default=True)
+    is_holiday = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Library Timing"
+        verbose_name_plural = "Library Timings"
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        
+    
+    def __str__(self) -> str:
+        return f"{self.date} - {self.is_open}"

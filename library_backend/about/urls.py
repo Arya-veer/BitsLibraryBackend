@@ -14,4 +14,5 @@ urlpatterns = [
     path("events/",EventListAPI.as_view()),
     path("news/",NewsAPI.as_view()),
     path("marquee/",BookMarqueeAPI.as_view()),
+    path("timings/",LibraryTimingsAPI.as_view()),
 ]
