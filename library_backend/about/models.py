@@ -208,4 +208,4 @@ class LibraryTiming(models.Model):
         
     
     def __str__(self) -> str:
-        return f"{self.date} - {self.is_open}"
+        return f"{self.startdate} - {self.is_open}"
