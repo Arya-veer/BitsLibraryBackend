@@ -92,8 +92,8 @@ class LibrarianDeskAPI(views.APIView):
 class EventListAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = EventSerializer
-    queryset = Event.objects.filter(is_set = True)
-    ordering = ['-date','-time']
+    queryset = Event.objects.filter(is_set = True).order_by('-date','-time')
+    # ordering = ['-date','-time']
 
 class NewsAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
