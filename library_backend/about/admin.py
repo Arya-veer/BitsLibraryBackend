@@ -81,3 +81,9 @@ class BookMarqueeAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     @admin.action(description="Unset selected Image")
     def unset_marquee(self,request,queryset):
         queryset.update(is_set=False)
+    
+@admin.register(LibraryTiming)
+class LibraryTimingAdmin(admin.ModelAdmin):
+    list_display = ("startdate","enddate","opening_time","closing_time","is_open","is_holiday")
+    search_fields = ("startdate","enddate","opening_time","closing_time","is_open","is_holiday")
+    list_filter = ("is_open","is_holiday")

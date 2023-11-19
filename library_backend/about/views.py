@@ -119,4 +119,5 @@ class LibraryTimingsAPI(views.APIView):
         timings = LibraryTiming.objects.filter(startdate__week_day = current_day)
         if timings.exists():
             return Response(LibraryTimingSerializer(timings.first(),context = {"timings":True}).data,status=status.HTTP_200_OK)
-        return Response(LibraryTimingSerializer(LibraryTiming.objects.first(),context = {"timings":False}).data,status=status.HTTP_200_OK)  
+        lt_dummy = LibraryTiming(startdate = current_date,enddate = current_date,opening_time = "00:00:00",closing_time = "00:00:00")
+        return Response(LibraryTimingSerializer(lt_dummy,context = {"timings":False}).data,status=status.HTTP_200_OK)  
