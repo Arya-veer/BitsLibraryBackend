@@ -148,7 +148,7 @@ class LibraryTiming(AbstractBaseModel):
 
 
 class Event(AbstractBaseModel):
-    title = models.CharField(max_length=100)
+    title = models.TextField()
     description = models.TextField(blank=True)
     date = models.DateField()
     time = models.TimeField()
@@ -161,7 +161,7 @@ class Event(AbstractBaseModel):
         return f"{self.title} - {self.date} - {self.time}"
 
 class News(AbstractBaseModel):
-    title = models.CharField(max_length=100)
+    title = models.TextField()
     description = models.TextField(blank=True)
     date = models.DateField()
     url_link = models.URLField("Link to News",blank=True,max_length=200,null=True)
