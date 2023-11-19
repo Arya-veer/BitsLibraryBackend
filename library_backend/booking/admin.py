@@ -15,7 +15,7 @@ import re
 
 @admin.register(Facility)
 class FacilityAdmin(admin.ModelAdmin):
-    list_display = ('name','cost_per_minute')
+    list_display = ('name','cost')
     search_fields = ('name',)
     ordering = ('name',)
 
