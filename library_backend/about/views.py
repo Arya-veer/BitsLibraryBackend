@@ -98,8 +98,8 @@ class EventListAPI(generics.ListAPIView):
 class NewsAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = NewsSerializer
-    queryset = News.objects.filter(is_set = True)
-    ordering = ['-date']
+    queryset = News.objects.filter(is_set = True).order_by('-date')
+    # ordering = ['-date']
 
 class BookMarqueeAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
