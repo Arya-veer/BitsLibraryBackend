@@ -153,6 +153,8 @@ class Event(AbstractBaseModel):
     date = models.DateField()
     time = models.TimeField()
     venue = models.CharField(max_length=100,blank=True)
+    url_link = models.URLField(blank=True,max_length=200,null=True)
+    url_file = models.FileField(blank=True,max_length=200,upload_to='events',null=True)
     is_set = models.BooleanField(default=True)
 
     def __str__(self) -> str:
@@ -162,7 +164,8 @@ class News(AbstractBaseModel):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     date = models.DateField()
-    url = models.URLField(blank=True,max_length=200)
+    url_link = models.URLField(blank=True,max_length=200,null=True)
+    url_file = models.FileField(blank=True,max_length=200,upload_to='news',null=True)
     is_set = models.BooleanField(default=True)
 
     def __str__(self) -> str:

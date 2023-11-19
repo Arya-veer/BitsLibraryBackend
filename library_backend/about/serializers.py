@@ -111,17 +111,35 @@ class LibraryTimingsSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
 
+    url = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ("url_link","url_file")
+
+    def get_url(self,obj):
+        if obj.url_file:
+            return self.context['request'].build_absolute_uri(obj.url_file.url)
+        elif obj.url_link:
+            return obj.url_link
+        else:
+            return None
+
 
 class NewsSerializer(serializers.ModelSerializer):
-
+    url = serializers.SerializerMethodField()
     class Meta:
         model = News
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ("url_link","url_file")
 
-
+    def get_url(self,obj):
+        if obj.url_file:
+            return self.context['request'].build_absolute_uri(obj.url_file.url)
+        elif obj.url_link:
+            return obj.url_link
+        else:
+            return None
 
 
 
