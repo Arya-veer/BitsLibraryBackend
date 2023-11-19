@@ -177,6 +177,10 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
         if not obj.is_open:
             return False
         current_time = timezone.now().time()
+        print(obj.opening_time)
+        print(obj.closing_time)
+        print("Time now:")
+        print(current_time)
         if current_time >= obj.opening_time and current_time <= obj.closing_time:
             return True
         else:
