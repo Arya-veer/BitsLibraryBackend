@@ -164,8 +164,9 @@ class News(AbstractBaseModel):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     date = models.DateField()
-    url_link = models.URLField(blank=True,max_length=200,null=True)
-    url_file = models.FileField(blank=True,max_length=200,upload_to='news',null=True)
+    url_link = models.URLField("Link to News",blank=True,max_length=200,null=True)
+    url_file = models.FileField("PDF/Image of News",blank=True,max_length=200,upload_to='news',null=True)
+    source = models.CharField(max_length=100,blank=True)
     is_set = models.BooleanField(default=True)
 
     def __str__(self) -> str:

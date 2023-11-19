@@ -128,10 +128,11 @@ class EventSerializer(serializers.ModelSerializer):
 
 class NewsSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
     class Meta:
         model = News
         # fields = "__all__"
-        exclude = ("url_link","url_file")
+        exclude = ("url_link","url_file","source")
 
     def get_url(self,obj):
         if obj.url_file:
@@ -141,7 +142,8 @@ class NewsSerializer(serializers.ModelSerializer):
         else:
             return None
 
-
+    def get_title(self,obj):
+        return f"{obj.title} - {obj.source}"
 
 class BookMarqueeSerializer(serializers.ModelSerializer):
 
