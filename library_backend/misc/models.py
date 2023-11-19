@@ -25,7 +25,7 @@ URL_MAP = {
     "LibraryTeamMember":["/about/committee/team",],
     "LibraryBrochure":["/about/brochure",],
     "LibraryWebsiteUserGuide":["/about/user_guide",],
-    "LibraryTiming":["/about/timings",],
+    "LibraryCalendar":["/about/timings",],
     "Event":["/news/events","/"],
     "News":["/news/news","/"],
     "Campus":["/databases/[campus]","/links/[type]"],

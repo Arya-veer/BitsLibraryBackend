@@ -16,7 +16,7 @@ admin.site.register(LibraryCommitteeMember)
 admin.site.register(LibraryTeamMember)
 admin.site.register(LibraryBrochure)
 admin.site.register(LibraryWebsiteUserGuide)
-admin.site.register(LibraryTiming)
+admin.site.register(LibraryCalendar)
 
 
 @admin.register(LibraryTeam)

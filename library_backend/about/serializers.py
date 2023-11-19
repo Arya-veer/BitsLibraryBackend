@@ -102,10 +102,10 @@ class LibraryWebsiteUserGuideSerializer(serializers.ModelSerializer):
         model = LibraryWebsiteUserGuide
         fields = "__all__"
 
-class LibraryTimingsSerializer(serializers.ModelSerializer):
+class LibraryCalendarsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = LibraryTiming
+        model = LibraryCalendar
         fields = "__all__"
 
 

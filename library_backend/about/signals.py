@@ -24,7 +24,7 @@ def delete_library_brochure_file(sender,instance,**kwargs):
     if instance.file:
         instance.file.delete(False)
 
-@receiver(post_delete,sender = LibraryTiming)
-def delete_library_timing_image(sender,instance,**kwargs):
+@receiver(post_delete,sender = LibraryCalendar)
+def delete_library_Calendar_image(sender,instance,**kwargs):
     if instance.imgae:
         instance.imgae.delete(False)

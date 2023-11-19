@@ -138,9 +138,9 @@ class LibraryWebsiteUserGuide(AbstractBaseModel):
     def __str__(self) -> str:
         return super().__str__()
 
-class LibraryTiming(AbstractBaseModel):
+class LibraryCalendar(AbstractBaseModel):
     uploaded_on = models.DateTimeField(default=timezone.now)
-    imgae = models.ImageField(max_length=200,upload_to='timings')
+    imgae = models.ImageField(max_length=200,upload_to='Calendars')
     is_set = models.BooleanField(default=True)
 
     def __str__(self) -> str:
