@@ -39,7 +39,7 @@ URL_MAP = {
     "OpenAccess":["/links/[type]",],
     "LinkSite":["/links/[type]",],
     "NewArrival":["/links/[type]",],
-    "BookMarquee":["/",],
+    "BookMarquee":["/","/about/library_collection"],
 }
 
 class AbstractBaseModel(models.Model):

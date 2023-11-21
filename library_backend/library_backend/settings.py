@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-FRONTEND_BASE_URL = "http://library.bits-pilani.ac.in"
+FRONTEND_BASE_URL = "https://library.bits-pilani.ac.in"
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_NAME = "session"
 SESSION_COOKIE_HTTPONLY = True
