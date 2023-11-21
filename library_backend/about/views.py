@@ -24,6 +24,7 @@ class LibraryCollectionAPI(generics.RetrieveAPIView):
         curr = LibraryCollection.objects.get(is_set = True)
         return curr
 
+
 class LibraryRulesAndRegulationAPI(generics.ListAPIView):
     serializer_class = LibraryRulesAndRegulationSerializer
     permission_classes = (AllowAny,)

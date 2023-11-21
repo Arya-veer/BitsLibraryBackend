@@ -25,7 +25,10 @@ class LibraryCollectionSerialzer(serializers.ModelSerializer):
         fields = ("description","is_set","data","title")
     
     def get_data(self,obj):
-        return LibraryCollectionDataSerializer(LibraryCollectionData.objects.filter(collection=obj),many=True).data
+        data_type = self.context['request'].query_params.get("type","int")
+        if data_type == "int":
+            return LibraryCollectionDataSerializer(LibraryCollectionData.objects.filter(collection=obj,is_int = True),many=True).data
+        return LibraryCollectionDataSerializer(LibraryCollectionData.objects.filter(collection=obj,is_int = False),many=True).data
 
 class RuleSerializer(serializers.ModelSerializer):
 
