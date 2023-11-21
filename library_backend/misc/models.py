@@ -14,8 +14,8 @@ URL_MAP = {
     "Course":["/services/pyq","/services/pyq/[course]","/services/textbooks","/services/textbooks/[course]"],
     "Paper":["/services/pyq/[course]",],
     "TextBook":["/services/textbooks/[course]",],
-    "LibraryCollection":["/"],
-    "LibraryCollectionData":["/"],
+    "LibraryCollection":["/","/about/library_collection"],
+    "LibraryCollectionData":["/","/about/library_collection"],
     "LibraryRulesAndRegulation":["/about/rules",],
     "Rule":["/about/rules",],
     "TabularRule":["/about/rules",],
@@ -40,8 +40,6 @@ URL_MAP = {
     "LinkSite":["/links/[type]",],
     "NewArrival":["/links/[type]",],
     "BookMarquee":["/",],
-
-
 }
 
 class AbstractBaseModel(models.Model):
