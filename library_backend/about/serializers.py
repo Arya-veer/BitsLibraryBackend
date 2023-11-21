@@ -184,8 +184,10 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
             return False
         
     def get_holiday_reason(self,obj):
-        if self.get_is_currently_open(obj):
-            return "Open currently"
+        if self.get_is_currently_open(obj) is None:
+            return "Data is not available for today! Please check library calendar"
+        elif self.get_is_currently_open(obj):
+            return "Library is open currently"
         elif obj.is_open:
             return "Closed for the day"
         elif obj.holiday_reason:
