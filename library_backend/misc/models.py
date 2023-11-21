@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 import uuid
 import requests
+import json
 from library_backend.settings import FRONTEND_BASE_URL
 from library_backend.keyconfig import FRONTEND_API_KEY
 
@@ -128,6 +129,7 @@ class Revalidate(models.Model):
     url = models.CharField(max_length=200,unique=True)
     timestamp = models.DateTimeField(default=timezone.now)
     done = models.BooleanField(default=False)
+    res = models.JSONField(null=True)
 
     class Meta:
         verbose_name = "Revalidate"
@@ -148,7 +150,7 @@ class Revalidate(models.Model):
         }
         try:
             response = requests.post(FRONTEND_BASE_URL+"/user/revalidate",json=data)
-            print(response.content)
+            self.res = json.loads(response.content)
             if response.status_code == 200:
                 self.done = True
             else:
