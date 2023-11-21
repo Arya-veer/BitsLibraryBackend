@@ -158,6 +158,7 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
     opening_time = serializers.SerializerMethodField()
     closing_time = serializers.SerializerMethodField()
     is_currently_open = serializers.SerializerMethodField()
+    holiday_reason = serializers.SerializerMethodField()
     class Meta:
         model = LibraryTiming
         fields = "__all__"
@@ -173,10 +174,6 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
 
     def get_is_currently_open(self,obj):
         current_time = timezone.now().time()
-        print(obj.opening_time,flush=True)
-        print(obj.closing_time,flush=True)
-        print("Time now:")
-        print(current_time,flush=True)
         if self.context['timings'] == False:
             return None
         if not obj.is_open:
@@ -185,4 +182,14 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
             return True
         else:
             return False
+        
+    def get_holiday_reason(self,obj):
+        if self.get_is_currently_open(obj):
+            return "Open currently"
+        elif obj.is_open:
+            return "Closed for the day"
+        elif obj.holiday_reason:
+            return "Library is closed due to " + obj.holiday_reason
+        else:
+            return "Library is closed due to " + timezone.now().strftime("%A")
     

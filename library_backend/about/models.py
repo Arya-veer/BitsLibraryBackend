@@ -198,6 +198,7 @@ class LibraryTiming(models.Model):
     closing_time = models.TimeField()
     is_open = models.BooleanField(default=True)
     is_holiday = models.BooleanField(default=False)
+    holiday_reason = models.TextField(blank=True)
 
     class Meta:
         verbose_name = "Library Timing"
