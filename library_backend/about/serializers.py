@@ -90,7 +90,7 @@ class LibraryTeamSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def get_members(self,obj):
-        return LibraryTeamMemberSerializer(obj.members.filter(is_present = True).order_by('-position'),many = True,context = self.context).data
+        return LibraryTeamMemberSerializer(obj.members.filter(is_present = True).order_by('position'),many = True,context = self.context).data
 
 
 class LibraryBrochureSerializer(serializers.ModelSerializer):
