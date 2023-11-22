@@ -118,6 +118,7 @@ class LibraryTeamMember(AbstractBaseModel):
     image = models.ImageField(upload_to=libraryTeamMemberImagePath,blank=True,null=True)
     is_librarian = models.BooleanField(default=False)
     description = models.TextField(blank=True)
+    position = models.IntegerField(default=1)
 
     def __str__(self) -> str:
         return f"{self.name}-{self.designation}"
