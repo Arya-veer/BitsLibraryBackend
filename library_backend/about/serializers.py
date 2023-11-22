@@ -198,7 +198,7 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
                 return "Library is closed"
         else:
             if self.current_time < obj.opening_time:
-                return f"Library is closed for now, will reopen at {self.get_opening_time}"
+                return f"Library is closed for now, will reopen at {self.get_opening_time(obj)}"
             else:
                 return f"Library is closed for the day"
     
