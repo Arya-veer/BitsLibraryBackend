@@ -21,7 +21,7 @@ admin.site.register(LibraryCalendar)
 @admin.register(LibraryTeamMember)
 class LibraryTeamMemberAdmin(admin.ModelAdmin):
     list_display = ("name","position",)
-    list_filter = ("team")
+    list_filter = ("team",)
 
 @admin.register(LibraryTeam)
 class LibraryTeamAdmin(admin.ModelAdmin):
