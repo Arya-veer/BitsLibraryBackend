@@ -1,12 +1,12 @@
 from django.contrib import admin
 from .models import UserProfile,Item,Claim,ArticleBookRequest,FreeBook,FreeBookPick
 from import_export.admin import ImportExportModelAdmin
-from django.contrib.auth.models import User
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 # Register your models here.
 
-
+from django.contrib.auth.admin import GroupAdmin,UserAdmin
+from django.contrib.auth.models import User, Group
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget
 
@@ -95,3 +95,14 @@ class FreeBookPickAdmin(admin.ModelAdmin):
     formfield_overrides = {
             models.JSONField: {'widget': JSONEditorWidget},
         }
+
+class UserSetInline(admin.TabularInline):
+    model = User.groups.through
+    
+class UserGroupAdmin(GroupAdmin):
+    inlines = [UserSetInline]
+
+admin.site.unregister(User)
+admin.site.register(User,UserAdmin)
+admin.site.unregister(Group)
+admin.site.register(Group,UserGroupAdmin)
