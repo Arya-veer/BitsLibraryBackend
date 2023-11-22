@@ -13,11 +13,15 @@ admin.site.register(Rule)
 admin.site.register(LibraryCommittee)
 admin.site.register(LibraryCommitteeMember)
 # admin.site.register(LibraryTeam)
-admin.site.register(LibraryTeamMember)
+# admin.site.register(LibraryTeamMember)
 admin.site.register(LibraryBrochure)
 admin.site.register(LibraryWebsiteUserGuide)
 admin.site.register(LibraryCalendar)
 
+@admin.register(LibraryTeamMember)
+class LibraryTeamMemberAdmin(admin.ModelAdmin):
+    list_display = ("name","position",)
+    list_filter = ("team")
 
 @admin.register(LibraryTeam)
 class LibraryTeamAdmin(admin.ModelAdmin):
@@ -30,6 +34,8 @@ class LibraryTeamAdmin(admin.ModelAdmin):
         print(actions)
         # del actions['delete_selected']
         return actions
+    
+
 
     def has_delete_permission(self, request, obj=None):
         #Disable delete
