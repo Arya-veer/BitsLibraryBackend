@@ -196,7 +196,6 @@ class LibraryTiming(models.Model):
     enddate = models.DateField()
     opening_time = models.TimeField()
     closing_time = models.TimeField()
-    is_open = models.BooleanField(default=True)
     is_holiday = models.BooleanField(default=False)
     holiday_reason = models.TextField(blank=True)
 
@@ -209,4 +208,4 @@ class LibraryTiming(models.Model):
         
     
     def __str__(self) -> str:
-        return f"{self.startdate} - {self.is_open}"
+        return f"{self.startdate} - {self.enddate}"

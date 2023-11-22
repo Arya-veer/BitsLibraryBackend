@@ -84,6 +84,6 @@ class BookMarqueeAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     
 @admin.register(LibraryTiming)
 class LibraryTimingAdmin(admin.ModelAdmin):
-    list_display = ("startdate","enddate","opening_time","closing_time","is_open","is_holiday")
-    search_fields = ("startdate","enddate","opening_time","closing_time","is_open","is_holiday")
-    list_filter = ("is_open","is_holiday")
+    list_display = ("startdate","enddate","opening_time","closing_time","is_holiday")
+    search_fields = ("startdate","enddate","opening_time","closing_time","is_holiday")
+    list_filter = ("is_holiday",)

@@ -176,12 +176,12 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
         return "Not available for today"
 
     def get_is_currently_open(self,obj):
-        current_time = timezone.now().time()
+        self.current_time = timezone.now().time()
         if self.context['timings'] == False:
             return None
-        if not obj.is_open:
+        if obj.is_holiday:
             return False
-        if current_time >= obj.opening_time and current_time <= obj.closing_time:
+        if self.current_time >= obj.opening_time and self.current_time <= obj.closing_time:
             return True
         else:
             return False
@@ -191,10 +191,14 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
             return "Data is not available for today! Please check library calendar"
         elif self.get_is_currently_open(obj):
             return "Library is open currently"
-        elif obj.is_open:
-            return "Closed for the day"
-        elif obj.holiday_reason:
-            return "Library is closed due to " + obj.holiday_reason
+        elif obj.is_holiday:
+            if obj.holiday_reason:
+                return "Library is closed due to " + obj.holiday_reason
+            else:
+                return "Library is closed"
         else:
-            return "Library is closed due to " + timezone.now().strftime("%A")
+            if self.current_time < obj.opening_time:
+                return f"Library is closed for now, will reopen at {self.get_opening_time}"
+            else:
+                return f"Library is closed for the day"
     
