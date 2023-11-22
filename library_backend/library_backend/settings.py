@@ -173,7 +173,7 @@ import os
 STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'backend-media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_URL = '/backend-media/'
+MEDIA_URL = 'backend-media/'
 
 
 # Default primary key field type
