@@ -22,6 +22,7 @@ admin.site.register(LibraryCalendar)
 class LibraryTeamMemberAdmin(admin.ModelAdmin):
     list_display = ("name","position",)
     list_filter = ("team",)
+    list_editable = ("position",)
 
 @admin.register(LibraryTeam)
 class LibraryTeamAdmin(admin.ModelAdmin):
