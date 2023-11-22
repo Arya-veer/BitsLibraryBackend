@@ -60,12 +60,14 @@ INSTALLED_APPS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
+    'http://bhg.bits-pilani.ac.in'
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://172.17.62.106:3000',
     'http://localhost:5500',
+    'http://bhg.bits-pilani.ac.in'
 ]
 
 MIDDLEWARE = [
