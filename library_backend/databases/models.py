@@ -121,6 +121,7 @@ class NewArrival(AbstractBaseModel):
     month = models.CharField(max_length=20)
     year = models.IntegerField()
     file = models.FileField(upload_to=new_arrival_path,blank=True,null=True)
+    position = models.IntegerField(default=1)
 
     class Meta:
         verbose_name = "New Arrival"

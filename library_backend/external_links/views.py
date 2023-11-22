@@ -35,7 +35,7 @@ class ExternalLinksListAPI(generics.ListAPIView):
             elif link_type == "OpenAccess":
                 links = OpenAccess.objects.all().order_by("name")
             elif link_type == "NewArrival":
-                links = NewArrival.objects.all().order_by("-year",)
+                links = NewArrival.objects.all().order_by("-year","position")
             else:
                 links = links.filter(link_type = link_type)
         return links

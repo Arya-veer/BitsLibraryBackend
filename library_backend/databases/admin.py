@@ -69,6 +69,7 @@ class PlatformAdmin(admin.ModelAdmin):
 
 @admin.register(NewArrival)
 class NewArrivalAdmin(admin.ModelAdmin):
-    list_display = ("month","year")
+    list_display = ("month","year","position")
     search_fields = ("month","year")
     list_filter = ("year",)
+    list_editable = ("position",)
