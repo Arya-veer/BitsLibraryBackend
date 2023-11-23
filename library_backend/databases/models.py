@@ -148,3 +148,16 @@ class Platform(AbstractBaseModel):
         return self.name
 
 
+class DonatedBook(AbstractBaseModel):
+    donor = models.CharField(max_length=60)
+    details = models.TextField(blank=True)
+    isbn = models.CharField(max_length=60,blank=True)
+    image = models.ImageField(upload_to='donated_book_images',blank=True,null=True)
+
+    class Meta:
+        verbose_name = "Donated Book"
+        verbose_name_plural = "Donated Books"
+    
+    def __str__(self) -> str:
+        return f"{self.donor} - {self.isbn}"
+    

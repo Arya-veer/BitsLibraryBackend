@@ -73,3 +73,11 @@ class NewArrivalAdmin(admin.ModelAdmin):
     search_fields = ("month","year")
     list_filter = ("year",)
     list_editable = ("position",)
+
+@admin.register(DonatedBook)
+class DonatedBookAdmin(admin.ModelAdmin):
+    list_display = ("isbn","donor")
+    list_filter = ("donor",)
+    search_fields = ("isbn","donor")
+
+

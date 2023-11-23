@@ -69,3 +69,7 @@ class PlatformListAPI(generics.ListAPIView):
     serializer_class = PlatformSerializer
     queryset = Platform.objects.filter(campus__name = "Pilani")
 
+class DonatedBookListAPI(generics.ListAPIView):
+
+    serializer_class = DonatedBookSerializer
+    queryset = DonatedBook.objects.all().order_by('isbn')

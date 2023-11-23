@@ -115,3 +115,18 @@ class PlatformSerializer(serializers.ModelSerializer):
         # fields = '__all__'
         exclude = ('user_guide_file','user_guide_url')
     
+
+class DonatedBookSerializer(serializers.ModelSerializer):
+    
+    photo = serializers.SerializerMethodField()
+    class Meta:
+        model = DonatedBook
+        # fields = '__all__'
+        exclude = ("isbn","image")
+    
+    def get_photo(self,obj):
+        if obj.isbn:
+            return f"https://pictures.abebooks.com/isbn/{obj.isbn}-us-300.jpg"
+        else:
+            return self.context['request'].build_absolute_uri(obj.image.url)
+    
