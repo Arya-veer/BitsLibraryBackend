@@ -210,3 +210,12 @@ class LibraryTiming(models.Model):
     
     def __str__(self) -> str:
         return f"{self.startdate} - {self.enddate}"
+    
+class GalleryImage(AbstractBaseModel):
+    image = models.ImageField(upload_to='Images/LibraryGallery')
+    is_set = models.BooleanField(default=True)
+    uploaded_on = models.DateField(default=timezone.now)
+    caption = models.TextField(blank=True)
+
+    def __str__(self) -> str:
+        return super().__str__()

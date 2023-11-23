@@ -122,3 +122,7 @@ class LibraryTimingsAPI(views.APIView):
             return Response(LibraryTimingSerializer(timings.first(),context = {"timings":True}).data,status=status.HTTP_200_OK)
         lt_dummy = LibraryTiming(startdate = current_date,enddate = current_date,opening_time = "00:00:00",closing_time = "00:00:00")
         return Response(LibraryTimingSerializer(lt_dummy,context = {"timings":False}).data,status=status.HTTP_200_OK)  
+
+class GalleryImagesAPI(generics.ListAPIView):
+    serializer_class = GalleryImageSerializer
+    queryset = GalleryImage.objects.filter(is_set = True).order_by('-uploaded_on')

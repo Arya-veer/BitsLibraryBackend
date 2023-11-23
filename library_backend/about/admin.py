@@ -94,3 +94,5 @@ class LibraryTimingAdmin(admin.ModelAdmin):
     list_display = ("startdate","enddate","opening_time","closing_time","is_holiday")
     search_fields = ("startdate","enddate","opening_time","closing_time","is_holiday")
     list_filter = ("is_holiday",)
+
+admin.site.register(GalleryImage)

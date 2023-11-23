@@ -15,4 +15,5 @@ urlpatterns = [
     path("news/",NewsAPI.as_view()),
     path("marquee/",BookMarqueeAPI.as_view()),
     path("timings/",LibraryTimingsAPI.as_view()),
+    path("gallery/",GalleryImagesAPI.as_view()),
 ]

@@ -202,3 +202,8 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
             else:
                 return f"Library is closed for the day"
     
+class GalleryImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GalleryImage
+        fields = "__all__"
