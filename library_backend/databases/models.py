@@ -149,15 +149,16 @@ class Platform(AbstractBaseModel):
 
 
 class DonatedBook(AbstractBaseModel):
-    donor = models.CharField(max_length=200)
+    donor = models.CharField("Donor or BITSian Author",max_length=200,blank=True)
     details = models.TextField(blank=True)
     isbn = models.CharField(max_length=60,blank=True)
     image = models.ImageField(upload_to='donated_book_images',blank=True,null=True)
+    book_type = models.CharField(max_length=60,blank=True,choices=(("Donated Book","Donated Book"),("BITSian Authored Book","BITSian Authored Book")))
 
     class Meta:
-        verbose_name = "Donated Book"
-        verbose_name_plural = "Donated Books"
+        verbose_name = "Donated Book or BITSian Authored Book"
+        verbose_name_plural = "Donated Books BITSian Authored Books"
     
     def __str__(self) -> str:
         return f"{self.donor} - {self.isbn}"
-    
+
