@@ -26,7 +26,7 @@ class SlotSerializer(serializers.ModelSerializer):
     
     def get_is_booked(self,obj):
         if self.context.get('date') and self.context.get('room'):
-            return obj.id in Booking.objects.filter(date = self.context['date'],roomslot__room = self.context['room']).values_list('roomslot__slot',flat=True).distinct()
+            return obj.id in Booking.objects.filter(date = self.context['date'],roomslot__room = self.context['room'],status__in = ["Pending","Approved"]).values_list('roomslot__slot',flat=True).distinct()
         return False
 
 class RoomDetailSerializer(serializers.ModelSerializer):
