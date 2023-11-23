@@ -76,7 +76,7 @@ class NewArrivalAdmin(admin.ModelAdmin):
 
 @admin.register(DonatedBook)
 class DonatedBookAdmin(admin.ModelAdmin):
-    list_display = ("isbn","donor","book_type")
+    list_display = ("id","isbn","donor","book_type")
     list_filter = ("donor","book_type")
     search_fields = ("isbn","donor")
 
