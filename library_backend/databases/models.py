@@ -149,7 +149,7 @@ class Platform(AbstractBaseModel):
 
 
 class DonatedBook(AbstractBaseModel):
-    donor = models.CharField(max_length=60)
+    donor = models.CharField(max_length=200)
     details = models.TextField(blank=True)
     isbn = models.CharField(max_length=60,blank=True)
     image = models.ImageField(upload_to='donated_book_images',blank=True,null=True)
