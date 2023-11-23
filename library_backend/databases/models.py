@@ -157,7 +157,7 @@ class DonatedBook(AbstractBaseModel):
 
     class Meta:
         verbose_name = "Donated Book or BITSian Authored Book"
-        verbose_name_plural = "Donated Books BITSian Authored Books"
+        verbose_name_plural = "Donated Books BITSian or Authored Books"
     
     def __str__(self) -> str:
         return f"{self.donor} - {self.isbn}"
