@@ -153,7 +153,7 @@ class DonatedBook(AbstractBaseModel):
     details = models.TextField(blank=True)
     isbn = models.CharField(max_length=60,blank=True)
     image = models.ImageField(upload_to='donated_book_images',blank=True,null=True)
-    book_type = models.CharField(max_length=60,blank=True,choices=(("Donated Book","Donated Book"),("BITSian Authored Book","BITSian Authored Book")))
+    book_type = models.CharField(max_length=60,blank=True,choices=(("DonatedBook","DonatedBook"),("BITSianAuthoredBook","BITSianAuthoredBook")))
 
     class Meta:
         verbose_name = "Donated Book or BITSian Authored Book"

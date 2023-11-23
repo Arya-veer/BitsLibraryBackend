@@ -77,4 +77,4 @@ class DonatedBookListAPI(generics.ListAPIView):
     def get_queryset(self):
         if "book_type" in self.request.query_params:
             return DonatedBook.objects.filter(book_type = self.request.query_params['book_type']).order_by('isbn')
-        return DonatedBook.objects.filter(book_type = "Donated Book").order_by('isbn')
+        return DonatedBook.objects.filter(book_type = "DonatedBook").order_by('isbn')
