@@ -42,6 +42,7 @@ URL_MAP = {
     "NewArrival":["/links/[type]",],
     "BookMarquee":["/","/about/library_collection"],
     "DonatedBook":["/services/donated_books",],
+    "GalleryImage":["/about/gallery",],
 }
 
 class AbstractBaseModel(models.Model):
