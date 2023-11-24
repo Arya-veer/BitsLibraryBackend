@@ -94,6 +94,7 @@ class LibraryCommitteeMember(AbstractBaseModel):
     is_present = models.BooleanField(default=True)
     image = models.ImageField(upload_to='Images/LibraryCommitteeMembers',blank=True,null=True)
     committee = models.ForeignKey(LibraryCommittee,on_delete=models.CASCADE,related_name="members")
+    position = models.IntegerField(default=1)
 
     def __str__(self) -> str:
         return f"{self.name}-{self.department}"

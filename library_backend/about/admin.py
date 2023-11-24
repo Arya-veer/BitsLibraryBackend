@@ -10,13 +10,18 @@ admin.site.register(LibraryCollection)
 admin.site.register(LibraryCollectionData)
 admin.site.register(LibraryRulesAndRegulation)
 admin.site.register(Rule)
-admin.site.register(LibraryCommittee)
-admin.site.register(LibraryCommitteeMember)
+# admin.site.register(LibraryCommittee)
+# admin.site.register(LibraryCommitteeMember)
 # admin.site.register(LibraryTeam)
 # admin.site.register(LibraryTeamMember)
 admin.site.register(LibraryBrochure)
 admin.site.register(LibraryWebsiteUserGuide)
 admin.site.register(LibraryCalendar)
+
+@admin.register(LibraryCommitteeMember)
+class LibraryCommitteeMemberAdmin(admin.ModelAdmin):
+    list_display = ("name","position",)
+    list_editable = ("position",)
 
 @admin.register(LibraryTeamMember)
 class LibraryTeamMemberAdmin(admin.ModelAdmin):
@@ -24,23 +29,6 @@ class LibraryTeamMemberAdmin(admin.ModelAdmin):
     list_filter = ("team","designation")
     list_editable = ("position","designation")
 
-@admin.register(LibraryTeam)
-class LibraryTeamAdmin(admin.ModelAdmin):
-    list_display = ("description","is_current")
-    search_fields = ("description",)
-
-    def get_actions(self, request):
-        #Disable delete
-        actions = super(LibraryTeamAdmin, self).get_actions(request)
-        print(actions)
-        # del actions['delete_selected']
-        return actions
-    
-
-
-    def has_delete_permission(self, request, obj=None):
-        #Disable delete
-        return False
 
 @admin.register(TabularRule)
 class TabularRuleAdmin(admin.ModelAdmin):
