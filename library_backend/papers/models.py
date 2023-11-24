@@ -14,7 +14,7 @@ class Course(AbstractBaseModel):
         verbose_name_plural = "Courses"
     
     def __str__(self):
-        return f"{self.name} ({self.course_id})"
+        return f"{self.name}-{self.campus} ({self.course_id})"
 
 def paper_path(instance, filename):
     return f'papers/{instance.course.course_id}/{instance.year}/{instance.semester}/{filename}'
