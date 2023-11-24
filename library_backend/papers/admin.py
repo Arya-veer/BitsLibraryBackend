@@ -12,7 +12,7 @@ class CourseAdmin(admin.ModelAdmin):
 @admin.register(Paper)
 class PaperAdmin(admin.ModelAdmin):
     list_display = ('course','semester','year')
-    list_filter = ('course','semester','year','campus','course__campus')
+    list_filter = ('course__course_id','semester','year',)
     search_fields = ('course__name','course__course_id','semester','year')
     autocomplete_fields = ('course',)
     actions = ['hide_papers']
