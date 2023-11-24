@@ -60,6 +60,7 @@ class Booking(models.Model):
     description = models.TextField(blank=True)
     no_of_participants = models.IntegerField()
     booking_time = models.DateTimeField(default=timezone.now)
+    rejection_reason = models.TextField(blank=True)
 
     def __str__(self) -> str:
         return f"{self.booker} - {self.status} - {self.roomslot}"
