@@ -14,7 +14,9 @@ class Course(AbstractBaseModel):
         verbose_name_plural = "Courses"
     
     def __str__(self):
-        return f"{self.name}-{self.campus} ({self.course_id})"
+        if TextBook.objects.filter(course=self).exists():
+            return f"{self.name}-{self.campus} ({self.course_id}) Has TB"
+        return f"{self.name}-{self.campus} ({self.course_id}) No TB"
 
 def paper_path(instance, filename):
     return f'papers/{instance.course.course_id}/{instance.year}/{instance.semester}/{filename}'
