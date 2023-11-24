@@ -5,13 +5,14 @@ from .models import Course, Paper,TextBook
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('name','course_id')
+    list_display = ('name','course_id','campus')
     search_fields = ('name','course_id')
+    list_filter = ('campus',)
 
 @admin.register(Paper)
 class PaperAdmin(admin.ModelAdmin):
     list_display = ('course','semester','year')
-    list_filter = ('course','semester','year')
+    list_filter = ('course','semester','year','campus','course__campus')
     search_fields = ('course__name','course__course_id','semester','year')
     autocomplete_fields = ('course',)
     actions = ['hide_papers']
