@@ -75,7 +75,7 @@ class BookingListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking
-        fields = ('id','status','date','room','slot','no_of_participants','rejection_reason','amount')
+        fields = ('id','status','date','room','slot','no_of_participants','rejection_reason',)
 
     def get_slot(self,obj):
         return f"{obj.roomslot.slot.starttime} - {obj.roomslot.slot.endtime}"
