@@ -25,7 +25,7 @@ class CourseList(generics.ListAPIView):
         campus = self.request.query_params.get('campus','Pilani')
         if campus is not None:
             qs = qs.filter(campus__name=campus)
-        return qs 
+        return qs.order_by('course_id')
 
 class PaperList(generics.ListAPIView):
     serializer_class = PaperSerializer
