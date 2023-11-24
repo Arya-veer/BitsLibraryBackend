@@ -15,8 +15,8 @@ class Course(AbstractBaseModel):
     
     def __str__(self):
         if TextBook.objects.filter(course=self).exists():
-            return f"{self.name}-{self.campus} (Has TB)"
-        return f"{self.name}-{self.campus} (No TB)"
+            return f"{self.name}-{self.campus} (Has TB) {self.course_id}"
+        return f"{self.name}-{self.campus} (No TB) {self.course_id}"
 
 def paper_path(instance, filename):
     return f'papers/{instance.course.course_id}/{instance.year}/{instance.semester}/{filename}'
