@@ -22,7 +22,7 @@ class CourseList(generics.ListAPIView):
         search = self.request.query_params.get('search',None)
         if search is not None:
             qs = qs.filter(name__icontains=search) | qs.filter(course_id__icontains=search)
-        campus = self.request.query_params.get('campus',None)
+        campus = self.request.query_params.get('campus','Pilani')
         if campus is not None:
             qs = qs.filter(campus__name=campus)
         return qs 

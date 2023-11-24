@@ -23,6 +23,7 @@ def paper_path(instance, filename):
 
 class Paper(AbstractBaseModel):
     semester = models.CharField(max_length=60,blank=True,choices=[('First','First'),('Second','Second')])
+    exam = models.CharField(max_length=60,blank=True,choices=[('Comprehensive','Comprehensive'),('Mid Semester','Mid Semester')])
     year = models.IntegerField(blank=True)
     course = models.ForeignKey(Course,on_delete=models.PROTECT,related_name='papers',null = True)
     file = models.FileField(upload_to=paper_path,blank=True,null=True)
