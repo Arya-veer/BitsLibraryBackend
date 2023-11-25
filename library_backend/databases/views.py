@@ -10,7 +10,15 @@ class CampusListAPI(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         data = super().list(request, *args, **kwargs).data
-        data["TrialDatabases"] = DatabaseSerializer(Database.objects.filter(is_trial = True),many=True,context = self.get_serializer_context()).data
+        # print(data)
+        trial_databases = DatabaseSerializer(Database.objects.filter(is_trial = True),many=True,context = self.get_serializer_context()).data
+        data.append(
+            {
+                "name":"Trial Databases",
+                "is_main":False,
+                "databases":trial_databases
+            }
+        )
         return response.Response(data)
 
 
