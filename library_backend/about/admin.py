@@ -15,7 +15,6 @@ admin.site.register(Rule)
 # admin.site.register(LibraryTeam)
 # admin.site.register(LibraryTeamMember)
 admin.site.register(LibraryBrochure)
-admin.site.register(LibraryWebsiteUserGuide)
 admin.site.register(LibraryCalendar)
 
 @admin.register(LibraryCommitteeMember)
@@ -84,3 +83,7 @@ class LibraryTimingAdmin(admin.ModelAdmin):
     list_filter = ("is_holiday",)
 
 admin.site.register(GalleryImage)
+
+@admin.site.register(LibraryWebsiteUserGuide)
+class LibraryWebsiteUserGuideAdmin(admin.ModelAdmin):
+    list_display = ("title",)
