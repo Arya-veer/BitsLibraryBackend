@@ -1,3 +1,4 @@
+from about.models import LibraryWebsiteUserGuide
 from .models import *
 from databases.models import Platform,OpenAccess,NewArrival
 from rest_framework import serializers
@@ -50,6 +51,20 @@ class OpenAccessSerializer(serializers.ModelSerializer):
 
     def get_image(self,obj):
         return None
+
+class UserGuideSerializer(serializers.ModelSerializer):
+    
+    site_name = serializers.CharField(source = "title")
+    url = serializers.SerializerMethodField()
+    class Meta:
+        model = LibraryWebsiteUserGuide
+        fields = ("site_name","url")
+    
+    def get_url(self,obj):
+        if obj.link:
+            return obj.link
+        else:
+            return self.context['request'].build_absolute_uri(obj.file)
     
 class NewArrivalSerializer(serializers.ModelSerializer):
     site_name = serializers.CharField(source="month")

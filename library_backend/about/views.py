@@ -59,15 +59,15 @@ class LibraryBrochureAPI(generics.RetrieveAPIView):
         except:
             return LibraryBrochure.objects.filter(is_set=True).order_by('-uploaded_on').first()
         
-class LibraryWebsiteUserGuideAPI(generics.RetrieveAPIView):
-    serializer_class = LibraryWebsiteUserGuideSerializer
-    permission_classes = [AllowAny]
+# class LibraryWebsiteUserGuidesAPI(generics.ListAPIView):
+#     serializer_class = LibraryWebsiteUserGuideSerializer
+#     permission_classes = [AllowAny]
 
-    def get_object(self):
-        try:
-            return LibraryWebsiteUserGuide.objects.get(is_set = True)
-        except:
-            return LibraryWebsiteUserGuide.objects.filter(is_set=True).order_by('-uploaded_on').first()
+#     def get_object(self):
+#         try:
+#             return LibraryWebsiteUserGuide.objects.get(is_set = True)
+#         except:
+#             return LibraryWebsiteUserGuide.objects.filter(is_set=True).order_by('-uploaded_on').first()
 class LibraryCalendarsAPI(generics.RetrieveAPIView):
     serializer_class = LibraryCalendarsSerializer
     permission_classes = [AllowAny]

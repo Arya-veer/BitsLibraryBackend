@@ -99,11 +99,11 @@ class LibraryBrochureSerializer(serializers.ModelSerializer):
         model = LibraryBrochure
         fields = "__all__"
 
-class LibraryWebsiteUserGuideSerializer(serializers.ModelSerializer):
+# class LibraryWebsiteUserGuideSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = LibraryWebsiteUserGuide
-        fields = "__all__"
+#     class Meta:
+#         model = LibraryWebsiteUserGuide
+#         fields = "__all__"
 
 class LibraryCalendarsSerializer(serializers.ModelSerializer):
 
