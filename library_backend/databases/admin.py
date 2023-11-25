@@ -13,13 +13,14 @@ class DatabaseInline(admin.TabularInline):
 class CampusAdmin(admin.ModelAdmin):
     list_display = ("name","is_main")
     search_fields = ("name",)
+
     inlines = [DatabaseInline]
 
 @admin.register(Database)
 class DatabaseAdmin(admin.ModelAdmin):
     list_display = ("name","campus","link")
     search_fields = ("name",)
-    list_filter = ("campus",)
+    list_filter = ("campus","is_trial")
 
 @admin.register(Publisher)
 class PublisherAdmin(admin.ModelAdmin):
