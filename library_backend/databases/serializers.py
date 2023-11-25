@@ -23,6 +23,12 @@ class DatabaseSerializer(serializers.ModelSerializer):
             return obj.user_guide_url
         else:
             return None
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.is_trial:
+            data['name'] = f"{data['name']} ({instance.campus.name})"
+        return data
 
 class CampusSerializer(serializers.ModelSerializer):
 

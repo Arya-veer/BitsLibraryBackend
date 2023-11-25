@@ -8,9 +8,10 @@ class CampusListAPI(generics.ListAPIView):
     serializer_class = CampusSerializer
     queryset = Campus.objects.all().order_by('-is_main','name')
 
-class TrialDatabaseListAPI(generics.ListAPIView):
-    serializer_class = DatabaseSerializer
-    queryset = Database.objects.filter(is_trial=True)
+    def list(self, request, *args, **kwargs):
+        data = super().list(request, *args, **kwargs).data
+        data["TrialDatabases"] = DatabaseSerializer(Database.objects.filter(is_trial = True),many=True,context = self.get_serializer_context()).data
+        return response.Response(data)
 
 
 class PublisherListAPI(generics.ListAPIView):
