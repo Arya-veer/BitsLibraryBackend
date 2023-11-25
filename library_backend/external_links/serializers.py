@@ -64,7 +64,7 @@ class UserGuideSerializer(serializers.ModelSerializer):
         if obj.link:
             return obj.link
         else:
-            return self.context['request'].build_absolute_uri(obj.file)
+            return self.context['request'].build_absolute_uri(obj.file.url)
     
 class NewArrivalSerializer(serializers.ModelSerializer):
     site_name = serializers.CharField(source="month")
