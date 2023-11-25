@@ -84,6 +84,6 @@ class LibraryTimingAdmin(admin.ModelAdmin):
 
 admin.site.register(GalleryImage)
 
-@admin.site.register(LibraryWebsiteUserGuide)
+@admin.register(LibraryWebsiteUserGuide)
 class LibraryWebsiteUserGuideAdmin(admin.ModelAdmin):
     list_display = ("title",)
