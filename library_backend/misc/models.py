@@ -25,7 +25,7 @@ URL_MAP = {
     "LibraryTeam":["/about/committee/team",],
     "LibraryTeamMember":["/about/committee/team",],
     "LibraryBrochure":["/about/brochure",],
-    "LibraryWebsiteUserGuide":["/about/user_guide",],
+    "LibraryWebsiteUserGuide":["/links/[type]",],
     "LibraryCalendar":["/about/timings",],
     "Event":["/news/events","/"],
     "News":["/news/news","/"],
@@ -43,6 +43,8 @@ URL_MAP = {
     "BookMarquee":["/","/about/library_collection"],
     "DonatedBook":["/services/donated_books",],
     "GalleryImage":["/about/gallery",],
+    "NewArrival":["/links/[type]",],
+
 }
 
 class AbstractBaseModel(models.Model):
