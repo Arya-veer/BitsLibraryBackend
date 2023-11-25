@@ -134,7 +134,7 @@ class LibraryBrochure(AbstractBaseModel):
         return super().__str__()
 
 class LibraryWebsiteUserGuide(AbstractBaseModel):
-    file = models.FileField(max_length=200,upload_to='user_guide')
+    file = models.FileField(max_length=200,upload_to='user_guide',blank=True)
     link = models.URLField(max_length=200,blank=True)
     title = models.CharField(max_length=200,default="Website User Guide")
 
