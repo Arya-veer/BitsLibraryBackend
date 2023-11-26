@@ -93,6 +93,8 @@ class BookRoomAPI(views.APIView):
             rs = RoomSlot.objects.get(room = room,slot =  data.pop('slot'))
         except RoomSlot.DoesNotExist:
             return Response({"error":"Room can not be booked for given slot"},status=status.HTTP_400_BAD_REQUEST)
+        if rs.room.is_closed:
+            return Response({"error":"This room not available for booking"},status=status.HTTP_400_BAD_REQUEST)
         try:
             if Booking.objects.filter(date = data['date'],booker = request.user.profile,roomslot__room = room,status__in = ["Pending","Approved"]).exists():
                 return Response({"error":"You have already applied for this room's booking! Check status on dashboard"},status=status.HTTP_400_BAD_REQUEST)

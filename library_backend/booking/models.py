@@ -25,6 +25,8 @@ class Room(models.Model):
     available_facilities = models.ManyToManyField(Facility)
     image = models.ImageField(null=True,upload_to='room_images')
     description = models.TextField(blank=True)
+    is_closed = models.BooleanField("Is Room Closed for Booking?",default=False)
+    room_closing_reason = models.TextField(blank=True)
 
 
     def __str__(self) -> str:
