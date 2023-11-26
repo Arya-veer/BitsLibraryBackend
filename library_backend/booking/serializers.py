@@ -37,7 +37,7 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ('id','name','min_capacity','max_capacity','slots','available_facilities','image','description','user_has_phone_number')
+        fields = ('id','name','min_capacity','max_capacity','slots','available_facilities','image','description','user_has_phone_number','is_closed','room_closing_reason')
     
     def get_slots(self,obj):
         qs = Slot.objects.filter(id__in = obj.roomslots.all().values_list('slot',flat=True).distinct())
