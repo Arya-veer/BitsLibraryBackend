@@ -91,6 +91,7 @@ class LibraryCommitteeMember(AbstractBaseModel):
     email = models.EmailField(max_length=100,blank=True)
     phone_number = models.CharField(max_length=20,blank=True)
     department = models.CharField(max_length=200,blank=True)
+    designation = models.CharField(max_length=200,blank=True)
     is_present = models.BooleanField(default=True)
     image = models.ImageField(upload_to='Images/LibraryCommitteeMembers',blank=True,null=True)
     committee = models.ForeignKey(LibraryCommittee,on_delete=models.CASCADE,related_name="members")
