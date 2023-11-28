@@ -26,7 +26,16 @@ class CourseList(generics.ListAPIView):
             qs = qs.filter(id__in = TextBook.objects.all().values_list('course',flat=True))
         qs = qs.distinct('course_id')
         return qs.order_by('course_id')
+    
+class CourseDetail(views.APIView):
 
+    def get(self,request):
+        course = Course.objects.filter(pk=self.request.query_params.get('course_id',None)).first()
+        if course is None:
+            return views.Response(status=status.HTTP_404_NOT_FOUND)
+        return views.Response(CourseSerializer(course).data,status=status.HTTP_200_OK)
+
+        
 class PaperList(generics.ListAPIView):
     serializer_class = PaperSerializer
 
