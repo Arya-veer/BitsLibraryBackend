@@ -30,7 +30,7 @@ class CourseList(generics.ListAPIView):
 class CourseDetail(views.APIView):
 
     def get(self,request):
-        course = Course.objects.filter(pk=self.request.query_params.get('course_id',None)).first()
+        course = Course.objects.filter(course_id=self.request.query_params.get('course_id',None)).first()
         if course is None:
             return views.Response(status=status.HTTP_404_NOT_FOUND)
         return views.Response(CourseSerializer(course).data,status=status.HTTP_200_OK)
