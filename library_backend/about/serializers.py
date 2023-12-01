@@ -181,9 +181,14 @@ class LibraryTimingSerializer(serializers.ModelSerializer):
             return None
         if obj.is_holiday:
             return False
-        if self.current_time >= obj.opening_time and self.current_time <= obj.closing_time:
+        if self.current_time >= obj.opening_time and (self.current_time <= obj.closing_time):
             return True
         else:
+            if obj.closing_time < obj.opening_time:
+                if self.current_time >= obj.closing_time and (self.current_time <= obj.opening_time):
+                    return False
+                else:
+                    return True
             return False
         
     def get_holiday_reason(self,obj):
