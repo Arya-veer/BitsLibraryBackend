@@ -1,0 +1,31 @@
+# This is a basic workflow that is manually triggered
+
+name: Server Deployment
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: connect to the server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd /home/bhg/Public/LibraryWebsiteBackend/BitsLibraryBackend/
+          source venv/bin/activate
+          cd library_backend/
+          git pull
+          python manange.py migrate
+          supervisorctl restart libraryBackend
+          deactivate

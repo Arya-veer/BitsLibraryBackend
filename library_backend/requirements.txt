@@ -1,0 +1,11 @@
+django
+djangorestframework
+mysqlclient
+psycopg2-binary
+pillow
+django_json_widget
+djangorestframework-simplejwt
+django-cors-headers
+xlrd==1.2.0
+firebase-admin
+openpyxl
