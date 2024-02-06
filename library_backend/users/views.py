@@ -35,11 +35,11 @@ class UserLoginAPI(APIView):
         firebase_user = auth.get_user(firebase_id)
         user = User.objects.filter(email=firebase_user.email)
         user = user.first()
-
-        if not user or not UserProfile.objects.filter(auth_user=user).exists():
+        profile = UserProfile.objects.filter(auth_user=user).first()
+        if not user or not profile:
             return Response({"message": "Email not registered, Please contact Librarian for support"},status=status.HTTP_400_BAD_REQUEST)
         login(request,user)
-        return Response({"message": "Login Successful"},status=status.HTTP_200_OK)
+        return Response({"message": "Login Successful","data":UserProfileSerializer(profile).data},status=status.HTTP_200_OK)
         # except Exception as e:
         #     return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST
 
@@ -170,3 +170,19 @@ class FreeBookPickAPI(generics.ListCreateAPIView):
             return Response({"message": "Book Claimed! You can check the status later"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+class CheckProfileExists(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self,request):
+        if "email" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        email = request.data['email']
+        users = User.objects.filter(email=email)
+        if not users.exists():
+            return Response({"message": "User does not exist"},status=status.HTTP_400_BAD_REQUEST)
+        user = users.first()
+        up = UserProfile.objects.filter(auth_user=user)
+        if not up.exists():
+            return Response({"message": "User does not exist"},status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": "User exists","data":UserProfileSerializer(up.first()).data},status=status.HTTP_200_OK)

@@ -5,6 +5,7 @@ urlpatterns = [
     path("login/",UserLoginAPI.as_view()),
     path("logout/",UserLogoutAPI.as_view()),
     path("profile/",UserProfileAPI.as_view()),
+    path("check_profile/",CheckProfileExists.as_view()),
     path("update_phone_number/",PhoneNumberUpdateAPI.as_view()),
     path("items/",ItemListAPI.as_view()),
     path("claim_item/",ClaimItemAPI.as_view()),

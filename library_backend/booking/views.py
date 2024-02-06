@@ -196,3 +196,52 @@ class BookingCancelAPI(views.APIView):
             return Response({"error":"Invalid booking id"},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
+        
+
+class StaffBookingListAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = BookingListSerializer
+    
+    def get_queryset(self):
+        bookings = Booking.objects.all()
+        if 'type' in self.request.query_params:
+            booking_type = self.request.query_params['type']
+            if booking_type == "Pending":
+                bookings = Booking.objects.filter(status = "Pending",date__gte = datetime.date.today(),roomslot__slot__startime__gte = datetime.datetime.now().time())
+            elif booking_type == "Processed":
+                bookings = Booking.objects.filter(status__in = ["Approved","Rejected"],date__gte = datetime.date.today(),roomslot__slot__startime__gte = datetime.datetime.now().time())
+            elif booking_type == "Past":
+                bookings = Booking.objects.filter(date__lt = datetime.date.today()) | Booking.objects.filter(date = datetime.date.today(),roomslot__slot__startime__lt = datetime.datetime.now().time())
+            else:
+                raise Exception("Invalid booking type")
+        return bookings.order_by('-date')
+    
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+
+class BookingApproveRejectAPI(views.APIView):
+    permission_classes = (StaffPermission,)
+    
+    def post(self,request,*args, **kwargs):
+        booking = Booking.objects.filter(id = request.data.get('id',-1)).first()
+        if not booking:
+            return Response({"error":"Booking not found"},status=status.HTTP_400_BAD_REQUEST)
+        if booking.status not in ["Pending","Rejected"]:
+            return Response({"error":"Booking is already approved or cancelled"},status=status.HTTP_400_BAD_REQUEST)
+        if 'status' not in request.data:
+            return Response({"error":"Status is not provided"},status=status.HTTP_400_BAD_REQUEST)
+        if request.data['status'] not in ["Approved","Rejected"]:
+            return Response({"error":"Invalid status"},status=status.HTTP_400_BAD_REQUEST)
+        if request.data['status'] == "Rejected" and 'rejection_reason' not in request.data:
+            return Response({"error":"Rejection reason is not provided"},status=status.HTTP_400_BAD_REQUEST)
+        if request.data['status'] == "Rejected":
+            booking.rejection_reason = request.data['rejection_reason']
+        booking.status = request.data['status']
+        booking.save()
+        return Response({"message":f"Booking has been {status.lower()}"},status=status.HTTP_200_OK)
+        
+    
