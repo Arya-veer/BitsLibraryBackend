@@ -159,7 +159,7 @@ class BookingDetailAPI(generics.RetrieveAPIView):
     def get_object(self):
 
         booking = Booking.objects.get(id = self.kwargs['id'])
-        if booking.booker != self.request.user.profile:
+        if booking.booker.user_type != "Staff" and booking.booker != self.request.user.profile:
             raise Booking.DoesNotExist
         return booking
     
