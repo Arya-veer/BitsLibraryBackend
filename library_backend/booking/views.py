@@ -9,6 +9,8 @@ from .serializers import *
 
 from library_backend import keyconfig as senv
 
+from users.permissions import StaffPermission
+
 import datetime
 
 class RoomListAPI(generics.ListAPIView):
