@@ -244,6 +244,6 @@ class BookingApproveRejectAPI(views.APIView):
             booking.rejection_reason = request.data['rejection_reason']
         booking.status = request.data['status']
         booking.save()
-        return Response({"message":f"Booking has been {status.lower()}"},status=status.HTTP_200_OK)
+        return Response({"message":f"Booking has been {booking.status.lower()}"},status=status.HTTP_200_OK)
         
     
