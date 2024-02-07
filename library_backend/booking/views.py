@@ -209,11 +209,11 @@ class StaffBookingListAPI(generics.ListAPIView):
         if 'type' in self.request.query_params:
             booking_type = self.request.query_params['type']
             if booking_type == "Pending":
-                bookings = Booking.objects.filter(status = "Pending",date__gte = datetime.date.today(),roomslot__slot__startime__gte = datetime.datetime.now().time())
+                bookings = Booking.objects.filter(status = "Pending",date__gte = datetime.date.today())
             elif booking_type == "Processed":
-                bookings = Booking.objects.filter(status__in = ["Approved","Rejected"],date__gte = datetime.date.today(),roomslot__slot__startime__gte = datetime.datetime.now().time())
+                bookings = Booking.objects.filter(status__in = ["Approved","Rejected"],date__gte = datetime.date.today())
             elif booking_type == "Past":
-                bookings = Booking.objects.filter(date__lt = datetime.date.today()) | Booking.objects.filter(date = datetime.date.today(),roomslot__slot__startime__lt = datetime.datetime.now().time())
+                bookings = Booking.objects.filter(date__lt = datetime.date.today()) | Booking.objects.filter(date = datetime.date.today())
             else:
                 raise Exception("Invalid booking type")
         return bookings.order_by('-date')
