@@ -29,6 +29,20 @@ class ItemSerializer(serializers.ModelSerializer):
             return "Someone else claimed"
         else:
             return "Not Claimed"
+
+class StaffItemSerializer(serializers.ModelSerializer):
+    
+    claimed_by = serializers.SerializerMethodField()
+    class Meta:
+        model = Item
+        fields = '__all__'
+    
+    def get_claimed_by(self,obj):
+        if obj.claims.filter(is_approved=True).exists():
+            return UserProfileSerializer(obj.claims.filter(is_approved=True).first()).data
+        return None
+        
+        
             
 
 class ClaimSerializer(serializers.ModelSerializer):
