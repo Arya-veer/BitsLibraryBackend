@@ -39,7 +39,7 @@ class StaffItemSerializer(serializers.ModelSerializer):
     
     def get_claimed_by(self,obj):
         if obj.claims.filter(is_approved=True).exists():
-            return UserProfileSerializer(obj.claims.filter(is_approved=True).first()).data
+            return UserProfileSerializer(obj.claims.filter(is_approved=True).first().user).data
         return None
         
         
