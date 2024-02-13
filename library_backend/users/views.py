@@ -140,9 +140,9 @@ class ApproveClaimAPI(APIView):
         claims = Claim.objects.filter(id=claim_id,is_approved=False)
         if not claims.exists():
             return Response({"message": "Claim Not Found"},status=status.HTTP_400_BAD_REQUEST)
+        claim = claims.first()
         if claim.item.claims.filter(is_approved=True).exists():
             return Response({"message": "Item already claimed"},status=status.HTTP_400_BAD_REQUEST)
-        claim = claims.first()
         claim.is_approved = True
         claim.save()
         return Response({"message": "Claim Approved"},status=status.HTTP_200_OK)
