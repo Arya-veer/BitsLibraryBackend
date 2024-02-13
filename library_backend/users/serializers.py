@@ -10,8 +10,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.ModelSerializer):
 
-    status = serializers.SerializerMethodField()
-    dt = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField(read_only = True)
+    dt = serializers.SerializerMethodField(read_only = True)
     class Meta:
         model = Item
         fields = '__all__'

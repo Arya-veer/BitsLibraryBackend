@@ -8,6 +8,8 @@ from rest_framework import status,generics
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from users.permissions import StaffPermission
+
 import firebase_admin
 from firebase_admin import auth
 
@@ -81,6 +83,10 @@ class PhoneNumberUpdateAPI(APIView):
 
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+class AddItemAPI(generics.CreateAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = ItemSerializer
 
 class ItemListAPI(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)

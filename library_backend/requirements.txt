@@ -9,3 +9,4 @@ django-cors-headers
 xlrd==1.2.0
 firebase-admin
 openpyxl
+django-import-export
