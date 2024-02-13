@@ -116,6 +116,20 @@ class ClaimedItemsAPI(generics.ListAPIView):
         items = Claim.objects.filter(user=user)
         return items
 
+class StaffClaimedItemsAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = StaffClaimSerializer
+
+    def get_queryset(self):
+        item = Item.objects.get(id=self.request.query_params.get('item_id',-1))
+        return Claim.objects.filter(item=item)
+    
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
 class ClaimItemAPI(APIView):
     permission_classes = (IsAuthenticated,)
 

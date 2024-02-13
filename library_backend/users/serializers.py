@@ -51,6 +51,14 @@ class ClaimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Claim
         exclude = ('user','id')
+        
+class StaffClaimSerializer(serializers.ModelSerializer):
+    
+    user = UserProfileSerializer()
+    
+    class Meta:
+        model = Claim
+        exclude = ('id','item')
 
 class ArticleBookRequestSerializer(serializers.ModelSerializer):
 
