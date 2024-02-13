@@ -9,6 +9,6 @@ urlpatterns = [
     path("vacancy/",RoomVacancyCheckAPI.as_view()),
     path("room_book/",BookRoomAPI.as_view()),
     path("cancel_booking/",BookingCancelAPI.as_view()),
-    path("staff_booking_list",StaffBookingListAPI.as_view()),
+    path("staff_booking_list/",StaffBookingListAPI.as_view()),
     path("approve_reject_booking/",BookingApproveRejectAPI.as_view()),
 ]

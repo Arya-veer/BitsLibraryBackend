@@ -9,6 +9,8 @@ from .serializers import *
 
 from library_backend import keyconfig as senv
 
+from users.permissions import StaffPermission
+
 import datetime
 
 class RoomListAPI(generics.ListAPIView):
@@ -157,7 +159,7 @@ class BookingDetailAPI(generics.RetrieveAPIView):
     def get_object(self):
 
         booking = Booking.objects.get(id = self.kwargs['id'])
-        if booking.booker != self.request.user.profile:
+        if self.request.user.profile.user_type != "Staff" and booking.booker != self.request.user.profile:
             raise Booking.DoesNotExist
         return booking
     
@@ -207,11 +209,11 @@ class StaffBookingListAPI(generics.ListAPIView):
         if 'type' in self.request.query_params:
             booking_type = self.request.query_params['type']
             if booking_type == "Pending":
-                bookings = Booking.objects.filter(status = "Pending",date__gte = datetime.date.today(),roomslot__slot__startime__gte = datetime.datetime.now().time())
+                bookings = Booking.objects.filter(status = "Pending",date__gte = datetime.date.today())
             elif booking_type == "Processed":
-                bookings = Booking.objects.filter(status__in = ["Approved","Rejected"],date__gte = datetime.date.today(),roomslot__slot__startime__gte = datetime.datetime.now().time())
+                bookings = Booking.objects.filter(status__in = ["Approved","Rejected"],date__gte = datetime.date.today())
             elif booking_type == "Past":
-                bookings = Booking.objects.filter(date__lt = datetime.date.today()) | Booking.objects.filter(date = datetime.date.today(),roomslot__slot__startime__lt = datetime.datetime.now().time())
+                bookings = Booking.objects.filter(date__lt = datetime.date.today()) | Booking.objects.filter(date = datetime.date.today())
             else:
                 raise Exception("Invalid booking type")
         return bookings.order_by('-date')
@@ -242,6 +244,6 @@ class BookingApproveRejectAPI(views.APIView):
             booking.rejection_reason = request.data['rejection_reason']
         booking.status = request.data['status']
         booking.save()
-        return Response({"message":f"Booking has been {status.lower()}"},status=status.HTTP_200_OK)
+        return Response({"message":f"Booking has been {booking.status.lower()}"},status=status.HTTP_200_OK)
         
     

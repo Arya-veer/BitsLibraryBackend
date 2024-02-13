@@ -67,18 +67,28 @@ class RoomDetailSerializer(serializers.ModelSerializer):
     
     def get_user_has_phone_number(self,obj):
         return self.context['request'].user.profile.phone_number is not None
+
+class BookerSerializer(serializers.ModelSerializer):
+    
+        email = serializers.CharField(source = 'auth_user.email')
+    
+        class Meta:
+            model = UserProfile
+            fields = ('name','uid','phone_number','email')
     
 class BookingListSerializer(serializers.ModelSerializer):
 
     room = serializers.CharField(source = 'roomslot.room.name')
     slot = serializers.SerializerMethodField()
+    booker = BookerSerializer()
 
     class Meta:
         model = Booking
-        fields = ('id','status','date','room','slot','no_of_participants','rejection_reason',)
+        fields = ('id','status','date','room','slot','no_of_participants','rejection_reason','booker')
 
     def get_slot(self,obj):
         return f"{obj.roomslot.slot.starttime} - {obj.roomslot.slot.endtime}"
+
 
 class BookingDetailSerializer(BookingListSerializer):
 
