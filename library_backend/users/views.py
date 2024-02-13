@@ -94,7 +94,7 @@ class ItemListAPI(generics.ListAPIView):
     
     def get_queryset(self):
         items = Item.objects.all()#.exclude(id__in = Claim.objects.filter(is_approved = True).exclude(user = self.request.user.profile).values_list('item__id',flat=True))
-        return items
+        return items.order_by('-dt')
     
 class StaffItemListAPI(generics.ListAPIView):
     permission_classes = (StaffPermission,)
@@ -104,8 +104,8 @@ class StaffItemListAPI(generics.ListAPIView):
         type = self.request.query_params.get("type", "Pending")
         claimed_items = Claim.objects.filter(is_approved = True).values_list('item__id',flat=True).distinct()
         if type == "Pending":
-            return Item.objects.exclude(id__in = claimed_items)
-        return Item.objects.filter(id__in = claimed_items)
+            return Item.objects.exclude(id__in = claimed_items).order_by('-dt')
+        return Item.objects.filter(id__in = claimed_items).order_by('-dt')
 
 class ClaimedItemsAPI(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
@@ -122,7 +122,7 @@ class StaffClaimedItemsAPI(generics.ListAPIView):
 
     def get_queryset(self):
         item = Item.objects.get(id=self.request.query_params.get('item_id',-1))
-        return Claim.objects.filter(item=item)
+        return Claim.objects.filter(item=item).order_by('-date')
     
     def list(self, request, *args, **kwargs):
         try:
