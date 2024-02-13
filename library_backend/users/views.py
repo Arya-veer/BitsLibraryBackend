@@ -96,6 +96,17 @@ class ItemListAPI(generics.ListAPIView):
         items = Item.objects.all()#.exclude(id__in = Claim.objects.filter(is_approved = True).exclude(user = self.request.user.profile).values_list('item__id',flat=True))
         return items
     
+class StaffItemListAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = StaffItemSerializer
+
+    def get_queryset(self):
+        type = self.request.query_params.get("type", "Pending")
+        claimed_items = Claim.objects.filter(is_approved = True).values_list('item__id',flat=True).distinct()
+        if type == "Pending":
+            return Item.objects.exclude(id__in = claimed_items)
+        return Item.objects.filter(id__in = claimed_items)
+
 class ClaimedItemsAPI(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ClaimSerializer

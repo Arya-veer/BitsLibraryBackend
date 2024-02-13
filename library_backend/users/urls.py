@@ -9,6 +9,7 @@ urlpatterns = [
     path("update_phone_number/",PhoneNumberUpdateAPI.as_view()),
     path("items/",ItemListAPI.as_view()),
     path("add_item/",AddItemAPI.as_view()),
+    path("staff_item_list/",StaffItemListAPI.as_view()),
     path("claim_item/",ClaimItemAPI.as_view()),
     path("claimed_items/",ClaimedItemsAPI.as_view()),
     path("article_book_request/",ArticleBookRequestListCreateAPI.as_view()),
