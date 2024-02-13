@@ -7,4 +7,4 @@ class StaffPermission(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        return (not request.user.is_anonymous) and UserProfile.objects.filter(auth_user=request.user,user_type="Staff").exists()
+        return (request.user) and UserProfile.objects.filter(auth_user=request.user,user_type="Staff").exists()
