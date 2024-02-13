@@ -4,6 +4,8 @@ from .models import UserProfile, Item, Claim, ArticleBookRequest,FreeBook,FreeBo
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    
+    email = serializers.EmailField(source='auth_user.email',read_only=True)
     class Meta:
         model = UserProfile
         exclude = ('auth_user','id')
