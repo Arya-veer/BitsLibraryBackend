@@ -60,7 +60,7 @@ class StaffClaimSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Claim
-        exclude = ('item')
+        exclude = ('item',)
 
 class ArticleBookRequestSerializer(serializers.ModelSerializer):
 
