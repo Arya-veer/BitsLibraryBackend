@@ -129,6 +129,23 @@ class StaffClaimedItemsAPI(generics.ListAPIView):
             return super().list(request, *args, **kwargs)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+    
+class ApproveClaimAPI(APIView):
+    permission_classes = (StaffPermission,)
+    
+    def post(self,request):
+        if "claim_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        claim_id = request.data['claim_id']
+        claims = Claim.objects.filter(id=claim_id,is_approved=False)
+        if not claims.exists():
+            return Response({"message": "Claim Not Found"},status=status.HTTP_400_BAD_REQUEST)
+        if claim.item.claims.filter(is_approved=True).exists():
+            return Response({"message": "Item already claimed"},status=status.HTTP_400_BAD_REQUEST)
+        claim = claims.first()
+        claim.is_approved = True
+        claim.save()
+        return Response({"message": "Claim Approved"},status=status.HTTP_200_OK)
 
 class ClaimItemAPI(APIView):
     permission_classes = (IsAuthenticated,)
