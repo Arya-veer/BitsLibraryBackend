@@ -104,3 +104,22 @@ class FreeBookPickSerializer(serializers.ModelSerializer):
         model = FreeBookPick
         exclude = ('user','id')
     
+class StaffFreeBookSerializer(serializers.ModelSerializer):
+    
+    claimed_by = serializers.SerializerMethodField()
+    class Meta:
+        model = FreeBook
+        fields = '__all__'
+    
+    def get_claimed_by(self,obj):
+        if obj.free_book_picks.filter(status='Approved').exists():
+            return UserProfileSerializer(obj.free_book_picks.filter(status='Approved').first().user).data
+        return None
+    
+class StaffFreeBookPickSerializer(serializers.ModelSerializer):
+    
+    user = UserProfileSerializer()
+    
+    class Meta:
+        model = FreeBookPick
+        exclude = ('book',)

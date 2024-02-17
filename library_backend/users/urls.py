@@ -16,6 +16,10 @@ urlpatterns = [
     path("claim_item/",ClaimItemAPI.as_view()),
     path("claimed_items/",ClaimedItemsAPI.as_view()),
     path("approve_claim/",ApproveClaimAPI.as_view()),
+    path("add_free_book/",AddFreeBookAPI.as_view()),
+    path("staff_free_book_list/",StaffFreeBookListAPI.as_view()),
+    path("staff_free_book_pick/",StaffFreeBookPickAPI.as_view()),
+    path("approve_free_book_pick/",ApproveFreeBookPickAPI.as_view()),
     
     # 
     path("article_book_request/",ArticleBookRequestListCreateAPI.as_view()),

@@ -213,11 +213,62 @@ class FreeBookPickAPI(generics.ListCreateAPIView):
             return Response({"message": "Book already claimed by you"},status=status.HTTP_400_BAD_REQUEST)
         if FreeBookPick.objects.filter(book=book,status="Approved").exists():
             return Response({"message": "Book already claimed"},status=status.HTTP_400_BAD_REQUEST)
+        if user.profile.free_book_picks.filter(status="Approved").exists():
+            return Response({"message": "You can only pick one book"}, status=status.HTTP_400_BAD_REQUEST)
         try:
             claim = FreeBookPick.objects.create(user=user.profile,book=book)
             return Response({"message": "Book Claimed! You can check the status later"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+class AddFreeBookAPI(generics.CreateAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = FreeBookSerialzer
+
+class StaffFreeBookListAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = StaffFreeBookSerializer
+
+    def get_queryset(self):
+        type = self.request.query_params.get("type", "Pending")
+        claimed_freebooks = FreeBookPick.objects.filter(status = 'Approved').values_list('book__id',flat=True).distinct()
+        if type == "Pending":
+            return FreeBook.objects.exclude(id__in = claimed_freebooks).order_by('-title')
+        return FreeBook.objects.filter(id__in = claimed_freebooks).order_by('-title')
+
+class StaffFreeBookPickAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = StaffFreeBookPickSerializer
+
+    def get_queryset(self):
+        book = FreeBook.objects.get(id=self.request.query_params.get('id',-1))
+        return FreeBookPick.objects.filter(book=book).order_by('-date')
+    
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+
+class ApproveFreeBookPickAPI(APIView):
+    permission_classes = (StaffPermission,)
+    
+    def post(self,request):
+        if "claim_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        claim_id = request.data['claim_id']
+        free_book_picks = FreeBookPick.objects.filter(id=claim_id,status="Pending")
+        if not free_book_picks.exists():
+            return Response({"message": "Claim Not Found"},status=status.HTTP_400_BAD_REQUEST)
+        free_book_pick = free_book_pick.first()
+        if free_book_pick.book.free_book_picks.filter(status="Approved").exists():
+            return Response({"message": "Free Book already picked"},status=status.HTTP_400_BAD_REQUEST)
+        user = free_book_pick.user
+        if free_book_pick.user.free_book_picks.filter(status = "Approved").exists():
+            return Response({"message": "User can only pick one free book"}, status=status.HTTP_400_BAD_REQUEST)
+        free_book_pick.status = "Approved"
+        free_book_pick.save()
+        return Response({"message": "Claim Approved"},status=status.HTTP_200_OK)
 
 class CheckProfileExists(APIView):
     permission_classes = (AllowAny,)
