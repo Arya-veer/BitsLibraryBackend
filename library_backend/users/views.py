@@ -8,6 +8,8 @@ from rest_framework import status,generics
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from users.permissions import StaffPermission
+
 import firebase_admin
 from firebase_admin import auth
 
@@ -82,14 +84,29 @@ class PhoneNumberUpdateAPI(APIView):
         except Exception as e:
             return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
+class AddItemAPI(generics.CreateAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = ItemSerializer
+
 class ItemListAPI(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ItemSerializer
     
     def get_queryset(self):
         items = Item.objects.all()#.exclude(id__in = Claim.objects.filter(is_approved = True).exclude(user = self.request.user.profile).values_list('item__id',flat=True))
-        return items
+        return items.order_by('-dt')
     
+class StaffItemListAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = StaffItemSerializer
+
+    def get_queryset(self):
+        type = self.request.query_params.get("type", "Pending")
+        claimed_items = Claim.objects.filter(is_approved = True).values_list('item__id',flat=True).distinct()
+        if type == "Pending":
+            return Item.objects.exclude(id__in = claimed_items).order_by('-dt')
+        return Item.objects.filter(id__in = claimed_items).order_by('-dt')
+
 class ClaimedItemsAPI(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ClaimSerializer
@@ -98,6 +115,37 @@ class ClaimedItemsAPI(generics.ListAPIView):
         user = self.request.user
         items = Claim.objects.filter(user=user)
         return items
+
+class StaffClaimedItemsAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = StaffClaimSerializer
+
+    def get_queryset(self):
+        item = Item.objects.get(id=self.request.query_params.get('item_id',-1))
+        return Claim.objects.filter(item=item).order_by('-date')
+    
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            return Response({"message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+    
+class ApproveClaimAPI(APIView):
+    permission_classes = (StaffPermission,)
+    
+    def post(self,request):
+        if "claim_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        claim_id = request.data['claim_id']
+        claims = Claim.objects.filter(id=claim_id,is_approved=False)
+        if not claims.exists():
+            return Response({"message": "Claim Not Found"},status=status.HTTP_400_BAD_REQUEST)
+        claim = claims.first()
+        if claim.item.claims.filter(is_approved=True).exists():
+            return Response({"message": "Item already claimed"},status=status.HTTP_400_BAD_REQUEST)
+        claim.is_approved = True
+        claim.save()
+        return Response({"message": "Claim Approved"},status=status.HTTP_200_OK)
 
 class ClaimItemAPI(APIView):
     permission_classes = (IsAuthenticated,)

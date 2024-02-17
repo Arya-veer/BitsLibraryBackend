@@ -4,14 +4,16 @@ from .models import UserProfile, Item, Claim, ArticleBookRequest,FreeBook,FreeBo
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    
+    email = serializers.EmailField(source='auth_user.email',read_only=True)
     class Meta:
         model = UserProfile
         exclude = ('auth_user','id')
 
 class ItemSerializer(serializers.ModelSerializer):
 
-    status = serializers.SerializerMethodField()
-    dt = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField(read_only = True)
+    dt = serializers.SerializerMethodField(read_only = True)
     class Meta:
         model = Item
         fields = '__all__'
@@ -24,8 +26,11 @@ class ItemSerializer(serializers.ModelSerializer):
         if profile.claims.filter(item=obj,is_approved=True).exists():
             return "Approved"
         elif profile.claims.filter(item=obj,is_approved=False).exists():
-            return "Pending"
-        elif Claim.objects.filter(item = obj,is_approved = True).exists():
+            if Claim.objects.filter(item = obj,is_approved = True).exists():
+                return "Rejected"
+            else:
+                return "Pending"
+        if Claim.objects.filter(item = obj,is_approved = True).exists():
             return "Someone else claimed"
         else:
             return "Not Claimed"
@@ -39,7 +44,7 @@ class StaffItemSerializer(serializers.ModelSerializer):
     
     def get_claimed_by(self,obj):
         if obj.claims.filter(is_approved=True).exists():
-            return UserProfileSerializer(obj.claims.filter(is_approved=True).first()).data
+            return UserProfileSerializer(obj.claims.filter(is_approved=True).first().user).data
         return None
         
         
@@ -51,6 +56,14 @@ class ClaimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Claim
         exclude = ('user','id')
+        
+class StaffClaimSerializer(serializers.ModelSerializer):
+    
+    user = UserProfileSerializer()
+    
+    class Meta:
+        model = Claim
+        exclude = ('item',)
 
 class ArticleBookRequestSerializer(serializers.ModelSerializer):
 
