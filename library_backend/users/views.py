@@ -260,7 +260,7 @@ class ApproveFreeBookPickAPI(APIView):
         free_book_picks = FreeBookPick.objects.filter(id=claim_id,status="Pending")
         if not free_book_picks.exists():
             return Response({"message": "Claim Not Found"},status=status.HTTP_400_BAD_REQUEST)
-        free_book_pick = free_book_pick.first()
+        free_book_pick = free_book_picks.first()
         if free_book_pick.book.free_book_picks.filter(status="Approved").exists():
             return Response({"message": "Free Book already picked"},status=status.HTTP_400_BAD_REQUEST)
         user = free_book_pick.user
