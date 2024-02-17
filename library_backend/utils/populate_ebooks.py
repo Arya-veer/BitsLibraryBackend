@@ -1,14 +1,14 @@
 import sys
 sys.path.append('../')
 
-import xlrd
-xlrd.xlsx.ensure_elementtree_imported(False, None)
-xlrd.xlsx.Element_has_iter = True
-
-import django,os, time
+import os
+import time
 import threading
+from openpyxl import load_workbook
+from django.db import transaction
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
+import django
 django.setup()
 
 from databases.models import *
@@ -25,51 +25,36 @@ def my_get_or_create(MyObj, **kwargs):
 class EBookPopulate:
     def __init__(self):
         self.path = 'ebooks.xlsx'
-        self.workbook = xlrd.open_workbook(self.path)
+        self.workbook = load_workbook(self.path, read_only=True)
         print("Workbook opened")
-        self.sheet = self.workbook.sheet_by_index(0)
-        self.rows = self.sheet.nrows
-        self.columns = self.sheet.ncols
+        self.sheet = self.workbook.active
 
     def populate(self, start):
-        for i in range(start, self.rows, 5):
-            subject = str(self.sheet.cell_value(i,1)).strip().title()
-            print(subject)
-            if subject == '':
-                # subject = Subject.objects.get_or_create(name='NA')[0]
-                subject = my_get_or_create(Subject, name='NA')
-            else:
-                # subject = Subject.objects.get_or_create(name=subject)[0]
-                subject = my_get_or_create(Subject, name=subject)
-            author = str(self.sheet.cell_value(i,2)).strip().title()
-            if author == '':
-                author = 'NA'
-            else:
-                author = author
-            name = str(self.sheet.cell_value(i,3)).strip().title()
-            if name == '':
-                name = 'NA'
-            else:
-                name = name
-            publisher = str(self.sheet.cell_value(i,5)).strip().title()
-            if publisher == '':
-                publisher = my_get_or_create(Publisher, name='NA')
-            else:
-                publisher = my_get_or_create(Publisher, name=publisher)
-            url = str(self.sheet.cell_value(i,8)).strip()
-            if url == '':
-                url = 'NA'
-            else:
-                url = url
+        temp = start
+        while temp < self.sheet.max_row:
+            row = self.sheet[temp]
+            subject = row[1].value.strip().title() if row[1].value else 'NA'
+            subject = my_get_or_create(Subject, name=subject)
+            
+            author = row[2].value.strip().title() if row[2].value else 'NA'
+            name = row[3].value.strip().title() if row[3].value else 'NA'
+            
+            publisher_name = row[5].value.strip().title() if row[5].value else 'NA'
+            publisher = my_get_or_create(Publisher, name=publisher_name)
+            
+            url = row[8].value.strip() if row[8].value else 'NA'
+            
             extra_data = {}
-            extra_data['isbn'] = str(self.sheet.cell_value(i,7)).strip()
-            extra_data['edition'] = str(self.sheet.cell_value(i,5)).strip()
-            extra_data['year'] = str(self.sheet.cell_value(i,6)).strip()
+            extra_data['isbn'] = row[7].value if row[7].value else ''
+            extra_data['edition'] = row[5].value.strip() if row[5].value else ''
+            extra_data['year'] = row[6].value if row[6].value else ''
+            
             ebook = my_get_or_create(EBook, name=name, author=author, publisher=publisher, subject=subject, url=url)
             ebook.extra_data = extra_data
             ebook.save()
-
-            print(f"Added {name} - {author} - {publisher} - {subject} - {url} ")
+            print(f"Added {name}")
+            # move to the next 5th row
+            temp += 5
 
 def worker(start, ebook):
     print(f"Starting thread starting from {start}")
@@ -80,7 +65,7 @@ if __name__ == "__main__":
     ebook = EBookPopulate()
     threads = []
     for i in range(1, 6):
-        thread = threading.Thread(target=worker, args=(i,ebook))
+        thread = threading.Thread(target=worker, args=(i, ebook))
         threads.append(thread)
         thread.start()
         #sleep for 5 seconds
