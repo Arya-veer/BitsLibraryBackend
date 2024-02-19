@@ -102,7 +102,7 @@ class StaffItemListAPI(generics.ListAPIView):
 
     def get_queryset(self):
         type = self.request.query_params.get("type", "Pending")
-        claimed_items = Claim.objects.filter(is_approved = True).values_list('item__id',flat=True).distinct()
+        claimed_items = Claim.objects.filter(status = "Approved").values_list('item__id',flat=True).distinct()
         if type == "Pending":
             return Item.objects.exclude(id__in = claimed_items).order_by('-dt')
         return Item.objects.filter(id__in = claimed_items).order_by('-dt')
@@ -137,13 +137,13 @@ class ApproveClaimAPI(APIView):
         if "claim_id" not in request.data:
             return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
         claim_id = request.data['claim_id']
-        claims = Claim.objects.filter(id=claim_id,is_approved=False)
+        claims = Claim.objects.filter(id=claim_id,status="Pending")
         if not claims.exists():
             return Response({"message": "Claim Not Found"},status=status.HTTP_400_BAD_REQUEST)
         claim = claims.first()
-        if claim.item.claims.filter(is_approved=True).exists():
+        if claim.item.claims.filter(status="Approved").exists():
             return Response({"message": "Item already claimed"},status=status.HTTP_400_BAD_REQUEST)
-        claim.is_approved = True
+        claim.status = "Approved"
         claim.save()
         return Response({"message": "Claim Approved"},status=status.HTTP_200_OK)
 
@@ -161,7 +161,7 @@ class ClaimItemAPI(APIView):
         item = items.first()
         if Claim.objects.filter(user=user,item=item).exists():
             return Response({"message": "You have already claimed this item"},status=status.HTTP_400_BAD_REQUEST)
-        if Claim.objects.filter(item=item,is_approved=True).exists():
+        if Claim.objects.filter(item=item,status="Approved").exists():
             return Response({"message": "Item already claimed"},status=status.HTTP_400_BAD_REQUEST)
         try:
             claim = Claim.objects.create(user=user,item=item)
@@ -233,8 +233,8 @@ class StaffFreeBookListAPI(generics.ListAPIView):
         type = self.request.query_params.get("type", "Pending")
         claimed_freebooks = FreeBookPick.objects.filter(status = 'Approved').values_list('book__id',flat=True).distinct()
         if type == "Pending":
-            return FreeBook.objects.exclude(id__in = claimed_freebooks).order_by('-title')
-        return FreeBook.objects.filter(id__in = claimed_freebooks).order_by('-title')
+            return FreeBook.objects.exclude(id__in = claimed_freebooks).order_by('-date')
+        return FreeBook.objects.filter(id__in = claimed_freebooks).order_by('-date')
 
 class StaffFreeBookPickAPI(generics.ListAPIView):
     permission_classes = (StaffPermission,)

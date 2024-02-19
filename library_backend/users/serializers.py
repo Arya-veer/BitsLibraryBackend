@@ -23,14 +23,14 @@ class ItemSerializer(serializers.ModelSerializer):
 
     def get_status(self,obj):
         profile = self.context['request'].user.profile
-        if profile.claims.filter(item=obj,is_approved=True).exists():
+        if profile.claims.filter(item=obj,status="Approved").exists():
             return "Approved"
-        elif profile.claims.filter(item=obj,is_approved=False).exists():
-            if Claim.objects.filter(item = obj,is_approved = True).exists():
+        elif profile.claims.filter(item=obj,status="Pending").exists():
+            if Claim.objects.filter(item = obj,status = "Approved").exists():
                 return "Rejected"
             else:
                 return "Pending"
-        if Claim.objects.filter(item = obj,is_approved = True).exists():
+        if Claim.objects.filter(item = obj,status = "Approved").exists():
             return "Someone else claimed"
         else:
             return "Not Claimed"
@@ -43,8 +43,8 @@ class StaffItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def get_claimed_by(self,obj):
-        if obj.claims.filter(is_approved=True).exists():
-            return UserProfileSerializer(obj.claims.filter(is_approved=True).first().user).data
+        if obj.claims.filter(status="Approved").exists():
+            return UserProfileSerializer(obj.claims.filter(status="Approved").first().user).data
         return None
         
         

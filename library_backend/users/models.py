@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from misc.models import AbstractBaseModel
 from django.utils import timezone
 
+STATUS_OF_CLAIM = [
+    ('Pending', 'Pending'),
+    ('Approved', 'Approved'),
+    ('Rejected', 'Rejected')
+]
+
 # Create your models here.
 class UserProfile(models.Model):
 
@@ -32,6 +38,7 @@ class Claim(models.Model):
     item = models.ForeignKey(Item,on_delete=models.CASCADE,related_name='claims')
     date = models.DateField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
+    status = models.CharField(max_length=8, choices=STATUS_OF_CLAIM, default='Pending')
     description = models.TextField(blank=True)
 
     def __str__(self) -> str:
@@ -65,6 +72,7 @@ class FreeBook(AbstractBaseModel):
     publisher = models.CharField(max_length=200)
     year = models.IntegerField()
     edition = models.CharField(max_length=200)
+    date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Free Book"
