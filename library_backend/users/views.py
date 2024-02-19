@@ -187,7 +187,7 @@ class FreeBookListAPI(generics.ListAPIView):
 
     def get_queryset(self):
         books = FreeBook.objects.all()
-        return books.order_by('date')
+        return books.order_by('-date')
     
 class FreeBookPickAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
