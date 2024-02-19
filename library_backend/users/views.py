@@ -233,8 +233,8 @@ class StaffFreeBookListAPI(generics.ListAPIView):
         type = self.request.query_params.get("type", "Pending")
         claimed_freebooks = FreeBookPick.objects.filter(status = 'Approved').values_list('book__id',flat=True).distinct()
         if type == "Pending":
-            return FreeBook.objects.exclude(id__in = claimed_freebooks).order_by('-date')
-        return FreeBook.objects.filter(id__in = claimed_freebooks).order_by('-date')
+            return FreeBook.objects.exclude(id__in = claimed_freebooks).order_by('date')
+        return FreeBook.objects.filter(id__in = claimed_freebooks).order_by('date')
 
 class StaffFreeBookPickAPI(generics.ListAPIView):
     permission_classes = (StaffPermission,)
