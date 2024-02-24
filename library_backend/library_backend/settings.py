@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)w05xn0!--n()no+taerye(7)3+^-@14mcat3o&p6(vg3g96eq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+import library_backend.keyconfig as senv
+DEBUG = senv.DEBUG
 
 ALLOWED_HOSTS = ['*']
 
@@ -105,7 +106,6 @@ WSGI_APPLICATION = 'library_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-import library_backend.keyconfig as senv
 
 # print("Using Postgres.")
 DATABASES = {
