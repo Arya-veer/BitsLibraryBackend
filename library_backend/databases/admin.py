@@ -37,7 +37,6 @@ class SubjectAdmin(admin.ModelAdmin):
 class EBookAdmin(admin.ModelAdmin):
     list_display = ("name","author","publisher","subject")
     search_fields = ("name","author","publisher__name","subject__name")
-    list_filter = ("subject",)
     formfield_overrides = {
             models.JSONField: {'widget': JSONEditorWidget},
         }
