@@ -29,7 +29,7 @@ class EBookPopulate:
         print("Workbook opened")
         self.sheet = self.workbook.active
 
-    def populate(self, start):
+    def ebook_populate(self, start):
         temp = start
         while temp < self.sheet.max_row:
             row = self.sheet[temp]
