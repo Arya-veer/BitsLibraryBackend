@@ -40,6 +40,7 @@ class Publisher(AbstractBaseModel):
     class Meta:
         verbose_name = "Publisher"
         verbose_name_plural = "Publishers"
+        ordering = ['name']
     
     def __str__(self):  
         return self.name
@@ -50,6 +51,7 @@ class Subject(AbstractBaseModel):
     class Meta:
         verbose_name = "Subject"
         verbose_name_plural = "Subjects"
+        ordering = ['name']
     
     def __str__(self):  
         return self.name
