@@ -8,30 +8,31 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
 django.setup()
 
 import pandas as pd
-from databases.models import Publisher, Subject, EBook
+from databases.models import Publisher, Subject, EJournal
 
 
-class EBookPopulator:
+class EjournalPopulator:
     def __init__(self, file_name):
         print("Populator")
         self.data = pd.read_excel(file_name)
         self.data.fillna("", inplace=True)
         self.publishers = {}
         self.subjects = {}
-        self.clean_ebooks()
-        self.populate_publishers ()
+        self.clean_ejournals()
+        self.populate_Publishers ()
         self.populate_subjects ()
-        self.populate_ebooks ()
+        self.populate_ejournals ()
 
-    def clean_ebooks (self):
-        Publisher.objects.filter(name__in=set(self.data['Publisher'])).delete()
+    def clean_ejournals (self):
+        print("cleaning ejournals...")
+        Publisher.objects.filter(name__in=set(self.data['Publishers'])).delete()
         Subject.objects.filter(name__in=set(self.data['Subject'])).delete()
-        EBook.objects.filter(name__in=set(self.data['Title'])).delete()
+        EJournal.objects.filter(name__in=set(self.data['Title of Journal'])).delete()
 
     def populate_publishers (self):
         print("populating publishers...")
         for publisher in Publisher.objects.bulk_create(
-            Publisher(name=x) for x in set(self.data['Publisher'])
+            Publisher(name=x) for x in set(self.data['Publishers'])
         ):
             self.publishers[publisher.name] = publisher
     
@@ -42,21 +43,20 @@ class EBookPopulator:
         ):
             self.subjects[subject.name] = subject
 
-    def populate_ebooks (self):
-        print("populating ebooks...")
-        EBook.objects.bulk_create(
-            EBook(
-                name=row['Title'],
-                author=row['Author'],
-                publisher=self.publishers[row['Publisher']],
+    def populate_ejournals (self):
+        print("populating ejournals...")
+        Ejournal.objects.bulk_create(
+            Ejournal(
+                name=row['Title of Journal'],
+                publisher=self.publishers[row['Publishers']],
                 subject=self.subjects[row['Subject']],
-                url=row['Url'],
+                url=row['URL'],
                 extra_data = {
-                    'isbn': row['ISBN'],
-                    'edition': row['Edition'],
-                    'year': row['Year']
+                    'isbn': row['ISSN'],
+                    'name of database': row['Name of the Database'],
+                    'accessible': row['Access Available at']
                 }
             ) for index, row in self.data.iterrows())
 
 if __name__ == "__main__":
-    EBookPopulator('ebooks.xlsx')
+    EjournalPopulator('ejournals.xlsx')

@@ -1,68 +1,62 @@
 import sys
 sys.path.append('../')
 
-import xlrd
-xlrd.xlsx.ensure_elementtree_imported(False, None)
-xlrd.xlsx.Element_has_iter = True
-import django,os
+import django,os, time
+import threading
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
 django.setup()
 
-from papers.models import Course,TextBook
+import pandas as pd
+from papers.models import TextBook, Course
+from databases.models import Campus
 
 
-class TextbookPopulate:
-    def __init__(self):
-        self.path = 'textbooks.xlsx'
-        self.workbook = xlrd.open_workbook(self.path)
-        print("Workbook opened")
-        self.sheet = self.workbook.sheet_by_index(0)
-        self.rows = self.sheet.nrows
-        self.columns = self.sheet.ncols
-    
-    def get_course(self,code,name):
-        courses = Course.objects.filter(course_id=code)
-        if courses.exists():
-            courses.update(name=name)
-            return courses.first()
-        else:
-            return Course.objects.create(course_id=code,name=name)
+class TextBookPopulator:
+    def __init__(self, file_name):
+        print("Populator")
+        self.data = pd.read_excel(file_name)
+        self.data.fillna("", inplace=True)
+        self.courses = {}
+        self.campuses = {}
+        self.clean_textbooks()
+        # self.populate_campuses ()
+        self.populate_courses ()
+        self.populate_textbooks ()
 
-    def populate(self):
-        extra_data = {}
-        for i in range(1,self.rows):
-            try:
-                course = self.get_course(str(self.sheet.cell_value(i,1)).strip(),str(self.sheet.cell_value(i,2)).strip())
-                title = str(self.sheet.cell_value(i,3)).strip()
-                extra_data['author'] = str(self.sheet.cell_value(i,4)).strip()
-                extra_data['publisher'] = str(self.sheet.cell_value(i,5)).strip()
-                extra_data['edition'] = str(self.sheet.cell_value(i,6)).strip()
-                extra_data['year'] = str(self.sheet.cell_value(i,7)).strip()
-                extra_data['type'] = str(self.sheet.cell_value(i,8)).strip()
-                to_remove_keys = []
-                for key in extra_data.keys():
-                    if extra_data[key] == '':
-                        to_remove_keys.append(key)
-                    elif extra_data[key].isnumeric():
-                        extra_data[key] = int(float(extra_data[key]))
-                for key in to_remove_keys:
-                    extra_data.pop(key)
-                print(extra_data)
-                url = str(self.sheet.cell_value(i,13)).strip()
-                if url.startswith('http'):
-                    url = url
-                else:
-                    continue
-                tb = TextBook.objects.create(course=course,title=title,extra_data=extra_data,url=url)
-                print(tb)
-            except Exception as e:
-                print(e)
-                print("Error at row",i)
-                continue
-            
+    def clean_textbooks (self):
+        print("cleaning textbooks...")
+        Campus.objects.filter(name__in=set(Course.objects.filter(course_id__in=set(self.data['Course No.'])).values_list('campus', flat=True))).delete()
+        Course.objects.filter(course_id__in=set(self.data['Course No.'])).delete()
+        TextBook.objects.filter(title__in=set(self.data['Title'])).delete()
 
+    def populate_courses (self):
+        print("populating courses...")
+        for course in Course.objects.bulk_create(
+            Course(
+                name=row['Course Title'],
+                course_id=row['Course No.'],
+            ) for index, row in self.data.iterrows()
+        ):
+            self.courses[course.course] = course
 
-if __name__ == '__main__':
-    tbpopulator = TextbookPopulate()
-    tbpopulator.populate()
+    # def populate_campuses (self):
+
+    def populate_textbooks (self):
+        print("populating textbooks...")
+        TextBook.objects.bulk_create(
+            TextBook(
+                title=row['Title'],
+                course=self.courses[row['Course No.']],
+                url=row['Book Link'],
+                extra_data = {
+                    'author': row['Author'],
+                    'publisher': row['Publisher'],
+                    'edition': row['Edition'],
+                    'year': row['Year'],
+                    'type': row['Remarks']
+                }
+            ) for index, row in self.data.iterrows())
+
+if __name__ == "__main__":
+    TextBookPopulator('textbooks.xlsx')

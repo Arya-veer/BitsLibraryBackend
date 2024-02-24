@@ -25,7 +25,7 @@ class FacultyPopulator:
 
     def clean_faculty (self):
         User.objects.filter(username__in=set(self.data['Employee ID'])).delete()
-        UserProfile.objects.filter(user_type='Faculty').delete()
+        UserProfile.objects.filter(uid__in=set(self.data['Employee ID'])).delete()
 
     def populate_faculty (self):
         print("populating faculty...")
