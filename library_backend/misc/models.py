@@ -63,7 +63,7 @@ class AbstractBaseModel(models.Model):
                 Revalidate.add(url)
 
 
-    def delete(self, using, keep_parents) :
+    def delete(self, using = "default", keep_parents = False) :
         super().delete(using, keep_parents)
         self.validate()
     
