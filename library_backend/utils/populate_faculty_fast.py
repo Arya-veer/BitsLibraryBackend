@@ -19,29 +19,26 @@ class FacultyPopulator:
         self.data = pd.read_excel(file_name)
         self.auth_user = {}
         self.data.fillna("", inplace=True)
-        self.clean_faculty()
         self.populate_auth_user()
         self.populate_faculty ()
-
-    def clean_faculty (self):
-        User.objects.filter(username__in=set(self.data['Employee ID'])).delete()
-        UserProfile.objects.filter(uid__in=set(self.data['Employee ID'])).delete()
 
     def populate_faculty (self):
         print("populating faculty...")
         UserProfile.objects.bulk_create(
-            UserProfile(
+            (UserProfile(
                 name=row['Full Name'],
                 uid=row['Employee ID'],
                 user_type='Faculty',
                 auth_user=self.auth_user[row['Employee ID']]
-            ) for index, row in self.data.iterrows())
+            ) for index, row in self.data.iterrows()), ignore_conflicts=True)
     
     def populate_auth_user(self):
         print("populating auth_user...")
-        for user in User.objects.bulk_create(
-            User(username=x) for x in set(self.data['Employee ID'])
-        ):
+        User.objects.bulk_create(
+            (User(username=x) for x in set(self.data['Employee ID'])),
+            ignore_conflicts=True
+        )
+        for user in User.objects.filter(username__in=set(self.data['Employee ID'])):
             self.auth_user[user.username] = user
             
 
