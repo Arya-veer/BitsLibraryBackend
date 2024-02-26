@@ -48,7 +48,7 @@ class TextBook(AbstractBaseModel):
     title = models.CharField(max_length=200,blank=True)
     extra_data = models.JSONField(default=dict,blank=True,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='textbooks',null = True)
-    url = models.URLField(max_length=200,blank=True,null=True)
+    url = models.URLField(max_length=500,blank=True,null=True)
 
     class Meta:
         verbose_name = "TextBook"

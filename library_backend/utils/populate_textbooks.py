@@ -19,33 +19,33 @@ class TextBookPopulator:
         self.data.fillna("", inplace=True)
         self.courses = {}
         self.campuses = {}
-        self.clean_textbooks()
-        # self.populate_campuses ()
+        self.populate_campuses()
         self.populate_courses ()
         self.populate_textbooks ()
 
-    def clean_textbooks (self):
-        print("cleaning textbooks...")
-        Campus.objects.filter(name__in=set(Course.objects.filter(course_id__in=set(self.data['Course No.'])).values_list('campus', flat=True))).delete()
-        Course.objects.filter(course_id__in=set(self.data['Course No.'])).delete()
-        TextBook.objects.filter(title__in=set(self.data['Title'])).delete()
-
     def populate_courses (self):
         print("populating courses...")
-        for course in Course.objects.bulk_create(
+        Course.objects.bulk_create(
             Course(
                 name=row['Course Title'],
                 course_id=row['Course No.'],
-            ) for index, row in self.data.iterrows()
-        ):
-            self.courses[course.course] = course
+            ) for index, row in self.data.iterrows())
+        for course in Course.objects.filter(course_id__in=set(self.data['Course No.'])):
+            self.courses[course.course_id] = course
 
-    # def populate_campuses (self):
+    def populate_campuses (self):
+        print("populating campuses...")
+        Campus.objects.bulk_create(
+            (Campus(name='Pilani'), Campus(name='Goa'), Campus(name='Hyderabad')),
+            ignore_conflicts=True
+        )
+        for campus in Campus.objects.all():
+            self.campuses[campus.name] = campus
 
     def populate_textbooks (self):
         print("populating textbooks...")
         TextBook.objects.bulk_create(
-            TextBook(
+            (TextBook(
                 title=row['Title'],
                 course=self.courses[row['Course No.']],
                 url=row['Book Link'],
@@ -54,9 +54,9 @@ class TextBookPopulator:
                     'publisher': row['Publisher'],
                     'edition': row['Edition'],
                     'year': row['Year'],
-                    'type': row['Remarks']
+                    'type': row['Remark']
                 }
-            ) for index, row in self.data.iterrows())
+            ) for index, row in self.data.iterrows()), ignore_conflicts=True)
 
 if __name__ == "__main__":
     TextBookPopulator('textbooks.xlsx')
