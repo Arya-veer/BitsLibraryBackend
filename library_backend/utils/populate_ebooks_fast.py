@@ -18,34 +18,32 @@ class EBookPopulator:
         self.data.fillna("", inplace=True)
         self.publishers = {}
         self.subjects = {}
-        self.clean_ebooks()
         self.populate_publishers ()
         self.populate_subjects ()
         self.populate_ebooks ()
 
-    def clean_ebooks (self):
-        Publisher.objects.filter(name__in=set(self.data['Publisher'])).delete()
-        Subject.objects.filter(name__in=set(self.data['Subject'])).delete()
-        EBook.objects.filter(name__in=set(self.data['Title'])).delete()
-
     def populate_publishers (self):
         print("populating publishers...")
-        for publisher in Publisher.objects.bulk_create(
-            Publisher(name=x) for x in set(self.data['Publisher'])
-        ):
+        Publisher.objects.bulk_create(
+            (Publisher(name=x) for x in set(self.data['Publisher'])),
+            ignore_conflicts=True
+        )
+        for publisher in Publisher.objects.filter(name__in=set(self.data['Publisher'])):
             self.publishers[publisher.name] = publisher
     
     def populate_subjects (self):
         print("populating subjects...")
-        for subject in Subject.objects.bulk_create(
-            Subject(name=x) for x in set(self.data['Subject'])
-        ):
+        Subject.objects.bulk_create(
+            (Subject(name=x) for x in set(self.data['Subject'])),
+            ignore_conflicts=True
+        )
+        for subject in Subject.objects.filter(name__in=set(self.data['Subject'])):
             self.subjects[subject.name] = subject
 
     def populate_ebooks (self):
         print("populating ebooks...")
         EBook.objects.bulk_create(
-            EBook(
+            (EBook(
                 name=row['Title'],
                 author=row['Author'],
                 publisher=self.publishers[row['Publisher']],
@@ -56,7 +54,7 @@ class EBookPopulator:
                     'edition': row['Edition'],
                     'year': row['Year']
                 }
-            ) for index, row in self.data.iterrows())
+            ) for index, row in self.data.iterrows()), ignore_conflicts=True)
 
 if __name__ == "__main__":
     EBookPopulator('ebooks.xlsx')
