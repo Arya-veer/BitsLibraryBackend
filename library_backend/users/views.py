@@ -180,6 +180,28 @@ class ArticleBookRequestListCreateAPI(generics.ListCreateAPIView):
         requests = ArticleBookRequest.objects.filter(user=user.profile,type_doc=type_doc)
         return requests
 
+class ArticleBookRequestStaffListAPI(generics.ListAPIView):
+    permission_classes = (StaffPermission,)
+    serializer_class = ArticleBookRequestStaffSerializer
+
+    def get_queryset(self):
+        requests = ArticleBookRequest.objects.all()
+        return requests.order_by('-date')
+
+class ApproveRejectArticleBookRequestStaffAPI(APIView):
+    permission_classes = (StaffPermission,)
+    
+    def post(self, request):
+        if "article_book_request_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'}, status=status.HTTP_400_BAD_REQUEST)
+        article_book_request_id = request.data['article_book_request_id']
+        article_book_requests = ArticleBookRequest.objects.filter(id=article_book_request_id, status="Pending")
+        if not article_book_requests.exists():
+            return Response({'message': 'Request Not found.'}, status=status.HTTP_400_BAD_REQUEST)
+        article_book_request = article_book_requests.first()
+        article_book_request.status = request.data.get("status","Pending")
+        article_book_request.save()
+        return Response({'message': f"The status has been updated to {article_book_request.status}"})
 
 class FreeBookListAPI(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
