@@ -21,8 +21,12 @@ urlpatterns = [
     path("staff_free_book_pick/",StaffFreeBookPickAPI.as_view()),
     path("approve_free_book_pick/",ApproveFreeBookPickAPI.as_view()),
     
-    # 
+    # Article Book Request
     path("article_book_request/",ArticleBookRequestListCreateAPI.as_view()),
+    path("staff_article_book_request/",ArticleBookRequestStaffListAPI.as_view()),
+    path("article_book_request/action/",ApproveRejectArticleBookRequestStaffAPI.as_view()),
+    
+    # 
     path("free_books/",FreeBookListAPI.as_view()),
     path("free_book_request/",FreeBookPickAPI.as_view()),
 ]
