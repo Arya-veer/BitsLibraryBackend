@@ -108,7 +108,7 @@ class BookMarqueeAPI(generics.ListAPIView):
     # queryset = BookMarquee.objects.filter(is_set = True)
     
     def get_queryset(self):
-        return BookMarquee.objects.filter(is_set = True,campus = self.request.query_params.get('campus',"Pilani")).first()
+        return BookMarquee.objects.filter(is_set = True,campus = self.request.query_params.get('campus',"Pilani"))
 
 
 class LibraryTimingsAPI(views.APIView):
