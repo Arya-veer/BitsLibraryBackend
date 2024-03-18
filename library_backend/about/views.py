@@ -21,7 +21,7 @@ class LibraryCollectionAPI(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
 
     def get_object(self):
-        curr = LibraryCollection.objects.get(is_set = True)
+        curr = LibraryCollection.objects.filter(is_set = True,campus = self.request.filter('campus',"Pilani")).first()
         return curr
 
 
@@ -105,7 +105,10 @@ class NewsAPI(generics.ListAPIView):
 class BookMarqueeAPI(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = BookMarqueeSerializer
-    queryset = BookMarquee.objects.filter(is_set = True)
+    # queryset = BookMarquee.objects.filter(is_set = True)
+    
+    def get_queryset(self):
+        return BookMarquee.objects.filter(is_set = True,campus = self.request.query_params.get('campus',"Pilani")).first()
 
 
 class LibraryTimingsAPI(views.APIView):

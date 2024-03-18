@@ -29,15 +29,8 @@ class LibraryOverview(AbstractBaseModel):
 class LibraryCollection(AbstractBaseModel):
     title = models.CharField(max_length=40)
     description = models.TextField(blank=True)
-    is_set = models.BooleanField(default=False,unique=True)
+    campus = models.CharField(max_length=20,default="Pilani",choices=(("Pilani","Pilani"),("Goa","Goa"),("Hyderabad","Hyderabad"),("Dubai","Dubai"),("Mumbai","Mumbai")))
 
-    def save(self,*args, **kwargs):
-        if LibraryCollection.objects.filter(is_set = True).exists():
-            if self.is_set == True:
-                LibraryCollection.objects.all().update(is_set = False)
-        else:
-            self.is_set = True
-        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f"Library Collection"
@@ -185,6 +178,7 @@ class BookMarquee(AbstractBaseModel):
     isbn = models.CharField(max_length=20)
     is_set = models.BooleanField(default=True)
     uploaded_on = models.DateField(default=timezone.now)
+    campus = models.CharField(max_length=20,default="Pilani",choices=(("Pilani","Pilani"),("Goa","Goa"),("Hyderabad","Hyderabad"),("Dubai","Dubai"),("Mumbai","Mumbai")))
 
     class Meta:
         verbose_name = "Book Marquee"
