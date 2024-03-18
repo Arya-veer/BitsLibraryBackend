@@ -21,7 +21,7 @@ class LibraryCollectionAPI(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
 
     def get_object(self):
-        curr = LibraryCollection.objects.filter(is_set = True,campus = self.request.filter('campus',"Pilani")).first()
+        curr = LibraryCollection.objects.filter(is_set = True,campus = self.request.filter('campus',"Pilani"))
         return curr
 
 
