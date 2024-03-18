@@ -22,7 +22,7 @@ class LibraryCollectionSerialzer(serializers.ModelSerializer):
 
     class Meta:
         model = LibraryCollection
-        fields = ("description","is_set","data","title")
+        fields = "__all__"
     
     def get_data(self,obj):
         data_type = self.context['request'].query_params.get("type","int")
