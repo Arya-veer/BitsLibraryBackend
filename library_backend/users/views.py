@@ -185,8 +185,11 @@ class ArticleBookRequestStaffListAPI(generics.ListAPIView):
     serializer_class = ArticleBookRequestStaffSerializer
 
     def get_queryset(self):
-        requests = ArticleBookRequest.objects.filter(status = self.request.query_params.get('status', 'Pending')).order_by('-date')
-        return requests.order_by('-date')
+        status = self.request.query_params.get('type', 'Pending')
+        if status == "Pending":
+            return ArticleBookRequest.objects.filter(status = "Pending").order_by('-date')
+        return ArticleBookRequest.objects.exclude(status = "Pending").order_by('-date')
+        
 
 class ApproveRejectArticleBookRequestStaffAPI(APIView):
     permission_classes = (StaffPermission,)
