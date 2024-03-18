@@ -79,21 +79,21 @@ class ArticleBookRequestSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 class ArticleBookRequestStaffSerializer(serializers.ModelSerializer):
-    status = serializers.SerializerMethodField()
+    # status = serializers.SerializerMethodField()
     class Meta:
         model = ArticleBookRequest
         fields = '__all__'
 
-    def get_status(self,obj):
-        profile = self._context['request'].user.profile
-        applications = profile.article_book_requests.filter(book=obj)
-        if applications.exists():
-            applications = applications.first()
-            return applications.status
-        elif ArticleBookRequest.objects.filter(book=obj,status="Approved").exists():
-            return "Already Requested"
-        else:
-            return "Not Requested"
+    # def get_status(self,obj):
+    #     profile = self._context['request'].user.profile
+    #     applications = profile.article_book_requests.filter(book=obj)
+    #     if applications.exists():
+    #         applications = applications.first()
+    #         return applications.status
+    #     elif ArticleBookRequest.objects.filter(book=obj,status="Approved").exists():
+    #         return "Already Requested"
+    #     else:
+    #         return "Not Requested"
 
 class FreeBookSerialzer(serializers.ModelSerializer):
 
