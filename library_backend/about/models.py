@@ -33,7 +33,7 @@ class LibraryCollection(AbstractBaseModel):
 
 
     def __str__(self) -> str:
-        return f"Library Collection"
+        return self.campus + "-" + self.title
 
     
 class LibraryCollectionData(AbstractBaseModel):
