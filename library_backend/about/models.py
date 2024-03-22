@@ -38,7 +38,7 @@ class LibraryCollection(AbstractBaseModel):
     
 class LibraryCollectionData(AbstractBaseModel):
 
-    resource = models.CharField(max_length=100,unique=True)
+    resource = models.CharField(max_length=100)
     data = models.TextField(null=True,blank=True)
     is_int = models.BooleanField(default=False)
     collection = models.ForeignKey(LibraryCollection,models.CASCADE,related_name="data")
