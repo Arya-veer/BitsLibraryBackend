@@ -84,7 +84,7 @@ class LibrarianDeskAPI(views.APIView):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        librarians = LibraryTeamMember.objects.filter(is_librarian = True)
+        librarians = LibraryTeamMember.objects.filter(is_librarian = True,is_present=False)
         if librarians.exists():
             # generate a random integer
             random = randint(0,100)
