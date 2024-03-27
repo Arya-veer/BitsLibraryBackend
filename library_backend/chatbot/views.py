@@ -12,7 +12,7 @@ class AskQuestionAPI(views.APIView):
     def post(self,request):
         question = request.data.get("question")
         if not question:
-            return Response({"error":"Please provide a question."},status = status.HTTP_400_BAD_REQUEST)
+            return Response({"answer":"Hey! How can I help you?"},status = status.HTTP_400_BAD_REQUEST)
         chatbot = CHATBOT
         if chatbot is None:
             return Response({"answer":"Chatbot is not initialized."},status = status.HTTP_400_BAD_REQUEST)
