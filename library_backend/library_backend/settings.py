@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'databases',
     'papers',
     'import_export',
+    'chatbot',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
