@@ -22,7 +22,7 @@ class ChatBot:
         self.documents = self.text_splitter.split_documents(self.docs)
         self.vector = FAISS.from_documents(self.documents, self.embeddings)
         self.create_prompt()
-        self.create_response_chain
+        self.create_response_chain()
     
     @classmethod
     def get_object(cls):
