@@ -86,12 +86,7 @@ class LibrarianDeskAPI(views.APIView):
     def get(self,request):
         librarians = LibraryTeamMember.objects.filter(is_librarian = True,is_present=False)
         if librarians.exists():
-            # generate a random integer
-            random = randint(0,100)
-            if random%2 == 0:
-                return Response(LibraryTeamMemberSerializer(librarians.order_by('position'),many=True,context={"request":request}).data)
-            else:
-                return Response(LibraryTeamMemberSerializer(librarians.order_by('-position'),many=True,context={"request":request}).data)
+            return Response(LibraryTeamMemberSerializer(librarians.order_by('position'),many=True,context={"request":request}).data)
         else:
             return Response({"error":"No Librarian right now"},status=status.HTTP_404_NOT_FOUND)
 
