@@ -103,7 +103,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'library_backend.wsgi.application'
 
-
+from chatbot.chatbot import ChatBot
+CHATBOT = ChatBot.get_object()
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
