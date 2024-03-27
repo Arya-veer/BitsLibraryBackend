@@ -27,6 +27,7 @@ urlpatterns = [
     path("databases/",include("databases.urls")),
     path("users/",include("users.urls")),
     path("papers/",include("papers.urls")),
+    path("chat/",include("chatbot.urls")),
     path("misc/",include("misc.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if True:
