@@ -1,0 +1,189 @@
+Are E-RESOURCES accessible to all the users?
+E-Resources are accessible only to BITS Pilani students, Research Scholars, faculty and staff on the campus and from outside the campus using the OpenAthens remote access platform.
+
+Can I access the E-Resources (Research Databases, E-Journals, E-Books etc.) from outside the campus?
+Yes, E-Resources are accessible to all BITS Pilani students, Research Scholars, faculty and staff from outside the campus using the "off-campus Access". Visit Library portal and click on OpenAthens and access using your BITS Pilani Mail ID and the password you had set for the same.
+
+Can I bring my personal books and other reading materials to the library?
+Yes, Students are allowed to bring two personal books for study within the library premises, in addition to library books. If you plan to study with borrowed books, kindly acquire a Gate Pass
+
+Can I issue/reissue the books if I have fine due to the library?
+Please note that issue and renewal transactions will be suspended if there are any overdue books in your library account.
+
+Can I issue the books which are kept for display in the Library?
+Books that have recently arrived will be showcased for a duration of fifteen days, during which they are unavailable for borrowing by library members. Nevertheless, authorized users are encouraged to enjoy reading them within the library during this timeframe.
+
+Can I reserve books which are already issued to any member?
+You can reserve documents through your library account, even if they are currently on loan to another member. Each library member can reserve up to 2 books. Once the reserved items are returned, they will be issued to you within 24 hours. Please be aware that if the reserved books are not claimed within the specified time, the reservation will be automatically canceled. Furthermore, an automatic email notification will be sent to the member in Queue No. 1 when the reserved books are returned.
+
+Can I reserve multiple books in my name which are already issued from the library?
+Indeed, you have the option to reserve two books in your account, even if they are currently issued to another library member.
+
+Can I take photograph inside the Library?
+Yes, photography inside the library is permitted with prior approval from the Librarian. Please seek permission before proceeding.
+
+Can members donate their personal books to the library?
+Yes, students, researchers, and faculty are encouraged to contribute their personal book collections to the library. We kindly request that only the most recent editions, considered beneficial to our community, be submitted and incorporated into our collection.
+
+Can the reference book be issued to the member?
+No, reference books are not permitted for checkout to any library member. They are intended solely for reading within the library premises.
+
+Does the Library charged fine for any overdue documents?
+Certainly, if a member fails to return the books within the prescribed period, they are required to pay a late fee as per the late fee structure. Members can view their overdue charges by logging into their KOHA account.
+
+For what purpose I can book the Library space?
+Library spaces can be reserved by students, researchers, and faculty members for group activities, including organizing webinars, workshops, seminars, presentations, and group discussions.
+
+How can I access E-Journals/Databases outside the campus?
+To access the OpenAthens platform, simply visit https://my.openathens.net, select BITS Pilani, and log in using your UID (BITS Email) along with the password you established during authentication. Should you encounter any challenges, don't hesitate to reach out via email to librarian@pilani.bits-pilani.ac.in.
+
+How can I become a member of the Library?
+To register as a new user, please complete the registration form available at the library help desk and submit it along with a copy of your valid student ID card issued by BITS SWD Department
+
+How can I cancel a reserved document?
+To cancel reserved documents, kindly utilize the KOHA WEBOPAC. Log in to your account and proceed to cancel the reserved document(s).
+
+How can I give any suggestion to library authority regarding provision of the quality service to the users?
+Feel free to share your valuable suggestions with us! You can drop them in the suggestion box at the Circulation counter in the Library on a plain paper. We truly appreciate your input, as it helps us improve the quality of our library services. Alternatively, you can also email your suggestions to librarian@pilani.bits-pilani.ac.in.
+
+How can I locate books on the shelf?
+The library utilizes the Dewey Decimal Classification (DDC) system to classify documents, assigning each book a distinctive Accession number for identification. Shelves are arranged according to call numbers, making it simple to find books by referencing their classification and accession numbers using the KOHA WebOPAC
+
+How do I distinguish reference books from other library books?
+Reference books are marked as "REFERENCE" on the front page of the book.
+
+How do I find a particular book or a journal in the Library?
+Please check the library catalogue, identify the book you are looking for, note the location of the books and collect the book. In case of difficulty, please contact to the staff available at Help-Desk.
+
+How do I get the library notices/reminders?
+Members will receive email notifications for every transaction, including timely reminders to return overdue books. In case you do not receive any email for your transaction, please contact the helpdesk immediately.
+
+How do I know what e-books are available / accessible to BITS Pilani users?
+Go to OPAC, select E-Book collection and search the book.
+
+How do I recommend a book for purchase in the Library?
+Faculty, students, research scholars, and staff are encouraged to recommend books for library purchase through the following steps:
+- Access the book recommendation form on the library homepage. Download the 'Book Suggestion Form' and provide all necessary details for the recommended books.
+- Alternatively, submit your recommendations directly at https://bitspilani-opac.kohacloud.in/cgi-bin/koha/opac-suggestions.pl.
+
+How do I renew a book and for how many times can I renew the same books?
+For renewal of issued books, please log in at https://bitspilani-opac.kohacloud.in using your library UID and password to access the online renewal feature. Please ensure that renewals are completed one day before the due date. In the event of overdue books, renewal and issuance of additional books will be restricted until the overdue book is returned to the library.
+
+How do I use 3D Printer in the library?
+To reserve the MakerSpace for 3D printing prototypes, students can log in with their BITS mail ID, navigate to the Space Books option, click on the MakerSpace button, and proceed to book their slot
+
+How do I use Self-Issue /Self check out / Self Check-in facility?
+-Choose the books you wish to borrow and retrieve them from the bookshelves. Proceed to the RFID Self-Issue/Return KIOSK located near the Help Desk counter. Swipe your Smart Card and enter your password.
+- Position the selected books on the KIOSK tray; the books will be automatically issued, and a print slip will be generated.
+- Ensure to log out of the system after completing the book issuance process.
+- Utilize the Self-Issue facility for book borrowing at any time during library working hours, but please refrain from doing so within 30 minutes of the library closing time.
+
+How many book I can issue at one time?
+Each student is entitled to borrow books based on their privileges. Please refer to the Member Privilege option for details
+
+How many days I can issue a book?
+Books will be issued to students, researchers, and faculty based on their entitlement. Please refer to the Member Privilege option for more details.
+
+How to access E-Journals/ Databases subscribed by the library?
+Internally, our IPs are seamlessly integrated with publishers, facilitating direct access to resources from their respective websites within the campus network. To conveniently explore and access the subscribed resources, visit the library website (https://library.bits-pilani.ac.in), and navigate to the 'e-resources' section from the dropdown menu.
+
+How to book the spaces in the Library?
+Start by signing up on the library portal at https://library.bits-pilani.ac.in and then proceed to reserve library spaces. Make sure to verify the approval status of your booking by logging into the library portal. Once confirmed, visit the library with your group and approach the Help Desk for access. All group members must sign the attendance sheet, which should be submitted to the library staff.
+
+How to find e-resources?
+Search our extensive digital collections to find resources to support your learning, teaching, and research. Most of our collections are accessible from outside the campus from OpenAthense off-campus access facility.
+
+How to suggest new books for the library to procure?
+To enhance the library collection, students, researchers, and faculty are encouraged to propose new book additions through a simple process. To suggest a book, individuals can download the book suggestion form and submit it directly to the Librarian. Alternatively, they can log in to their Koha accounts at https://bitspilani-opac.kohacloud.in/ for a convenient online submission. For those preferring email communication, sending a message to librarian@pilani.bits-pilani.ac.in with all necessary details is also an option. This collaborative approach ensures the continuous growth and relevance of the library's resources.
+
+How WebOPAC search helps me to locate the documents?
+Web-enabled Online Public Access Catalogue (WebOPAC), a comprehensive tool facilitating easy document retrieval. With search options such as authors, titles, keywords, or subjects, WebOPAC offers bibliographical details like Call Number, Barcode, and precise library location. Accessible 24x7, both on and off-campus, you can find a direct link on our Library Portal.
+- Visit https://bitspilani-opac.kohacloud.in
+- Utilize Simple Search to find books by Author, Title, Accession No., Classification No., Series, ISBN No., Keyword, or Publisher. Enter relevant words in the search box.
+- For more precise queries, click on "Advanced Search" below the search bar. The Advanced Search option allows you to combine multiple fields (author, title, keyword, publishers, etc.) using Boolean operators (AND, OR, NOT) for more specific and relevant results.
+
+If I do not get the book on shelf, what can I do?
+If you are unable to locate a book on the shelf, which is listed in the OPAC, you can check its status in the OPAC and seek assistance from the library staff to locate it. For books that are currently issued or checked out, you have the option to place a 'Hold' using the OPAC. This way, you will be notified once the book is returned by the current user.
+
+Is entry/exit for the members is mandatory for use of the library?
+To ensure a systematic record of entry and exit, it is imperative to register both when entering and leaving the library premises. A Patron Traffic Manager kiosk is conveniently located at the main gate, allowing individuals to effortlessly scan their BITS ID card, specify the purpose of their visit, and, upon departure, scan the ID card barcode. In the event of forgetting the ID card, kindly register entry details in the designated register at the library's main gate.
+
+Is it possible that I can use the library card of my friend on his/her behalf?
+Borrowing books using another individual's ID card is strictly prohibited under any circumstances.
+
+Is it possible to issue the books which are reserved?
+No, it is not possible. Books can only be issued by the user under whose name the book has been reserved.
+
+Is rare books are allowed to borrow?
+No, rare books are not allowed to be borrowed and these can be referred within library specified areas. Utmost care needs to be taken while referring these rare books in the library.
+
+Is there any alert service provided by the Library from time to time about the status of reservation and borrowed books?
+Yes, the library offers an email alert service to users for timely notifications regarding overdue and reserved documents
+
+Is there any grace period to be available to the member after due date for returning the books?
+Yes, you are allowed a one-day grace period after the due date for returning the books.
+
+The catalogue card shows that the book I need is in process, can I request it for issue?
+If the library catalogue indicates that the book you require is currently in process, please be aware that it may take some time before it becomes available for users. It is recommended to wait until the processing of the book is complete before attempting to borrow it.
+
+The catalogue card shows that the book I need is out; can I request it?
+If a catalogue card indicates that the book you require is currently checked out, you can request it by placing a reservation through the OPAC. Once the book is returned to the library, you will receive an email notification to collect it promptly.
+
+What are the booking spaces in the Library?
+- Brainstorm Room
+- Group Discussion Room
+- Innovation Zone
+- MakerSpace (3D Printer and HPC)
+- Ideation Zone
+- G.D Birla Rare book section
+
+What are the resources available in the Library?
+The library boasts state-of-the-art amenities and a rich array of resources, including traditional books, e-books, e-journals, e-proceedings, e-standards, research databases, print journals, theses, proceedings, rare books, reports, maps, atlases, and more. These resources cover a diverse range of subject areas, spanning Social Science, Humanities & Literature, Pure Science, Biological Sciences, Pharmacy, Engineering, Science & Technology, Management, and allied disciplines
+
+What is Free Books to Pick in the Library?
+Any donated books not yet incorporated into the library collection can be found in the 'Free Books to Pick' section on the library portal. Members can obtain these books at no cost by choosing them on the portal and coordinating with the personnel at the Library Help Desk.
+
+What is Lost and Found in the Library?
+At the library's closing time, if members forget their belongings, they'll find them in the Lost and Found section. Simply log in to the library portal, check the list of found items, and claim yours if you spot it. The library staff will confirm ownership before returning the items to their rightful owners.
+
+What is One Search?
+OneSearch, also referred to as EBSCO Discovery Search, functions as a federated search tool comparable to Google. This tool empowers users to seamlessly explore all library-subscribed resources, encompassing open access content, in a single search. OneSearch stands out for its efficiency, allowing users to refine results through diverse filters available on the platform, thereby saving valuable time. Moreover, it offers concept maps that illuminate search terminology nuances. For a personalized experience, users can establish accounts on OneSearch, enabling them to set up article alerts and stay consistently informed about developments in their respective areas of research or teaching.
+
+What is "OPAC"?
+The OPAC (Online Public Access Catalogue) serves as a comprehensive database encompassing all library resources, including books, reference materials, e-books, theses, and reports. This system facilitates efficient searches for specific books, subjects, or authors, allowing users to check availability status, track user issue/return records, and make suggestions for new books. Access the OPAC at https://bitspilani-opac.kohacloud.in/.
+
+What shall I do if I need the clearance of dues from the library?
+A no dues/clearance certificate will only be issued upon the clearance of all outstanding dues related to borrowed books and any associated delay fines.
+
+What should I do if I lost the BITS ID card?
+To prevent misuse of your card, please notify the library Help Desk to temporarily block your library account. Once you receive your new BITS ID card, kindly inform us to reactivate your account and update your information.
+
+What should I do if the book I borrowed got lost?
+In case of a lost borrowed book, please apply immediately to the Librarian to seek relief from paying the delay fine from the date of application and to initiate the following actions:
+
+1. Replace the lost book with a new one, or
+2. Pay the lost book's current price and an additional Rs.100/- as administrative charges.
+
+What types of documents are kept in the Reference Collection?
+Reference collection mainly contains encyclopedias, handbooks, dictionaries, directories, atlases, audio, video, CD and one copy of each titles.
+
+Where can I get the document that I have reserved in my account?
+Reserved documents are stored at the Information Counter
+
+Where should I pay the library fine/dues?
+At the end of every semester, library fines/dues are forwarded to SWD and included in your Mess Bill. If you have any inquiries about the charged fines, please feel free to contact the Library Help Desk.
+
+Which disciplinary action can be taken against me if I fail to deposit the fine within the stipulated period?
+All overdue fees, encompassing late fines and lost book charges, must be resolved by the end of the current academic year or before re-registration, adhering to the library policy. Failure to settle these outstanding dues will lead to the inability to re-register in the library system for the upcoming semester.
+
+Who are authorized to use the Library?
+The Student and Faculty members who possess the valid BITS Pilani ID Card are authorized to use the library as per the rules and regulations of the Library.
+
+Who is responsible for damage occurred in the library spaces?
+The responsibility for any damages occurring during the reserved time period lies solely with the student or group that has booked the space.
+
+Whom should I contact If I do not get access to a particular E-RESOURCE or want to learn more about E-Resources?
+Please contact at Help Desk or you may send mail to librarian@pilani.bits-pilani.ac.in for assistance / help.
+
+Whom to contact for queries regarding finding books and journals?
+If you are unable to locate books on the designated bookshelves, even though they are listed as available in the OPAC, please reach out to the staff at the Help Desk.
