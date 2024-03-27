@@ -1,4 +1,5 @@
 
+from random import randint
 from rest_framework import views,generics,status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -83,9 +84,14 @@ class LibrarianDeskAPI(views.APIView):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        librarian = LibraryTeamMember.objects.filter(is_librarian = True).first()
-        if librarian:
-            return Response(LibraryTeamMemberSerializer(librarian).data)
+        librarians = LibraryTeamMember.objects.filter(is_librarian = True)
+        if librarians.exists():
+            # generate a random integer
+            random = randint(0,100)
+            if random%2 == 0:
+                return Response(LibraryTeamMemberSerializer(librarians.order_by('position'),many=True).data)
+            else:
+                return Response(LibraryTeamMemberSerializer(librarians.order_by('-position'),many=True).data)
         else:
             return Response({"error":"No Librarian right now"},status=status.HTTP_404_NOT_FOUND)
 
