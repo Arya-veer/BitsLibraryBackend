@@ -1,3 +1,8 @@
+from library_backend.keyconfig import OPENAI_API_KEY
+import os
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
+
 from openai import OpenAI
 
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
