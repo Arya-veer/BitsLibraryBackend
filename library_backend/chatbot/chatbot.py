@@ -1,5 +1,6 @@
 from library_backend.keyconfig import OPENAI_API_KEY
-import os
+import os,sys
+
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 
@@ -12,7 +13,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts.chat import ChatPromptTemplate
+from library_backend.settings import BASE_DIR
 
+DOCUMENT_DIRECTORY = os.path.join(BASE_DIR,'chatbot','Documents/')
 
 class ChatBot:
 
@@ -21,7 +24,7 @@ class ChatBot:
     def __init__(self) -> None:
 
         self.llm = ChatOpenAI()
-        self.loader = DirectoryLoader('./Documents/', glob="**/*.txt", loader_cls=TextLoader)
+        self.loader = DirectoryLoader(DOCUMENT_DIRECTORY, glob="**/*.txt", loader_cls=TextLoader)
         self.docs = self.loader.load()
         self.embeddings = OpenAIEmbeddings()
         self.text_splitter = RecursiveCharacterTextSplitter()
