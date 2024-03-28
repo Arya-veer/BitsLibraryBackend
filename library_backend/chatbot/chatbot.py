@@ -15,7 +15,6 @@ class ChatBot:
 
     def __init__(self) -> None:
 
-        self.client = OpenAI()
         self.llm = ChatOpenAI()
         self.loader = DirectoryLoader('./Documents/', glob="**/*.txt", loader_cls=TextLoader)
         self.docs = self.loader.load()
