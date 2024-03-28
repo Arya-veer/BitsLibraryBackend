@@ -1,4 +1,5 @@
 from openai import OpenAI
+
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from langchain_community.document_loaders import TextLoader,DirectoryLoader
 from langchain_community.vectorstores import FAISS
@@ -7,9 +8,10 @@ from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts.chat import ChatPromptTemplate
 
+
 class ChatBot:
 
-    __object = None
+    obj = None
 
     def __init__(self) -> None:
 
@@ -22,25 +24,26 @@ class ChatBot:
         self.documents = self.text_splitter.split_documents(self.docs)
         self.vector = FAISS.from_documents(self.documents, self.embeddings)
         self.create_prompt()
+        # print(self.PROMPT)
         self.create_response_chain()
+        # print(self.retrieval_chain)
     
     @classmethod
     def get_object(cls):
-        if not cls.__object:
-            try:
-                cls.__object = ChatBot()
-            except:
-                cls.__object = None
-        return cls.__object
+        if not cls.obj:
+            cls.obj = ChatBot()
+        return cls.obj
         
-
+    def __str__(self) -> str:
+        return "Chatbot object"
 
     def create_prompt(self):
         self.PROMPT = ChatPromptTemplate.from_template("""
-                                            Answer the following question based only on the provided context. If the question falls out of the CONTEXT, reply with "Sorry, I can't help you with this. Please reach out to the Library Office".
+                                            Answer the following question based only on the provided context.
                                             <context>
                                             {context}
                                             </context>
+                                            Question: {input}
                                             
                                           """)
     
@@ -48,16 +51,18 @@ class ChatBot:
         document_chain = create_stuff_documents_chain(self.llm, self.PROMPT)
         retriever = self.vector.as_retriever()
         self.retrieval_chain = create_retrieval_chain(retriever, document_chain)
-        self.retrieval_chain.train(self.docs)
-        self.retrieval_chain.save("retrieval_chain")
-        
+        # self.retrieval_chain
     
     def respond(self,question):
-        response = self.retrieval_chain.respond(question)
+        response = self.retrieval_chain.invoke({"input": question})
         return response["answer"]
 
 if __name__ == "__main__":
+    # M1
+    # chatbot = ChatBot()
+    # M2
     chatbot = ChatBot.get_object()
+    print(chatbot)
     while True:
         question = input("Ask a question(Or press 0 for exit):")
         if question == "0":

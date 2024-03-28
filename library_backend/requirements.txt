@@ -10,3 +10,8 @@ xlrd==1.2.0
 firebase-admin
 openpyxl
 django-import-export
+openai
+langchain
+langchain_openai
+langchain_community
+faiss-cpu

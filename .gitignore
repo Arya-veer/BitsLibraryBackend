@@ -18,6 +18,7 @@ credentials.txt
 googledrive.json
 studyzone_googledrive.json
 venv/
+myenv
 # *.sql
 dump.sh
 new_migrated.txt
