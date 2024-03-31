@@ -44,7 +44,9 @@ URL_MAP = {
     "DonatedBook":["/services/donated_books",],
     "GalleryImage":["/about/gallery",],
     "NewArrival":["/links/[type]",],
-
+    "FreeBook":["/me/pick_book",],
+    "Item":["/me/lost_and_found",],
+    "Inflibnet":["/links/[type]",],
 }
 
 class AbstractBaseModel(models.Model):
