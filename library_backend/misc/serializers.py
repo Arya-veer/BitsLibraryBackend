@@ -28,3 +28,10 @@ class WebsiteTextSerializer(serializers.ModelSerializer):
     class Meta:
         model = WebsiteText
         fields = ("title","text")
+        
+
+class DataExcelUploadSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DataExcel
+        fields = "__all__"

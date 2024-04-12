@@ -7,6 +7,8 @@ import json
 from library_backend.settings import FRONTEND_BASE_URL
 from library_backend.keyconfig import FRONTEND_API_KEY
 
+from utils.Scripts.scripts_handler import SCRIPT_TO_CLASS_MAPPING
+
 # Create your models here.
 
 URL_MAP = {
@@ -197,19 +199,14 @@ class WebsiteText(models.Model):
         Revalidate.add(self.revalidate_url)
 
 
-DATA_EXCEL_CHOICES = [
-    ("Student","Student"),
-    ("Faculty","Faculty"),
-    ("Ebooks","Ebooks"),
-    ("Ejournals","Ejournals"),
-]
-
+data_excel_types = SCRIPT_TO_CLASS_MAPPING.keys()
+DATA_EXCEL_CHOICES = list(zip(data_excel_types,data_excel_types))
 class DataExcel(models.Model):
     excel = models.FileField(upload_to="data_excel/")
     created_at = models.DateTimeField(auto_now=True)
     errors = models.JSONField(default=list)
     purpose = models.CharField(max_length=100,null=True,blank=True,choices=DATA_EXCEL_CHOICES)
-
+    
     class Meta:
         verbose_name = "Data Excel"
         verbose_name_plural = "Data Excels"

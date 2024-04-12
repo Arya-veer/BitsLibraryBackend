@@ -6,4 +6,5 @@ urlpatterns = [
     path("faqs/",FreqAskedQuestionsListAPI.as_view()),
     path("feedback/",FeedbackListCreateAPI.as_view()),
     path("text/<str:static_id>/",WebsiteTextRetrieveAPI.as_view()),
+    path("upload/",DataExcelUploadAPI.as_view()),
 ]

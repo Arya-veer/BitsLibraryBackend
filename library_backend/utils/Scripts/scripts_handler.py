@@ -12,10 +12,10 @@ from populate_faculty_fast import FacultyPopulator
 import threading
 
 SCRIPT_TO_CLASS_MAPPING = {
-            "Ebooks": EBookPopulator,
-            "EJournals": EjournalPopulator,
-            "Faculty": FacultyPopulator,
-        }
+    "Ebooks": EBookPopulator,
+    "EJournals": EjournalPopulator,
+    "Faculty": FacultyPopulator,
+}
 
 
 class ScriptsHandler:
