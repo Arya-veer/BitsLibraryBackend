@@ -195,3 +195,24 @@ class WebsiteText(models.Model):
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
         Revalidate.add(self.revalidate_url)
+
+
+DATA_EXCEL_CHOICES = [
+    ("Student","Student"),
+    ("Faculty","Faculty"),
+    ("Ebooks","Ebooks"),
+    ("Ejournals","Ejournals"),
+]
+
+class DataExcel(models.Model):
+    excel = models.FileField(upload_to="data_excel/")
+    created_at = models.DateTimeField(auto_now=True)
+    errors = models.JSONField(default=list)
+    purpose = models.CharField(max_length=100,null=True,blank=True,choices=DATA_EXCEL_CHOICES)
+
+    class Meta:
+        verbose_name = "Data Excel"
+        verbose_name_plural = "Data Excels"
+    
+    def __str__(self) -> str:
+        return f"{self.excel.purpose} - {self.excel.created_at.strftime("%d-%m-%Y")}"

@@ -1,9 +1,6 @@
 import sys
-sys.path.append('../')
-
-import django,os, time
-import threading
-
+sys.path.append('../../')
+import django,os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
 django.setup()
 
@@ -11,18 +8,18 @@ import pandas as pd
 from users.models import UserProfile
 from django.contrib.auth.models import User
 
-
-
 class FacultyPopulator:
     def __init__(self, file_name):
         print("Populator")
         self.data = pd.read_excel(file_name)
         self.auth_user = {}
         self.data.fillna("", inplace=True)
-        self.populate_auth_user()
-        self.populate_faculty ()
+    
+    def run(self):
+        self.__populate_auth_user()
+        self.__populate_faculty ()
 
-    def populate_faculty (self):
+    def __populate_faculty (self):
         print("populating faculty...")
         UserProfile.objects.bulk_create(
             (UserProfile(
@@ -32,7 +29,7 @@ class FacultyPopulator:
                 auth_user=self.auth_user[row['Employee ID']]
             ) for index, row in self.data.iterrows()), ignore_conflicts=True)
     
-    def populate_auth_user(self):
+    def __populate_auth_user(self):
         print("populating auth_user...")
         User.objects.bulk_create(
             (User(username=x) for x in set(self.data['Employee ID'])),

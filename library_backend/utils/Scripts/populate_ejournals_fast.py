@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../')
+sys.path.append('../../')
 
 import django,os, time
 import threading
@@ -18,11 +18,13 @@ class EjournalPopulator:
         self.data.fillna("", inplace=True)
         self.publishers = {}
         self.subjects = {}
-        self.populate_publishers ()
-        self.populate_subjects ()
-        self.populate_ejournals ()
+    
+    def run(self):
+        self.__populate_publishers ()
+        self.__populate_subjects ()
+        self.__populate_ejournals ()
 
-    def populate_publishers (self):
+    def __populate_publishers (self):
         print("populating publishers...")
         Publisher.objects.bulk_create(
             (Publisher(name=x) for x in set(self.data['Publishers'])),
@@ -31,7 +33,7 @@ class EjournalPopulator:
         for publisher in Publisher.objects.filter(name__in=set(self.data['Publishers'])):
             self.publishers[publisher.name] = publisher
     
-    def populate_subjects (self):
+    def __populate_subjects (self):
         print("populating subjects...")
         Subject.objects.bulk_create(
             (Subject(name=x) for x in set(self.data['Subject'])),
@@ -40,7 +42,7 @@ class EjournalPopulator:
         for subject in Subject.objects.filter(name__in=set(self.data['Subject'])):
             self.subjects[subject.name] = subject
 
-    def populate_ejournals (self):
+    def __populate_ejournals (self):
         print("populating ejournals...")
         EJournal.objects.bulk_create(
             (EJournal(
