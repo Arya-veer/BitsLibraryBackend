@@ -37,9 +37,12 @@ class ChatBot:
     
     @classmethod
     def get_object(cls):
-        if not cls.obj:
-            cls.obj = ChatBot()
-        return cls.obj
+        try:
+            if not cls.obj:
+                cls.obj = ChatBot()
+            return cls.obj
+        except:
+            return None
         
     def __str__(self) -> str:
         return "Chatbot object"
