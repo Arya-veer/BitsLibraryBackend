@@ -37,14 +37,15 @@ class ChatBot:
     
     @classmethod
     def get_object(cls):
-        try:
+        # try:
             if not cls.obj:
                 cls.obj = ChatBot()
             return cls.obj
-        except Exception as e:
-            with open("chatbot_exceptions.txt","a") as f:
-                print(str(e),file=f)
-            return None
+        # except Exception as e:
+        #     print(str(e))
+        #     with open("chatbot_exceptions.txt","w") as f:
+        #         print(str(e),file=f)
+        #     return None
         
     def __str__(self) -> str:
         return "Chatbot object"
