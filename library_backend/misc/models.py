@@ -7,7 +7,6 @@ import json
 from library_backend.settings import FRONTEND_BASE_URL
 from library_backend.keyconfig import FRONTEND_API_KEY
 
-from utils.Scripts.scripts_handler import SCRIPT_TO_CLASS_MAPPING
 
 # Create your models here.
 
@@ -199,7 +198,11 @@ class WebsiteText(models.Model):
         Revalidate.add(self.revalidate_url)
 
 
-data_excel_types = SCRIPT_TO_CLASS_MAPPING.keys()
+data_excel_types = [
+    "EBooks",
+    "EJournals",
+    "Faculty"
+]
 DATA_EXCEL_CHOICES = list(zip(data_excel_types,data_excel_types))
 class DataExcel(models.Model):
     excel = models.FileField(upload_to="data_excel/")
