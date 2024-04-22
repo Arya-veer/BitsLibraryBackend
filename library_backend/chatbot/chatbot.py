@@ -41,7 +41,9 @@ class ChatBot:
             if not cls.obj:
                 cls.obj = ChatBot()
             return cls.obj
-        except:
+        except Exception as e:
+            with open("chatbot_exceptions.txt","a") as f:
+                print(str(e),file=f)
             return None
         
     def __str__(self) -> str:

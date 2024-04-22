@@ -1,8 +1,3 @@
-import sys
-sys.path.append('../../')
-import django,os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
-django.setup()
 
 import pandas as pd
 from users.models import UserProfile

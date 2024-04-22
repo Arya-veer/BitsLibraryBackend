@@ -1,13 +1,6 @@
-import sys
-sys.path.append('../')
-import django,os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
-django.setup()
-
-from misc.models import DataExcel
-from populate_ebooks_fast import EBookPopulator
-from populate_ejournals_fast import EjournalPopulator
-from populate_faculty_fast import FacultyPopulator
+from utils.Scripts.populate_ebooks_fast import EBookPopulator
+from utils.Scripts.populate_ejournals_fast import EjournalPopulator
+from utils.Scripts.populate_faculty_fast import FacultyPopulator
 
 import threading
 
@@ -33,3 +26,7 @@ class ScriptsHandler:
         # Create a new thread
         thread = threading.Thread(target=self.__run_script)
         return
+    
+
+if __name__ == "__main__":
+    pass

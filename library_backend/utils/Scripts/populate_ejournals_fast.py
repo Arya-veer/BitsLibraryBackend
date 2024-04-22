@@ -1,11 +1,4 @@
-import sys
-sys.path.append('../../')
 
-import django,os, time
-import threading
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
-django.setup()
 
 import pandas as pd
 from databases.models import Publisher, Subject, EJournal

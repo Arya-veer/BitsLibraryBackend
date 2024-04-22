@@ -1,14 +1,6 @@
-import sys
-sys.path.append('../../')
-
-import django,os
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
-django.setup()
-
 import pandas as pd
-from databases.models import Publisher, Subject, EBook
 
+from databases.models import Publisher, Subject, EBook
 
 class EBookPopulator:
     def __init__(self, file_name):

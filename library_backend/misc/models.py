@@ -212,4 +212,4 @@ class DataExcel(models.Model):
         verbose_name_plural = "Data Excels"
     
     def __str__(self) -> str:
-        return f"{self.excel.purpose} - {self.excel.created_at.strftime("%d-%m-%Y")}"
+        return f"{self.excel.purpose} - {self.excel.created_at.strftime('%d-%m-%Y')}"
