@@ -6,11 +6,14 @@ from django.contrib.auth.models import User
 class FacultyPopulator:
     def __init__(self, file_name):
         print("Populator")
-        self.data = pd.read_excel(file_name)
+        self.file_name = file_name
+        self.data = None
         self.auth_user = {}
         self.data.fillna("", inplace=True)
     
     def run(self):
+        self.data = pd.read_excel(self.file_name)
+        self.data.fillna("", inplace=True)
         self.__populate_auth_user()
         self.__populate_faculty ()
 

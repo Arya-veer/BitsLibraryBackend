@@ -203,16 +203,23 @@ data_excel_types = [
     "EJournals",
     "Faculty"
 ]
+status_types = [
+    "Pending",
+    "Completed",
+    "Failed"
+]
 DATA_EXCEL_CHOICES = list(zip(data_excel_types,data_excel_types))
+STATUS_CHOICES = list(zip(status_types,status_types))
 class DataExcel(models.Model):
     excel = models.FileField(upload_to="data_excel/")
     created_at = models.DateTimeField(auto_now=True)
     errors = models.JSONField(default=list)
     purpose = models.CharField(max_length=100,null=True,blank=True,choices=DATA_EXCEL_CHOICES)
+    status = models.CharField(max_length=100, default="Pending", null=True, blank=True, choices=STATUS_CHOICES)
     
     class Meta:
         verbose_name = "Data Excel"
         verbose_name_plural = "Data Excels"
     
     def __str__(self) -> str:
-        return f"{self.excel.purpose} - {self.excel.created_at.strftime('%d-%m-%Y')}"
+        return f"{self.purpose} - {self.created_at}" 

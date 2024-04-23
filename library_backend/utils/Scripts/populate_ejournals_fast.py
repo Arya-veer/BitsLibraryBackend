@@ -7,12 +7,14 @@ from databases.models import Publisher, Subject, EJournal
 class EjournalPopulator:
     def __init__(self, file_name):
         print("Populator")
-        self.data = pd.read_excel(file_name, skiprows=1)
-        self.data.fillna("", inplace=True)
+        self.file_name = file_name
+        self.data = None
         self.publishers = {}
         self.subjects = {}
     
     def run(self):
+        self.data = pd.read_excel(self.file_name)
+        self.data.fillna("", inplace=True)
         self.__populate_publishers ()
         self.__populate_subjects ()
         self.__populate_ejournals ()

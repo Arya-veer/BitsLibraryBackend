@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     name = models.CharField("Name of the person",max_length=150)
     uid = models.CharField(unique=True,max_length=20)
     phone_number = models.BigIntegerField(null=True,blank=True)
-    user_type = models.CharField(max_length=20,default="Student",choices=(("Student","Student"),("Faculty","Faculty"),("Staff","Staff"),("Research Scholar","Research Scholar"),("Alumni","Alumni"),("Other","Other")))
+    user_type = models.CharField(max_length=20,default="Student",choices=(("Student","Student"),("Faculty","Faculty"),("Staff","Staff"),("Research Scholar","Research Scholar"),("Alumni","Alumni"),("Other","Other"),("Admin","Admin")))
 
     def __str__(self) -> str:
         return f"{self.name} - {self.uid}"

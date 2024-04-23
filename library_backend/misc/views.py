@@ -45,8 +45,10 @@ class DataExcelUploadAPI(generics.CreateAPIView):
     permission_classes = (AdminPermission,)
     
     def create(self, request, *args, **kwargs):
-        try:
-            data_excel_obj = super().create(request, *args, **kwargs).data
+        try:    
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            data_excel_obj = serializer.save()
             handler = ScriptsHandler(data_excel=data_excel_obj)
             handler.populate()
             return Response({"message":"Excel uploaded successfully"},status=status.HTTP_201_CREATED)

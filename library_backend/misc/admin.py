@@ -57,3 +57,5 @@ class WebsiteTextAdmin(admin.ModelAdmin):
         if obj:
             rof.append('title')
         return rof
+
+admin.site.register(DataExcel)

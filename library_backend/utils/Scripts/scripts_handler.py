@@ -5,7 +5,7 @@ from utils.Scripts.populate_faculty_fast import FacultyPopulator
 import threading
 
 SCRIPT_TO_CLASS_MAPPING = {
-    "Ebooks": EBookPopulator,
+    "EBooks": EBookPopulator,
     "EJournals": EjournalPopulator,
     "Faculty": FacultyPopulator,
 }
@@ -19,12 +19,15 @@ class ScriptsHandler:
         self.script = Script(data_excel.excel)
         
     def __run_script(self):
-        self.data_excel.errors = self.script.run()
+        self.script.run()
+        self.data_excel.status = "Completed"
         self.data_excel.save()
     
     def populate(self):
         # Create a new thread
         thread = threading.Thread(target=self.__run_script)
+        thread.start()
+        print("Thread working!!!")
         return
     
 
