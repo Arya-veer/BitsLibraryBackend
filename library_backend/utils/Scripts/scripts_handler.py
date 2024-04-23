@@ -1,6 +1,7 @@
 from utils.Scripts.populate_ebooks_fast import EBookPopulator
 from utils.Scripts.populate_ejournals_fast import EjournalPopulator
 from utils.Scripts.populate_faculty_fast import FacultyPopulator
+from utils.Scripts.populate_students import StudentPopulator
 
 import threading
 
@@ -8,6 +9,7 @@ SCRIPT_TO_CLASS_MAPPING = {
     "EBooks": EBookPopulator,
     "EJournals": EjournalPopulator,
     "Faculty": FacultyPopulator,
+    "Student": StudentPopulator
 }
 
 

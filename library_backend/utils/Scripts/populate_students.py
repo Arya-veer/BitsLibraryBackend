@@ -1,8 +1,5 @@
-import sys
-sys.path.append('../')
-
-import django,os, time
-import threading
+import sys,os,django
+sys.path.append('../../')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library_backend.settings')
 django.setup()
@@ -15,14 +12,18 @@ from django.contrib.auth.models import User
 
 class StudentPopulator:
     def __init__(self, file_name):
-        print("Populator")
-        self.data = pd.read_excel(file_name)
-        self.auth_user = {}
+        self.file_name = file_name
+        self.data = None
         self.data.fillna("", inplace=True)
-        self.populate_auth_user()
-        self.populate_students ()
-
-    def populate_students (self):
+        self.auth_user = {}
+        
+    def run(self):
+        self.data = pd.read_excel(self.file_name)
+        User.objects.filter(id__in = UserProfile.objects.filter(user_type='Student').values_list("auth_user")).update(is_active=False)
+        self.__populate_auth_user()
+        self.__populate_students ()
+        
+    def __populate_students (self):
         print("populating students...")
         UserProfile.objects.bulk_create(
             (UserProfile(
@@ -32,12 +33,13 @@ class StudentPopulator:
                 auth_user=self.auth_user[row['email']]
             ) for index, row in self.data.iterrows()), ignore_conflicts=True)
     
-    def populate_auth_user(self):
+    def __populate_auth_user(self):
         print("populating auth_user...")
         User.objects.bulk_create(
             (User(
                 username=row['sort1'],
                 email=row['email'],
+                is_active = True
             ) for index, row in self.data.iterrows()),
             ignore_conflicts=True
         )

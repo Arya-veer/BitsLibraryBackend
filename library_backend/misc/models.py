@@ -201,7 +201,8 @@ class WebsiteText(models.Model):
 data_excel_types = [
     "EBooks",
     "EJournals",
-    "Faculty"
+    "Faculty",
+    "Student"
 ]
 status_types = [
     "Pending",
