@@ -7,7 +7,6 @@ class EBookPopulator:
         print("Populator")
         self.file_name = file_name
         self.data = None
-        
         self.publishers = {}
         self.subjects = {}
         
