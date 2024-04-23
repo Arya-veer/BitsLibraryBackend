@@ -1,9 +1,11 @@
 from django.db import models
-from .chatbot import ChatBot
+from .chatbot import ChatBot,CONTEXT_FILE
 
 # Create your models here.
+
+
 class ContextFile(models.Model):
-    file = models.FileField(upload_to="context_files/")
+    file = models.FileField(upload_to=CONTEXT_FILE)
     uploaded_on = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
     

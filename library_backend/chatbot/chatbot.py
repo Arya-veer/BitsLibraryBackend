@@ -15,7 +15,8 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts.chat import ChatPromptTemplate
 from library_backend.settings import MEDIA_URL
 
-DOCUMENT_DIRECTORY = os.path.join(MEDIA_URL,'context_files/',)
+CONTEXT_FILE = "context_files/"
+DOCUMENT_DIRECTORY = os.path.join(MEDIA_URL,CONTEXT_FILE)
 
 class ChatBot:
 
@@ -24,7 +25,7 @@ class ChatBot:
     def __init__(self) -> None:
 
         self.llm = ChatOpenAI()
-        self.loader = DirectoryLoader(DOCUMENT_DIRECTORY, glob="**/*.txt", loader_cls=TextLoader)
+        self.loader = DirectoryLoader(self.DOCUMENT_DIRECTORY, glob="**/*.txt", loader_cls=TextLoader)
         self.docs = self.loader.load()
         self.embeddings = OpenAIEmbeddings()
         self.text_splitter = RecursiveCharacterTextSplitter()
