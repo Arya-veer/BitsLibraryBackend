@@ -14,11 +14,11 @@ class StudentPopulator:
     def __init__(self, file_name):
         self.file_name = file_name
         self.data = None
-        self.data.fillna("", inplace=True)
         self.auth_user = {}
         
     def run(self):
         self.data = pd.read_excel(self.file_name)
+        self.data.fillna("", inplace=True)
         User.objects.filter(id__in = UserProfile.objects.filter(user_type='Student').values_list("auth_user")).update(is_active=False)
         self.__populate_auth_user()
         self.__populate_students ()
@@ -27,23 +27,23 @@ class StudentPopulator:
         print("populating students...")
         UserProfile.objects.bulk_create(
             (UserProfile(
-                name=row['firstname'] + " " + row['surname'],
-                uid=row['sort1'],
+                name=row['Name'],
+                uid=row['BITSID'],
                 user_type='Student',
-                auth_user=self.auth_user[row['email']]
+                auth_user=self.auth_user[row['Email']]
             ) for index, row in self.data.iterrows()), ignore_conflicts=True)
     
     def __populate_auth_user(self):
         print("populating auth_user...")
         User.objects.bulk_create(
             (User(
-                username=row['sort1'],
-                email=row['email'],
+                username=row['BITSID'],
+                email=row['Email'],
                 is_active = True
             ) for index, row in self.data.iterrows()),
             ignore_conflicts=True
         )
-        for user in User.objects.filter(email__in=set(self.data['email'])):
+        for user in User.objects.filter(email__in=set(self.data['Email'])):
             self.auth_user[user.email] = user
             
 
