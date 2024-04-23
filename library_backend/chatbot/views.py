@@ -1,6 +1,7 @@
-from rest_framework import views,status
+from rest_framework import views,status,generics
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+
 
 # from library_backend.settings import CHATBOT
 from chatbot.chatbot import ChatBot
@@ -23,4 +24,4 @@ class AskQuestionAPI(views.APIView):
             return Response({"answer":answer},status = status.HTTP_200_OK)
         except Exception as e:
             return Response({"answer":"Some error has occured"},status = status.HTTP_400_BAD_REQUEST)
-        
+

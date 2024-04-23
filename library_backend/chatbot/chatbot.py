@@ -13,9 +13,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts.chat import ChatPromptTemplate
-from library_backend.settings import BASE_DIR
+from library_backend.settings import MEDIA_URL
 
-DOCUMENT_DIRECTORY = os.path.join(BASE_DIR,'chatbot','Documents/')
+DOCUMENT_DIRECTORY = os.path.join(MEDIA_URL,'context_files/',)
 
 class ChatBot:
 
@@ -36,9 +36,15 @@ class ChatBot:
         # print(self.retrieval_chain)
     
     @classmethod
-    def get_object(cls):
+    def retrain(cls):
+        del cls.obj
+        cls.obj = None
+        cls.obj = ChatBot()
+    
+    @classmethod
+    def get_object(cls,retrain:bool=False):
         try:
-            if not cls.obj:
+            if not cls.obj or retrain:
                 cls.obj = ChatBot()
             return cls.obj
         except Exception as e:
