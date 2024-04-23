@@ -59,7 +59,7 @@ class DataExcelUploadAPI(generics.CreateAPIView):
 class DataExcelListAPI(generics.ListAPIView):
     serializer_class = DataExcelListSerializer
     permission_classes = (AdminPermission,)
-    queryset = DataExcel.objects.all().order_by('-uploaded_on')
+    queryset = DataExcel.objects.all().order_by('-created_at')
 
 class DataExcelDetailAPI(generics.RetrieveAPIView):
     serializer_class = DataExcelDetailSerializer
