@@ -14,7 +14,6 @@ class EBookPopulator:
     def run(self):
         self.data = pd.read_excel(self.file_name)
         self.data.fillna("", inplace=True)
-        
         self.__populate_publishers ()
         self.__populate_subjects ()
         self.__populate_ebooks ()

@@ -37,7 +37,7 @@ class DataExcelTypesListAPI(views.APIView):
     permission_classes = (AdminPermission,)
     
     def get(self,request):
-        return Response({"types":list(SCRIPT_TO_CLASS_MAPPING.keys())},status=status.HTTP_200_OK)
+        return Response({"types":data_excel_types},status=status.HTTP_200_OK)
     
 
 class DataExcelUploadAPI(generics.CreateAPIView):
@@ -54,3 +54,15 @@ class DataExcelUploadAPI(generics.CreateAPIView):
             return Response({"message":"Excel uploaded successfully"},status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"message":str(e)},status=status.HTTP_400_BAD_REQUEST)
+        
+
+class DataExcelListAPI(generics.ListAPIView):
+    serializer_class = DataExcelListSerializer
+    permission_classes = (AdminPermission,)
+    queryset = DataExcel.objects.all().order_by('-uploaded_on')
+
+class DataExcelDetailAPI(generics.RetrieveAPIView):
+    serializer_class = DataExcelDetailSerializer
+    permission_classes = (AdminPermission,)
+    queryset = DataExcel.objects.all()
+    lookup_field = 'id'

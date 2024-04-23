@@ -35,3 +35,16 @@ class DataExcelUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = DataExcel
         fields = "__all__"
+        
+    
+class DataExcelListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DataExcel
+        fields = ("id","created_at","purpose","status",)
+
+class DataExcelDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DataExcel
+        fields = "__all__"
