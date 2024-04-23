@@ -19,8 +19,13 @@ class ScriptsHandler:
         self.script = Script(data_excel.excel)
         
     def __run_script(self):
-        self.script.run()
-        self.data_excel.status = "Completed"
+        self.data_excel.errors = []
+        try:
+            self.script.run()
+            self.data_excel.status = "Completed"
+        except Exception as e:
+            self.data_excel.errors.append(str(e))
+            self.data_excel.status = "Failed"
         self.data_excel.save()
     
     def populate(self):
