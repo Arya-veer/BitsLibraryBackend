@@ -43,9 +43,9 @@ class ChatBot:
         cls.obj = ChatBot()
     
     @classmethod
-    def get_object(cls,retrain:bool=False):
+    def get_object(cls):
         try:
-            if not cls.obj or retrain:
+            if not cls.obj:
                 cls.obj = ChatBot()
             return cls.obj
         except Exception as e:
