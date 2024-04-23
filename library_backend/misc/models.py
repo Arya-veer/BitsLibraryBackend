@@ -198,17 +198,19 @@ class WebsiteText(models.Model):
         Revalidate.add(self.revalidate_url)
 
 
-data_excel_types = [
-    "EBooks",
-    "EJournals",
-    "Faculty",
-    "Student"
-]
+TEMPLATES = {
+    "EBooks":"ebooks.xlsx",
+    "EJournals":"ejournals.xlsx",
+    "Faculty":"faculty.xlsx",
+    "Student":"student.xlsx"
+}
+
 status_types = [
     "Pending",
     "Completed",
     "Failed"
 ]
+data_excel_types = list(TEMPLATES.keys())
 DATA_EXCEL_CHOICES = list(zip(data_excel_types,data_excel_types))
 STATUS_CHOICES = list(zip(status_types,status_types))
 class DataExcel(models.Model):

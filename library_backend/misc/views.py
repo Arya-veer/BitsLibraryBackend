@@ -37,7 +37,7 @@ class DataExcelTypesListAPI(views.APIView):
     permission_classes = (AdminPermission,)
     
     def get(self,request):
-        return Response({"types":data_excel_types},status=status.HTTP_200_OK)
+        return Response({"types":TEMPLATES},status=status.HTTP_200_OK)
     
 
 class DataExcelUploadAPI(generics.CreateAPIView):
