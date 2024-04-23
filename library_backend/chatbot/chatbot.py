@@ -13,10 +13,11 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts.chat import ChatPromptTemplate
-from library_backend.settings import MEDIA_URL
+from library_backend.settings import MEDIA_URL,BASE_DIR
 
 CONTEXT_FILE = "context_files/"
 DOCUMENT_DIRECTORY = os.path.join(MEDIA_URL,CONTEXT_FILE)
+EXCEPTION_FILE = os.path.join(BASE_DIR,"chatbot","chatbot_exceptions.txt")
 
 class ChatBot:
 
@@ -32,9 +33,7 @@ class ChatBot:
         self.documents = self.text_splitter.split_documents(self.docs)
         self.vector = FAISS.from_documents(self.documents, self.embeddings)
         self.create_prompt()
-        # print(self.PROMPT)
         self.create_response_chain()
-        # print(self.retrieval_chain)
     
     @classmethod
     def retrain(cls):
@@ -49,8 +48,7 @@ class ChatBot:
                 cls.obj = ChatBot()
             return cls.obj
         except Exception as e:
-            print(str(e))
-            with open("chatbot_exceptions.txt","w") as f:
+            with open(EXCEPTION_FILE,"a") as f:
                 print(str(e),file=f)
             return None
         
@@ -78,9 +76,6 @@ class ChatBot:
         return response["answer"]
 
 if __name__ == "__main__":
-    # M1
-    # chatbot = ChatBot()
-    # M2
     chatbot = ChatBot.get_object()
     print(chatbot)
     while True:
