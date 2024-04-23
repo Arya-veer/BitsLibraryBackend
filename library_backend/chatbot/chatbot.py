@@ -26,7 +26,8 @@ class ChatBot:
     def __init__(self) -> None:
 
         self.llm = ChatOpenAI()
-        self.loader = DirectoryLoader(DOCUMENT_DIRECTORY, glob="**/*.txt", loader_cls=TextLoader)
+        text_loader_kwargs={'autodetect_encoding': True}
+        self.loader = DirectoryLoader(DOCUMENT_DIRECTORY, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs)
         self.docs = self.loader.load()
         self.embeddings = OpenAIEmbeddings()
         self.text_splitter = RecursiveCharacterTextSplitter()
