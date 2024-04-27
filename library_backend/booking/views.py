@@ -153,13 +153,13 @@ class BookingListAPI(generics.ListAPIView):
         return bookings
 
 class BookingDetailAPI(generics.RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,StaffPermission)
     serializer_class = BookingDetailSerializer
 
     def get_object(self):
 
         booking = Booking.objects.get(id = self.kwargs['id'])
-        if self.request.user.profile.user_type != "Staff" and booking.booker != self.request.user.profile:
+        if self.request.user.profile.user_type not in ["Staff","Admin"] and booking.booker != self.request.user.profile:
             raise Booking.DoesNotExist
         return booking
     
