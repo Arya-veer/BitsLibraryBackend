@@ -1,3 +1,5 @@
+import os
+
 from rest_framework import views,generics,status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -7,6 +9,8 @@ from utils.Scripts.scripts_handler import ScriptsHandler
 from users.permissions import AdminPermission
 
 from .serializers import *
+
+from library_backend.settings import MEDIA_URL
 # Create your views here.
 class HomePageAPI(generics.RetrieveAPIView):
     serializer_class = HomePageSerializer
@@ -36,8 +40,11 @@ class WebsiteTextRetrieveAPI(generics.RetrieveAPIView):
 class DataExcelTypesListAPI(views.APIView):
     permission_classes = (AdminPermission,)
     
+    def create_path(self,file):
+        return os.path.join(MEDIA_URL,"Templates",file)
+    
     def get(self,request):
-        return Response({"types":TEMPLATES},status=status.HTTP_200_OK)
+        return Response({"types":data_excel_types,"links":[{template:self.create_path(template[type])} for template in TEMPLATES]},status=status.HTTP_200_OK)
     
 
 class DataExcelUploadAPI(generics.CreateAPIView):
