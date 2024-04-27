@@ -41,7 +41,7 @@ class DataExcelTypesListAPI(views.APIView):
     permission_classes = (AdminPermission,)
     
     def create_path(self,file):
-        return self.request.build_absolute_uri(os.path.join(MEDIA_URL,"Templates",file))
+        return "https://library.bits-pilani.ac.in/back/" + os.path.join(MEDIA_URL,"Templates",file)
     
     
     def get(self,request):
