@@ -9,5 +9,4 @@ urlpatterns = [
     path("upload/",DataExcelUploadAPI.as_view()),
     path("data_excel_types/",DataExcelTypesListAPI.as_view()),
     path("data_excels/",DataExcelListAPI.as_view()),
-    path("data_excel/<int:id>/",DataExcelDetailAPI.as_view()),
 ]
