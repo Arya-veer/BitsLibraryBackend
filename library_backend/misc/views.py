@@ -45,7 +45,7 @@ class DataExcelTypesListAPI(views.APIView):
     
     
     def get(self,request):
-        return Response({"types":data_excel_types,"links":[{"name":template,"link":TEMPLATES[template]} for template in TEMPLATES]},status=status.HTTP_200_OK)
+        return Response({"types":data_excel_types,"links":[{"name":template,"link":self.create_path(TEMPLATES[template])} for template in TEMPLATES]},status=status.HTTP_200_OK)
     
 
 class DataExcelUploadAPI(generics.CreateAPIView):
