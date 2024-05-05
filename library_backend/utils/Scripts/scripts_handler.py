@@ -27,7 +27,7 @@ class ScriptsHandler:
             self.data_excel.status = "Completed"
         except Exception as e:
             self.data_excel.errors.append(str(e))
-            self.data_excel.status = "Failed"
+            self.data_excel.status = "Some errors"
         self.data_excel.save()
     
     def populate(self):

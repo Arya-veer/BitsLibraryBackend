@@ -62,8 +62,8 @@ class DataExcelUploadAPI(generics.CreateAPIView):
             return Response({"message":"Excel uploaded successfully"},status=status.HTTP_200_OK)
         except Exception as e:
             data_excel_obj.errors.add(str(e))
-            with open("data_excel_errors.txt","a") as f:
-                print(str(e),file=f)
+            data_excel_obj.status = "Failed"
+            data_excel_obj.save()
             return Response({"message":str(e)},status=status.HTTP_400_BAD_REQUEST)
         
 

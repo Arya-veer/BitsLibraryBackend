@@ -208,6 +208,7 @@ TEMPLATES = {
 status_types = [
     "Pending",
     "Completed",
+    "Some Errors",
     "Failed"
 ]
 data_excel_types = list(TEMPLATES.keys())
