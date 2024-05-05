@@ -58,4 +58,9 @@ class WebsiteTextAdmin(admin.ModelAdmin):
             rof.append('title')
         return rof
 
-admin.site.register(DataExcel)
+# admin.site.register(DataExcel)
+
+@admin.register(DataExcel)
+class DataExcelAdmin(admin.ModelAdmin):
+    list_display = ("purpose","created_at","status")
+    list_filter = ("status","purpose")
