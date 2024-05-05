@@ -45,7 +45,7 @@ class EBookPopulator:
                 subject=self.subjects[row['Subject']],
                 url=row['Url'],
                 extra_data = {
-                    'isbn': row['ISBN'],
+                    'isbn': str(row['ISBN']),
                     'edition': row['Edition'],
                     'year': row['Year']
                 }
