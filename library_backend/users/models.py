@@ -109,5 +109,5 @@ class FootageRequest(models.Model):
         verbose_name_plural = "CCTV Footage Requests"
     
     def __str__(self) -> str:
-        return f"{self.student} - {self.start_time} - {self.end_time}"
+        return f"{self.student}"
     
