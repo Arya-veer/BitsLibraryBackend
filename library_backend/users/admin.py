@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile,Item,Claim,ArticleBookRequest,FreeBook,FreeBookPick
+from .models import UserProfile,Item,Claim,ArticleBookRequest,FreeBook,FreeBookPick,FootageRequest
 from import_export.admin import ImportExportModelAdmin
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
@@ -95,7 +95,7 @@ class FreeBookPickAdmin(admin.ModelAdmin):
     formfield_overrides = {
             models.JSONField: {'widget': JSONEditorWidget},
         }
-
+    
 class UserSetInline(admin.TabularInline):
     model = User.groups.through
     
@@ -106,3 +106,10 @@ admin.site.unregister(User)
 admin.site.register(User,UserAdmin)
 admin.site.unregister(Group)
 admin.site.register(Group,UserGroupAdmin)
+
+
+@admin.register(FootageRequest)
+class FootageRequestAdmin(admin.ModelAdmin):
+    list_display = ("student","status")
+    list_filter = ("status",)
+    search_fields = ("student__name","student__uid")

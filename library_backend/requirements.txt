@@ -15,3 +15,5 @@ langchain
 langchain_openai
 langchain_community
 faiss-cpu
+pandas
+numpy

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import UserProfile, Item, Claim, ArticleBookRequest,FreeBook,FreeBookPick
+from .models import UserProfile, Item, Claim, ArticleBookRequest,FreeBook,FreeBookPick,FootageRequest
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -139,3 +139,22 @@ class StaffFreeBookPickSerializer(serializers.ModelSerializer):
     class Meta:
         model = FreeBookPick
         exclude = ('book',)
+
+
+class FootageRequestStudentSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FootageRequest
+        exclude = ('student','id')
+        extra_kwargs = {
+            'request': {'required': True},
+            'status' : {'read_only':True},
+            'remarks': {'read_only':True},
+        }
+    
+    def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['user'] = user.profile
+        if 'status' in validated_data:
+            validated_data.pop('status')
+        return super().create(validated_data)

@@ -8,7 +8,7 @@ from rest_framework import status,generics
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from users.permissions import StaffPermission
+from users.permissions import StaffPermission,AdminPermission
 
 import firebase_admin
 from firebase_admin import auth
@@ -310,3 +310,15 @@ class CheckProfileExists(APIView):
         if not up.exists():
             return Response({"message": "User does not exist"},status=status.HTTP_400_BAD_REQUEST)
         return Response({"message": "User exists","data":UserProfileSerializer(up.first()).data},status=status.HTTP_200_OK)
+    
+
+class FootageRequestListCreateAPI(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = FootageRequestStudentSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        requests = FootageRequest.objects.filter(student=user.profile)
+        return requests
+    
+

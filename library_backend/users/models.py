@@ -97,3 +97,17 @@ class FreeBookPick(models.Model):
     def __str__(self) -> str:
         return f"{self.user} - {self.book} - {self.date}"
 
+class FootageRequest(models.Model):
+    
+    student = models.ForeignKey(UserProfile,on_delete=models.CASCADE,related_name='footage_requests')
+    request = models.TextField()
+    status = models.CharField(max_length=200,default="Pending",choices=(("Pending","Pending"),("Approved","Approved"),("Rejected","Rejected"),("Closed","Closed")))
+    remarks = models.TextField(blank=True)
+    
+    class Meta:
+        verbose_name = "CCTV Footage Request"
+        verbose_name_plural = "CCTV Footage Requests"
+    
+    def __str__(self) -> str:
+        return f"{self.student} - {self.start_time} - {self.end_time}"
+    
