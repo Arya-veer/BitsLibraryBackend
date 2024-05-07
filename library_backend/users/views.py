@@ -332,9 +332,9 @@ class FootageRequestStatusUpdateAPI(APIView):
     permission_classes = (AdminPermission,)
     
     ACCEPTED_STATUS_LIST = [
-        ("Pending","Approved")
-        ("Pending","Rejected")
-        ("Approved","Closed")
+        ["Pending","Approved"],
+        ["Pending","Rejected"],
+        ["Approved","Closed"],
     ]
 
     def post(self,request):
@@ -349,7 +349,7 @@ class FootageRequestStatusUpdateAPI(APIView):
             return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
         prev_status = footage_request.status
         new_status = request.data.get("status")
-        if tuple(prev_status,new_status) not in self.ACCEPTED_STATUS_LIST:
+        if [prev_status,new_status] not in self.ACCEPTED_STATUS_LIST:
             return Response({'message': 'Invalid status.'}, status=status.HTTP_400_BAD_REQUEST)
         footage_request.status = new_status
         footage_request.remarks = request.data.get("remarks","")
