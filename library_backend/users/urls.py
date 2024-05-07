@@ -29,4 +29,6 @@ urlpatterns = [
     # 
     path("free_books/",FreeBookListAPI.as_view()),
     path("free_book_request/",FreeBookPickAPI.as_view()),
+    
+    path("cctv_footage/",FootageRequestListCreateAPI.as_view()),
 ]
