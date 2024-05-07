@@ -321,4 +321,37 @@ class FootageRequestListCreateAPI(generics.ListCreateAPIView):
         requests = FootageRequest.objects.filter(student=user.profile)
         return requests
     
+class FootageRequestAdminListAPI(generics.ListAPIView):
+    permission_classes = (AdminPermission,)
+    serializer_class = FootageRequestAdminSerializer
 
+    def get_queryset(self):
+        return FootageRequest.objects.filter(status=self.request.query_params.get('status','Pending')).order_by('-date')
+    
+class FootageRequestStatusUpdateAPI(APIView):
+    permission_classes = (AdminPermission,)
+    
+    ACCEPTED_STATUS_LIST = [
+        ("Pending","Approved")
+        ("Pending","Rejected")
+        ("Approved","Closed")
+    ]
+
+    def post(self,request):
+        if "footage_request_id" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        footage_request_id = request.data['footage_request_id']
+        footage_requests = FootageRequest.objects.filter(id=footage_request_id)
+        if not footage_requests.exists():
+            return Response({'message': 'Request Not found.'}, status=status.HTTP_400_BAD_REQUEST)
+        footage_request = footage_requests.first()
+        if "status" not in request.data:
+            return Response({'message': 'Insufficient Request Parameters.'},status=status.HTTP_400_BAD_REQUEST)
+        prev_status = footage_request.status
+        new_status = request.data.get("status")
+        if (prev_status,new_status) not in self.ACCEPTED_STATUS_LIST:
+            return Response({'message': 'Invalid status.'}, status=status.HTTP_400_BAD_REQUEST)
+        footage_request.status = new_status
+        footage_request.remarks = request.data.get("remarks","")
+        footage_request.save()
+        return Response({'message': f"The CCTV footage request has been {footage_request.status}"},status=status.HTTP_200_OK)

@@ -31,4 +31,6 @@ urlpatterns = [
     path("free_book_request/",FreeBookPickAPI.as_view()),
     
     path("cctv_footage/",FootageRequestListCreateAPI.as_view()),
+    path("cctv_footage_admin/",FootageRequestAdminListAPI.as_view()),
+    path("cctv_footage_admin/action/",FootageRequestStatusUpdateAPI.as_view()),
 ]

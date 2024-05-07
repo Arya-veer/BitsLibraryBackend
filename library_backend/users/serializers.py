@@ -143,6 +143,8 @@ class StaffFreeBookPickSerializer(serializers.ModelSerializer):
 
 class FootageRequestStudentSerializer(serializers.ModelSerializer):
     
+    student = UserProfileSerializer()
+    
     class Meta:
         model = FootageRequest
         exclude = ('student','id')
@@ -158,3 +160,11 @@ class FootageRequestStudentSerializer(serializers.ModelSerializer):
         if 'status' in validated_data:
             validated_data.pop('status')
         return super().create(validated_data)
+    
+
+class FootageRequestAdminSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FootageRequest
+        fields = '__all__'
+
