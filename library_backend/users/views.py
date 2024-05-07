@@ -326,7 +326,7 @@ class FootageRequestAdminListAPI(generics.ListAPIView):
     serializer_class = FootageRequestAdminSerializer
 
     def get_queryset(self):
-        return FootageRequest.objects.filter(status=self.request.query_params.get('status','Pending')).order_by('-date')
+        return FootageRequest.objects.filter(status=self.request.query_params.get('status','Pending')).order_by('-id')
     
 class FootageRequestStatusUpdateAPI(APIView):
     permission_classes = (AdminPermission,)
