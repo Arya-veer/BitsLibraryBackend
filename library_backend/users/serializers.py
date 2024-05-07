@@ -143,7 +143,6 @@ class StaffFreeBookPickSerializer(serializers.ModelSerializer):
 
 class FootageRequestStudentSerializer(serializers.ModelSerializer):
     
-    student = UserProfileSerializer()
     
     class Meta:
         model = FootageRequest
@@ -163,6 +162,7 @@ class FootageRequestStudentSerializer(serializers.ModelSerializer):
     
 
 class FootageRequestAdminSerializer(serializers.ModelSerializer):
+    student = UserProfileSerializer()
     
     class Meta:
         model = FootageRequest
