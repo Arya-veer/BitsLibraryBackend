@@ -322,14 +322,14 @@ class FootageRequestListCreateAPI(generics.ListCreateAPIView):
         return requests
     
 class FootageRequestAdminListAPI(generics.ListAPIView):
-    permission_classes = (AdminPermission,)
+    permission_classes = (StaffPermission,)
     serializer_class = FootageRequestAdminSerializer
 
     def get_queryset(self):
         return FootageRequest.objects.filter(status=self.request.query_params.get('status','Pending')).order_by('-id')
     
 class FootageRequestStatusUpdateAPI(APIView):
-    permission_classes = (AdminPermission,)
+    permission_classes = (StaffPermission,)
     
     ACCEPTED_STATUS_LIST = [
         ["Pending","Approved"],
