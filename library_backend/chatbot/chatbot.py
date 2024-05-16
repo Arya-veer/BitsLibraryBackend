@@ -49,7 +49,7 @@ class ChatBot:
                 cls.obj = ChatBot()
             return cls.obj
         except Exception as e:
-            with open(EXCEPTION_FILE,"a") as f:
+            with open(EXCEPTION_FILE,"w") as f:
                 print(str(e),file=f)
             return None
         

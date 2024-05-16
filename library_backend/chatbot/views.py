@@ -6,7 +6,18 @@ from rest_framework.permissions import AllowAny
 # from library_backend.settings import CHATBOT
 from chatbot.chatbot import ChatBot
 
+from users.permissions import AdminPermission
+
 # Create your views here.
+
+class ChatBotRetrainAPI(views.APIView):
+    permission_classes = [AdminPermission]
+    
+    def post(self,request):
+        chatbot = ChatBot.get_object()
+        if chatbot is None:
+            return Response({"message":"Chatbot is not initialized."},status = status.HTTP_400_BAD_REQUEST)
+        return Response({"message":"Chatbot has been retrained."},status = status.HTTP_200_OK)
 
 
 class AskQuestionAPI(views.APIView):
