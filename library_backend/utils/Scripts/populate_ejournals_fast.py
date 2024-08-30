@@ -1,5 +1,3 @@
-
-
 import pandas as pd
 from databases.models import Publisher, Subject, EJournal
 

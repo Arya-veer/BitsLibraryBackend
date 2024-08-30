@@ -140,3 +140,18 @@ class DonatedBookSerializer(serializers.ModelSerializer):
         else:
             return self.context['request'].build_absolute_uri(obj.image.url)
     
+class PublicationSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Publication
+        fields = '__all__'
+    
+    def to_representation(self, instance):
+        
+        data = super().to_representation(instance)
+        for key in data:
+            if type(data.get(key)) == str and key in ['title','authors','source_title']:
+                data[key] = re.sub(r"[^a-zA-Z0-9 ]+","",(data[key]))
+        # print(data)
+        return data
+    

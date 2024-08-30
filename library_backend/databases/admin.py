@@ -80,5 +80,11 @@ class DonatedBookAdmin(admin.ModelAdmin):
     list_display = ("id","isbn","donor","book_type")
     list_filter = ("donor","book_type")
     search_fields = ("isbn","donor")
+    
+@admin.register(Publication)
+class Publication(admin.ModelAdmin):
+    list_display = ("title","authors","year","source_title","volume","issue","doi","publisher","issn","publication_type")
+    search_fields = ("title","authors","source_title","publisher","issn")
+    list_filter = ("year","publisher","publication_type")
 
 

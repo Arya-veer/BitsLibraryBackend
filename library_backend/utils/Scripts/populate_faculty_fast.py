@@ -1,4 +1,3 @@
-
 import pandas as pd
 from users.models import UserProfile
 from django.contrib.auth.models import User

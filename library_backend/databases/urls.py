@@ -10,4 +10,5 @@ urlpatterns = [
     path('publishers/',PublisherListAPI.as_view()),
     path('platforms/',PlatformListAPI.as_view()),
     path('donated_books/',DonatedBookListAPI.as_view()),
+    path('publications/',PublicationListAPI.as_view()),
 ]

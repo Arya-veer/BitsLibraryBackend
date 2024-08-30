@@ -163,4 +163,24 @@ class DonatedBook(AbstractBaseModel):
     
     def __str__(self) -> str:
         return f"{self.donor} - {self.isbn}"
+    
+class Publication(AbstractBaseModel):
+    #Authors	Title	Year	Source title	Volume	Issue	DOI	Publisher	ISSN	Type
+    authors = models.TextField(blank=True)
+    title = models.TextField(blank=True)
+    year = models.IntegerField(null=True,blank=True)
+    source_title = models.TextField(blank=True)
+    volume = models.TextField(blank=True)
+    issue = models.TextField(blank=True)
+    doi = models.TextField(blank=True)
+    publisher = models.TextField(blank=True)
+    issn = models.TextField(blank=True)
+    publication_type = models.TextField(blank=True)
+    
+    class Meta:
+        verbose_name = "Publication"
+        verbose_name_plural = "Publications"
+    
+    def __str__(self) -> str:
+        return f"{self.title} - {self.authors}"
 
