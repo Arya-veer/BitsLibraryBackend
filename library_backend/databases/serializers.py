@@ -155,3 +155,5 @@ class PublicationSerializer(serializers.ModelSerializer):
         # print(data)
         return data
     
+
+    
