@@ -48,6 +48,7 @@ URL_MAP = {
     "FreeBook":["/me/pick_book",],
     "Item":["/me/lost_and_found",],
     "Inflibnet":["/links/[type]",],
+    "Blog":["/newsletters", "/newsletters/[id]"],
 }
 
 class AbstractBaseModel(models.Model):

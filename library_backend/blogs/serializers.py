@@ -15,4 +15,4 @@ class BlogSerializer(serializers.ModelSerializer):
 class BlogHeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ('id','title','image','published_date')
+        fields = ('id','title','image','published_date', 'is_archived')
