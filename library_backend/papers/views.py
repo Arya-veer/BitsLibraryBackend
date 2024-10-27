@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework import generics,views,status
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 from .models import Course, Paper,TextBook
@@ -10,6 +11,7 @@ from .serializers import CourseSerializer, PaperSerializer,TextBookSerializer
 class CourseList(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = (IsAuthenticated,)
     
 
     def get_queryset(self):
@@ -37,6 +39,7 @@ class CourseDetail(views.APIView):
 
         
 class PaperList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = PaperSerializer
 
     def get_queryset(self):
